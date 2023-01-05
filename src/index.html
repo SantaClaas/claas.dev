@@ -7,8 +7,7 @@
     <title>claas.dev experimental</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-        };
+        tailwind.config = {};
     </script>
     <style type="text/tailwindcss">
         /* .dash {
@@ -32,24 +31,37 @@
 
         .path {
             --path-length: 0;
-  stroke-dasharray: var(--path-length);
-  stroke-dashoffset: var(--path-length);
-  animation: dash 1s linear forwards;
-}
+            stroke-dasharray: var(--path-length);
+            stroke-dashoffset: var(--path-length);
+            animation: dash .5s linear forwards;
+        }
 
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0%;
-  }
-}
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0%;
+            }
+        }
     </style>
 </head>
 
-<body>
-    <svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-    </svg>
+<body class="m-10">
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" class="border border-green-400">
+    <defs>
+        <marker
+                id="triangle"
+                viewBox="0 0 10 10"
+                refX="1"
+                refY="5"
+                markerUnits="strokeWidth"
+                markerWidth="5"
+                markerHeight="5"
+                orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f00"/>
+        </marker>
+    </defs>
+</svg>
 
-    <script type="module" src="App.fs.js"></script>
+<script type="module" src="App.fs.js"></script>
 </body>
 
 </html>

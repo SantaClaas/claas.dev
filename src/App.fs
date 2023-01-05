@@ -1,5 +1,6 @@
 module App
 
+open System
 open Browser.Dom
 open Browser.Svg
 open Browser.SvgExtensions
@@ -9,79 +10,130 @@ open Fable.Core
 open Fable.Core.JS
 open Fable.Core.JsInterop
 
-type Point = { x: double; y: double }
+type Vector = { x: float; y: float }
 
-[<Measure>]
-type Degree
+module private Units =
+    [<Measure>]
+    type Degree
 
-[<Measure>]
-type Radian
+    [<Measure>]
+    type Radian
 
+    let toRadian (degree: float<Degree>) : float<Radian> = degree * Math.PI / 180.<Degree/Radian>
+    // The <Degree/Radian> tells the compiler somehow that it converts it to degree
+    let toDegree radians =
+        radians * (180.<Degree/Radian> / System.Math.PI)
 
-type SVGLineElement with
+open Units
+
+type private SVGLineElement with
 
     [<Emit("$0.getTotalLength($1...)")>]
     member this.getTotalLength() : float = jsNative
 
-let private toRadian (degree: float<Degree>) = degree * Math.PI / 180.
-let private toDegree (radians: float<Radian>) = radians * (180. / Math.PI)
-
-let private drawLine { x = x1; y = y1 } { x = x2; y = y2 } stroke (svg: HTMLElement) =
+let private drawLine x1 y1 x2 y2 stroke (svg: HTMLElement) =
     let line =
         document.createElementNS ("http://www.w3.org/2000/svg", "line") :?> SVGLineElement
 
-    line.setAttribute ("x1", x1.ToString())
-    line.setAttribute ("y1", y1.ToString())
-    line.setAttribute ("x2", x2.ToString())
-    line.setAttribute ("y2", y2.ToString())
+    line.setAttribute ("x1", x1 |> string)
+    line.setAttribute ("y1", y1 |> string)
+    line.setAttribute ("x2", x2 |> string)
+    line.setAttribute ("y2", y2 |> string)
     line.setAttribute ("stroke-width", string stroke)
-    line.classList.add "path"
-
-    svg.appendChild line |> ignore
-    let length = line.getTotalLength ()
-    line.style.setProperty ("--path-length", string length)
     line.setAttribute ("stroke", "black")
 
-let private drawLineAngle { x = x; y = y } (radiansAngle: float) length svg =
-    // Length is hypotenuse thingy, unknown is opposite from angle
-    let deltaY = radiansAngle |> sin |> (*) length
-    // Get x (length² = y² + x²)
-    // y² = length² - x²
-    let deltaX = (length ** 2) - (deltaY ** 2) |> sqrt
-
-    let newX = x + deltaX
-    let newY = y + deltaY
-
-    drawLine { x = x; y = y } { x = newX; y = newY } 20 svg
-    drawLine { x = x; y = y } { x = newX; y = y } 4 svg
-    drawLine { x = x; y = y } { x = x; y = newY } 4 svg
-
-
+    svg.appendChild line |> ignore
+    line
 
 let svg = document.querySelector "svg" :?> HTMLElement
 
-svg
-|> drawLineAngle { x = 412.899; y = 414 } ((360. - 335.27) * Math.PI / 180.) 128.8846
+let svgRectangle = svg.getBoundingClientRect ()
+let viewBox = (svg :?> SVGFitToViewBox).viewBox.baseVal
+
+type Line =
+    { x1: float
+      y1: float
+      x2: float
+      y2: float
+      reference: SVGLineElement }
+
+type State = { editingLine: Line option }
+let mutable currentState = { editingLine = None }
+
+let updateLine (newLine: Line option) =
+    currentState <- { currentState with editingLine = newLine }
+
+let getCoordinatesInSvg (event: MouseEvent) =
+    let factor = 10000.
+    let offsetX = event.offsetX * factor
+    let offsetY = event.offsetY * factor
+    
+    let right = svgRectangle.right * factor
+    let bottom = svgRectangle.bottom * factor
+
+    let width = viewBox.width * factor
+    let height = viewBox.height * factor
+
+    let ratioX = offsetX / right * factor
+    // Calculate coordinates in SVG with ratio and viewbox width
+    let x = width * ratioX
+    console.log(x / factor / factor)
+    let ratioY = offsetY / bottom
+    let y = height * ratioY
+    (x / factor  / factor, y / factor)
+
+let handleMouseDown (event: MouseEvent) =
+    console.log ("Down")
+    // If no line is currently editing
+    // Start new line
+    let line = drawLine event.offsetX event.offsetY event.offsetX event.offsetY 20 svg
+
+    let x, y = getCoordinatesInSvg event
+
+    currentState <-
+        { currentState with
+            editingLine =
+                Some
+                    { x1 = x
+                      y1 = y
+                      x2 = x
+                      y2 = y
+                      reference = line } }
 
 
-svg |> drawLineAngle { x = 471; y = 440 } (335. * Math.PI / 180.) 129
 
-svg |> drawLineAngle { x = 412; y = 483 } (55. * Math.PI / 180.) 185
+let handleMouseUp (event: MouseEvent) =
+    console.log ("Up")
 
-svg |> drawLineAngle { x = 398; y = 586 } (112. * Math.PI / 180.) 181
+    match currentState with
+    // If line is active update with new cords
+    | { editingLine = Some line } ->
+        // Get coordinates relative to svg
 
-svg |> drawLineAngle { x = 455; y = 646 } (15. * Math.PI / 180.) 136
+        let x, y = getCoordinatesInSvg event
+        // Set last coordinates
+        line.reference.setAttribute ("x2", x |> string)
+        line.reference.setAttribute ("y2", y |> string)
+        // Stop editing line
+        currentState <- { currentState with editingLine = None }
+    | _ -> ()
 
 
 
-// // Mutable variable to count the number of times we clicked the button
-// let mutable count = 0
+let handleMouseMove (event: MouseEvent) =
+    match currentState with
+    // If line is active update with new cords
+    | { editingLine = Some line } ->
+        // Set new coordinates in state
+        let x, y = getCoordinatesInSvg event
+        currentState <- { currentState with editingLine = Some { line with x2 = x; y2 = y } }
 
+        // Set line coords on SVG
+        line.reference.setAttribute ("x2", x |> string)
+        line.reference.setAttribute ("y2", y |> string)
+        ()
+    | _ -> ()
 
-// // Get a reference to our button and cast the Element to an HTMLButtonElement
-// let myButton = document.querySelector(".my-button") :?> Browser.Types.HTMLButtonElement
-
-// // Register our listener
-// myButton.onclick <- fun _ ->
-//     count <- count + 1
-//     myButton.innerText <- sprintf "You clicked: %i time(s)" count
+svg.onpointerdown <- handleMouseDown
+svg.onpointerup <- handleMouseUp
+svg.onpointermove <- handleMouseMove
