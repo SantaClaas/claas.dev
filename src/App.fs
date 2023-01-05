@@ -1,19 +1,31 @@
 module App
 
 open Browser.Dom
-open Browser.Types
+open Browser.Svg
+open Browser.SvgExtensions
 open Browser.CssExtensions
+open Browser.Types
+open Fable.Core
 open Fable.Core.JS
+open Fable.Core.JsInterop
 
 type Point = { x: double; y: double }
 
 [<Measure>]
 type Degree
-[<Measure>]
-type Radian 
 
-let toRadian (degree: float<Degree>) = degree * Math.PI / 180.
-let toDegree (radians: float<Radian>) = radians * (180./Math.PI)
+[<Measure>]
+type Radian
+
+
+type SVGLineElement with
+
+    [<Emit("$0.getTotalLength($1...)")>]
+    member this.getTotalLength() : float = jsNative
+
+let private toRadian (degree: float<Degree>) = degree * Math.PI / 180.
+let private toDegree (radians: float<Radian>) = radians * (180. / Math.PI)
+
 let private drawLine { x = x1; y = y1 } { x = x2; y = y2 } stroke (svg: HTMLElement) =
     let line =
         document.createElementNS ("http://www.w3.org/2000/svg", "line") :?> SVGLineElement
@@ -24,10 +36,9 @@ let private drawLine { x = x1; y = y1 } { x = x2; y = y2 } stroke (svg: HTMLElem
     line.setAttribute ("y2", y2.ToString())
     line.setAttribute ("stroke-width", string stroke)
     line.classList.add "path"
-    
+
     svg.appendChild line |> ignore
     let length = line.getTotalLength ()
-
     line.style.setProperty ("--path-length", string length)
     line.setAttribute ("stroke", "black")
 
@@ -45,7 +56,7 @@ let private drawLineAngle { x = x; y = y } (radiansAngle: float) length svg =
     drawLine { x = x; y = y } { x = newX; y = y } 4 svg
     drawLine { x = x; y = y } { x = x; y = newY } 4 svg
 
-    
+
 
 let svg = document.querySelector "svg" :?> HTMLElement
 
@@ -59,7 +70,7 @@ svg |> drawLineAngle { x = 412; y = 483 } (55. * Math.PI / 180.) 185
 
 svg |> drawLineAngle { x = 398; y = 586 } (112. * Math.PI / 180.) 181
 
-svg |> drawLineAngle { x =455; y = 646 } (15. * Math.PI / 180.) 136
+svg |> drawLineAngle { x = 455; y = 646 } (15. * Math.PI / 180.) 136
 
 
 
