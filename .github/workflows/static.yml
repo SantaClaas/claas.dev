@@ -21,8 +21,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v3
+      - name: 🦭 Set up Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+      - name: 🗿 Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+      - name: 📦 Restore .NET Tools
+        run: dotnet tool restore
+      - name: 👷 Run build
+        run: | 
+          npm install 
+          npm run build
+          
   deploy:
+    # Only start after build
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -37,8 +58,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
-          path: '.'
+          # Upload public
+          path: 'public/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
