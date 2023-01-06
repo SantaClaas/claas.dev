@@ -46,13 +46,8 @@ jobs:
         run: echo 'claas.dev' > public/CNAME
       - name: 📄 Create .nojekyll
         run: echo > public/.nojekyll
-      - name: 📃 Setup Pages
-        uses: actions/configure-pages@v2
-      - name: 🆙 Upload artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: 🚀 Deploy to pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          # Upload
-          path: 'public/'
-      - name: 🚀 Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+          branch: gh-pages
+          folder: public/
