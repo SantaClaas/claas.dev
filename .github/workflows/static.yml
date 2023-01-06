@@ -41,7 +41,7 @@ jobs:
       - name: 📦 Restore .NET Tools
         run: dotnet tool restore
       - name: 👷 Run build
-        run: npm run build
+        run: npm install && npm run build
       - name: 🔀 Set up custom domain claas.dev in CNAME
         run: echo 'claas.dev' > ./dist/CNAME
       - name: 📄 Create .nojekyll
