@@ -28,6 +28,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: 🔀 Set up custom domain claas.dev in CNAME
+        run: echo 'claas.dev' > public/CNAME
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Pages
