@@ -47,6 +47,6 @@ jobs:
       - name: 📄 Create .nojekyll
         run: echo > public/.nojekyll
       - name: 🚀 Deploy to pages
-        uses: actions/deploy-pages@v1.2.3
+        uses: actions/upload-pages-artifact@v1.0.7
         with:
-          artifact_name: public/
+          path: public/
