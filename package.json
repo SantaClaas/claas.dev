@@ -7,7 +7,7 @@
     "postinstall": "dotnet tool restore",
     "prestart": "dotnet tool restore",
     "dev": "dotnet fable watch src -s --run vite",
-    "build": "dotnet fable src --run vite build ./public/",
+    "build": "dotnet fable src --run vite build",
     "preview": "dotnet fable src --run vite preview"
   },
   "devDependencies": {
