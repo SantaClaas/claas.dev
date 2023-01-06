@@ -45,7 +45,7 @@ jobs:
       - name: 🔀 Set up custom domain claas.dev in CNAME
         run: echo 'claas.dev' > public/CNAME
       - name: 📄 Create .nojekyll
-        run: echo > pulbic/.nojekyll
+        run: echo > public/.nojekyll
       - name: 📃 Setup Pages
         uses: actions/configure-pages@v2
       - name: 🆙 Upload artifact
