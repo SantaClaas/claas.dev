@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:  
-  deploy:
+  build:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -46,7 +46,25 @@ jobs:
         run: echo 'claas.dev' > public/CNAME
       - name: 📄 Create .nojekyll
         run: echo > public/.nojekyll
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+     # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: '.'
       - name: 🚀 Deploy to pages
-        uses: actions/upload-pages-artifact@v1.0.7
+        uses: actions/deploy-pages@v1
         with:
           path: public/
