@@ -42,6 +42,11 @@ jobs:
           npm run build
       - name: 📝 list contents
         run: ls public/
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload public
+          path: 'public/'
           
   deploy:
     # Only start after build
@@ -57,11 +62,6 @@ jobs:
         run: echo 'claas.dev' > CNAME
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload public
-          path: 'public/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
