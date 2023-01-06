@@ -27,26 +27,30 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 🛎️ Checkout
         uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🦭 Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Run build
+      - name: 🗿 Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+      - name: 👷 Run build
         run: npm run build
-      - name: Set up custom domain claas.dev
+      - name: 🔀 Set up custom domain claas.dev in CNAME
         run: echo 'claas.dev' > ./dist/CNAME
-      - name: Create .nojekyll
+      - name: 📄 Create .nojekyll
         run: echo > ./dist/.nojekyll
-      - name: Setup Pages
+      - name: 📃 Setup Pages
         uses: actions/configure-pages@v2
-      - name: Upload artifact
+      - name: 🆙 Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload dist
           path: './dist'
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
