@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: 🔀 Set up custom domain claas.dev in CNAME
-        run: echo 'claas.dev' > public/CNAME
+        run: echo 'claas.dev' > CNAME
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
