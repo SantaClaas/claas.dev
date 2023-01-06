@@ -47,7 +47,6 @@ jobs:
       - name: 📄 Create .nojekyll
         run: echo > public/.nojekyll
       - name: 🚀 Deploy to pages
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: actions/deploy-pages@v1.2.3
         with:
-          branch: gh-pages
-          folder: public/
+          artifact_name: public/
