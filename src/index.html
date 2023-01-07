@@ -90,54 +90,15 @@
             { startX: 799.4500122070312, a: 2.9041630716240805 }
         ];
 
-
-        function calculateAngle(line) {
-            const adjacent = line.x2.baseVal.value - line.x1.baseVal.value;
-            const opposite = line.y2.baseVal.value - line.y1.baseVal.value;
-            console.log({ adjacent, opposite });
-            const angle = Math.atan2(opposite, adjacent)
-            return angle;
-        }
-
-
-        // const rateOfChange = (line.x2.baseVal.value - line.x1.baseVal.value) / (line.y2.baseVal.value - line.y1.baseVal.value)
-        // console.log({ rateOfChange })
-        const line = lines[0];
-        function resizeCallback([entry], observer) {
-            // console.log(entry);
-            const x1 = line.x1.baseVal.value;
-            const y1 = line.y1.baseVal.value;
-            const x2 = line.x2.baseVal.value;
-            const y2 = line.y2.baseVal.value;
-
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            const a = dy / dx;
-            // y = ax + b <=> b = -ax + y
-            const b = -a * x1 + y1; // or just y1 if x1 is 0
-
-            const xLimit = entry.contentBoxSize[0].inlineSize;
-            const yLimit = entry.contentBoxSize[0].blockSize;
-            // What will be hit first x limit or y limit
-            // y = a * x + b <=> y - b = a * x <=> (y - b) / a = x and y = yLimit
-            // When we put yLimit into the formula is the resulting x smaller than xLimit 
-            const xWithYLimit = (yLimit - b) / a
-            // When we put xLimit into the formula is the resulting y smaller than the yLimit
-            const yWithXLimit = a * xLimit + b;
-            const isHittingYLimitFirst = xLimit > xWithYLimit;
-            const isHittingXLimitFirst = yLimit > yWithXLimit;
-            console.log({ xWithYLimit, yWithXLimit }, { isHittingXLimitFirst, isHittingYLimitFirst });
-
-
-        }
-
         // Don't recreate the elements this might be better
         const lineCache = [];
 
         function identity(x) { return x; }
-        function resizeCallback2([entry], observer) {
+        function resizeCallback([entry]) {
+            console.log("Resized");
             const isFirstCallback = lineCache.length === 0;
             function getOrAddLine(index) {
+                
                 if (!isFirstCallback)
                     return lineCache[index];
 
@@ -153,7 +114,6 @@
             }
 
             const svg = entry.target;
-            console.log(svg);
 
             const xUpper = entry.contentBoxSize[0].inlineSize;
             const yUpper = entry.contentBoxSize[0].blockSize;
@@ -214,7 +174,6 @@
                         return { x1, y1, x2: xUpper, y2: yUpper };
                     }
 
-
                     // (all other cases don't need to be rendered as they are not visible and don't cross our view rectangle)
                     return null;
                 })
@@ -231,8 +190,8 @@
 
                 });
         }
-        const observer = new ResizeObserver(resizeCallback2);
-
+        
+        const observer = new ResizeObserver(resizeCallback);
         observer.observe(svg);
 
     </script>
