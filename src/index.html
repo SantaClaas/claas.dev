@@ -91,16 +91,19 @@
         ];
 
         // Don't recreate the elements this might be better
-        const lineCache = [];
+        const lineCache = new Map();
+
+        // Resize observer observes an initial resize on Chrome Canary and Firefox which can be used
+        // but not on Chrome or Safari
 
         function identity(x) { return x; }
         function resizeCallback([entry]) {
             console.log("Resized");
             const isFirstCallback = lineCache.length === 0;
             function getOrAddLine(index) {
-                
-                if (!isFirstCallback)
-                    return lineCache[index];
+
+                if (lineCache.has(index))
+                    return lineCache.get(index);
 
                 const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
                 line.id = `line-${index + 1}`;
@@ -108,12 +111,13 @@
                 // Set standard attributes
                 line.setAttribute("pathLength", 100);
                 line.classList.add("jump-line");
-                lineCache.push(line);
+                lineCache.set(index, line);
                 svg.appendChild(line);
                 return line;
             }
 
-            const svg = entry.target;
+            // Using body temporarily (see .observe below)
+            //const svg = entry.target;
 
             const xUpper = entry.contentBoxSize[0].inlineSize;
             const yUpper = entry.contentBoxSize[0].blockSize;
@@ -128,7 +132,7 @@
                     const f = (x) => a * x + b;
 
                     const f0 = f(0);
-                    
+
                     // Starts in x < 0 and hits xLower first
                     if (startX < 0 && 0 < f0 && f0 < yUpper) {
                         // Get x for yLimit
@@ -190,9 +194,13 @@
 
                 });
         }
-        
+
+        // As the time of writing it the Resize Observer API doesn't seem to be working Chromium and Safari but on Firefox
+        // The canary versions of Chromium seem to have it fixed though so maybe I'll revert this later.
+        // But for now I'll be using the body as it should have the same size as the SVG because the SVG has the full size of the body
         const observer = new ResizeObserver(resizeCallback);
-        observer.observe(svg);
+        // observer.observe(svg);
+        observer.observe(document.body);
 
     </script>
 </body>
