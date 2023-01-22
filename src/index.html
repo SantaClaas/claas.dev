@@ -128,16 +128,17 @@
             return result;
         }
 
+        const screenSpaceRelative = 0.25;
         const points = [
-            [-.5, -.5, -.5],
-            [.5, -.5, -.5],
-            [.5, .5, -.5],
-            [-.5, .5, -.5],
+            [-screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
+            [screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
+            [screenSpaceRelative, screenSpaceRelative, -screenSpaceRelative],
+            [-screenSpaceRelative, screenSpaceRelative, -screenSpaceRelative],
 
-            [-.5, -.5, .5],
-            [.5, -.5, .5],
-            [.5, .5, .5],
-            [-.5, .5, .5],
+            [-screenSpaceRelative, -screenSpaceRelative, screenSpaceRelative],
+            [screenSpaceRelative, -screenSpaceRelative, screenSpaceRelative],
+            [screenSpaceRelative, screenSpaceRelative, screenSpaceRelative],
+            [-screenSpaceRelative, screenSpaceRelative, screenSpaceRelative],
         ];
 
         // Projection matrix
@@ -173,7 +174,7 @@
             width = entry.contentBoxSize[0].inlineSize;
             height = entry.contentBoxSize[0].blockSize;
         });
-        
+
         observer.observe(svg);
 
         function draw(timestamp) {
@@ -197,6 +198,9 @@
             ];
 
 
+            // Use smalles side to resize so that the cube is always inside the viewport
+            const relative = Math.min(width, height);
+
             const projectedPoints = points.map(([x, y, z]) => {
                 const pointMatrix = [[x], [y], [z]];
                 // Project point 
@@ -208,7 +212,9 @@
                 return projectedTo2D;
             })
                 // Translate into viewable space 😬
-                .map(([[x], [y]]) => [[x * width + width / 2], [y * width + height / 2]]);
+                .map(([[x], [y]]) =>
+                    // Position to relative on screen and then translate to center
+                    [[x * relative + width / 2], [y * relative + height / 2]]);
 
 
             const path = projectedPoints.reduce((state, [[x], [y]], index) => {
