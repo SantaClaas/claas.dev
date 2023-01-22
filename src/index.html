@@ -128,7 +128,7 @@
             return result;
         }
 
-        const screenSpaceRelative = 0.25;
+        const screenSpaceRelative = .5;
         const points = [
             [-screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
             [screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
@@ -142,10 +142,22 @@
         ];
 
         // Projection matrix
-        const projection = [
+        const orthographicProjection = [
             [1, 0, 0],
             [0, 1, 0],
-        ]
+        ];
+
+        function getPerspectiveProjectionMatrix(z) {
+            const distance = 2;
+            // Naming things is hard
+            const otherZ = 1 / (distance - z);
+            const perspectiveProjection = [
+                [otherZ, 0, 0],
+                [0, otherZ, 0]
+            ];
+
+            return perspectiveProjection;
+        }
 
         let angle = 0;
         const svg = document.querySelector("svg");
@@ -208,7 +220,10 @@
                 rotated = multiplyMatrices(rotationY, rotated);
                 rotated = multiplyMatrices(rotationZ, rotated);
 
-                const projectedTo2D = multiplyMatrices(projection, rotated);
+                // const projectedTo2D = multiplyMatrices(orthographicProjection, rotated);
+                const rotatedZ = rotated[2][0];
+                const perspectiveProjectionMatrix = getPerspectiveProjectionMatrix(rotatedZ);
+                const projectedTo2D = multiplyMatrices(perspectiveProjectionMatrix, rotated);
                 return projectedTo2D;
             })
                 // Translate into viewable space 😬
