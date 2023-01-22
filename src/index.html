@@ -57,164 +57,223 @@
             }
         }
 
+        path {
+            
+        }
     </style>
 </head>
 
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full">
+        <defs>
+
+            <linearGradient id="myGradient" gradientTransform="rotate(90)">
+                <stop offset="0%" stop-color="gold" />
+                <stop offset="45%" stop-color="gold" />
+                <stop offset="45%" stop-color="transparent" />
+                <stop offset="55%" stop-color="transparent" />
+                <stop offset="55%" stop-color="red" />
+                <stop offset="100%" stop-color="red" />
+            </linearGradient>
+        </defs>
+        <!-- <polygon points="500,500 450,1000 400,1000 350,500" fill="url(#myGradient)"/> -->
+        <!-- <path d="M500,500 L450,1000 L400,1000 L350,500" fill="url(#myGradient)" /> -->
+
+
     </svg>
 
     <!--<script type="module" src="App.fs.js"></script>-->
     <script>
-        const svg = document.querySelector("svg");
-        const lines = document.querySelectorAll("line.jump-line");
 
+        function logMatrix(matrix) {
+            let log = "";
+            for (let rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
 
-        // The y axis is the only thing that stays at the same place at the top of the page. All other sides are movable.
-        // Get rate of change and x for y = 0 so we can describe all lines as lines that start from the x axis where y = 0, then we frame it more (y =ax +b; y =0)
-        const lineDescriptors = [
-            // Probably should add more things here 
-            // The ratio is based on where it was on the X axis with a width of 1920
-            // 1920 the orignal width it was designed with
-            { startXRatio: -0.24698653003014692, a: 0.46630833482730316 },
-            { startXRatio: 0.39693228403727215, a: -1.3795121255829337 },
-            { startXRatio: 0.08361979325612386, a: 2.465134495275926 },
-            { startXRatio: 1.4111813533251112, a: -0.28674999872843426 },
-            { startXRatio: 0.5737656275431315, a: -3.0777119341277475 },
-            { startXRatio: 0.5401718775431316, a: 2.4975137383072306 },
-            { startXRatio: 0.6830208460489909, a: -4.253642757586845 },
-            { startXRatio: 0.5643541971842448, a: 1.4046587938906259 },
-            { startXRatio: 1.2417845273440944, a: -0.664481969685644 },
-            { startXRatio: 1.4359923948665856, a: -0.3446041584014893 },
-            { startXRatio: 0.2952031135559082, a: 4.704652428497856 },
-            { startXRatio: 0.4163802146911621, a: 2.9041630716240805 }
-        ];
-        //         
+                for (let columnIndex = 0; columnIndex < matrix[0].length; columnIndex++) {
+                    const element = matrix[rowIndex][columnIndex];
+                    log += ` ${element} `;
+                }
 
-        // Don't recreate the elements this might be better
-        const lineCache = new Map();
+                log += '\n';
 
-        // Resize observer observes an initial resize on Chrome Canary and Firefox which can be used
-        // but not on Chrome or Safari
-
-        function identity(x) { return x; }
-        function resizeCallback([entry]) {
-            console.log("Resized");
-            const isFirstCallback = lineCache.length === 0;
-            function getOrAddLine(index) {
-
-                if (lineCache.has(index))
-                    return lineCache.get(index);
-
-                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                line.id = `line-${index + 1}`;
-
-                // Set standard attributes
-                line.classList.add("jump-line");
-                lineCache.set(index, line);
-                svg.appendChild(line);
-                return line;
             }
 
-            // Using body temporarily (see .observe below)
-            //const svg = entry.target;
-
-            const xUpper = entry.contentBoxSize[0].inlineSize;
-            const yUpper = entry.contentBoxSize[0].blockSize;
-            const strokeWidth = Math.min(xUpper / 1920, yUpper / 1080) * 20;
-            lineDescriptors
-                .map(({ startXRatio, a }) => {
-                    // Calculate end
-                    // Calculate end with ratio based on width so that the joins are always in the center
-                    // 1920 the orignal width it was designed with
-                    const x1 = xUpper * startXRatio;
-                    const y1 = 0;
-
-                    // y = ax + b <=> y - ax = b
-                    const b = y1 - (a * x1);
-                    const f = (x) => a * x + b;
-
-                    const f0 = f(0);
-
-                    // Starts in x < 0 and hits xLower first
-                    if (x1 < 0 && 0 < f0 && f0 < yUpper) {
-                        // Get x for yLimit
-                        const x2 = (yUpper - b) / a;
-                        // We only need to render from x1 = 0 as that is visible
-                        return { x1: 0, y1: f0, x2, y2: yUpper };
-                    }
-
-                    // If hits xLower first
-                    if (0 < f0 && f0 < yUpper) {
-                        // Then set x2 = 0 and y2 = f(0)
-                        return { x1, y1, x2: 0, y2: f0 };
-                    }
-
-                    // Hits yUpper first
-                    // Might run out of bits to represent the number if it's a really steep line 🤔
-                    if (f0 > yUpper || f(xUpper) > yUpper) {
-                        // Get x for yLimit
-                        // y = ax + b <=> (y - b) / a = x
-                        const x2 = (yUpper - b) / a;
-                        return { x1, y1, x2, y2: yUpper };
-                    }
-
-                    // Hits xUpper first
-                    const fXUpper = f(xUpper);
-                    if (0 < fXUpper && fXUpper < yUpper) {
-                        return { x1, y1, x2: xUpper, y2: fXUpper };
-                    }
-
-                    // Starts in x > xUpper and hits xUpper first
-                    if (xUpper < x1 && 0 < fXUpper && fXUpper < yUpper) {
-                        // Get x for yLimit
-                        const x2 = (yUpper - b) / a;
-                        return { x1: xUpper, y1: fXUpper, x2, y2: yUpper };
-                    }
-
-                    // Edge cases we hit exactly the yUpper corners
-                    if (f0 === yUpper) {
-                        return { x1, y1, x2: 0, y2: yUpper };
-                    }
-                    if (fXUpper === yUpper) {
-                        return { x1, y1, x2: xUpper, y2: yUpper };
-                    }
-
-                    // (all other cases don't need to be rendered as they are not visible and don't cross our view rectangle)
-                    return null;
-                })
-                .filter(identity)
-                .forEach(({ x1, y1, x2, y2 }, index) => {
-
-                    const line = getOrAddLine(index);
-                    line.setAttribute("x1", x1);
-                    line.setAttribute("y1", y1);
-                    line.setAttribute("x2", x2);
-                    line.setAttribute("y2", y2);
-                    line.setAttribute("stroke-width", strokeWidth);
-                    
-                    
-                    // Calculate length and change dasharray size based on that
-                    // const dx = x2 - x1;
-                    // const dy = y2 - y1;
-                    const length = line.getTotalLength();
-                    
-                    const nominator = 50;
-                    const denominator = 100;
-
-                    line.setAttribute("stroke-dasharray", 50 );
-                    // line.setAttribute("pathLength", 100);
-                    // const lineLength = Math.sqrt(dx**2 - dy**2)
-                });
+            log += `${matrix.length}x${matrix[0].length}`;
+            console.log(log);
         }
 
-        
-        // As the time of writing it the Resize Observer API doesn't seem to be working Chromium and Safari but on Firefox
-        // The canary versions of Chromium seem to have it fixed though so maybe I'll revert this later.
-        // But for now I'll be using the body as it should have the same size as the SVG because the SVG has the full size of the body
-        const observer = new ResizeObserver(resizeCallback);
-        // observer.observe(svg);
-        observer.observe(document.body);
+        function multiplyMatrices(matrixA, matrixB) {
+            // Assume all columns are same length and there is at least one column
+            const columnsCountA = matrixA[0].length;
+            const rowsCountA = matrixA.length;
+            const columsCountB = matrixB[0].length;
+            const rowsCountB = matrixB.length;
+
+            if (columnsCountA !== rowsCountB) {
+                throw new Error("Columns of A must match rows of B");
+            }
+
+            let result = new Array(rowsCountA).fill(0).map((a) => new Array(columsCountB).fill(0));
+
+            for (let rowIndex = 0; rowIndex < rowsCountA; rowIndex++) {
+                for (let columnIndex = 0; columnIndex < columsCountB; columnIndex++) {
+                    let sum = 0;
+                    for (let columnIndexB = 0; columnIndexB < columnsCountA; columnIndexB++) {
+                        sum += matrixA[rowIndex][columnIndexB] * matrixB[columnIndexB][columnIndex];
+                    }
+                    result[rowIndex][columnIndex] = sum;
+                }
+            }
+
+            return result;
+        }
+
+        const points = [
+            [-50, -50, -50],
+            [50, -50, -50],
+            [50, 50, -50],
+            [-50, 50, -50],
+
+            [-50, -50, 50],
+            [50, -50, 50],
+            [50, 50, 50],
+            [-50, 50, 50],
+        ];
+
+        // Projection matrix
+        const projection = [
+            [1, 0, 0],
+            [0, 1, 0],
+        ]
+
+        let angle = 0;
+        const svg = document.querySelector("svg");
+
+        const pointsWithMarker = points.map(point => {
+            // Side effects 😬
+            const marker = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            marker.setAttribute("r", 5);
+            marker.setAttribute("fill", "white");
+            svg.appendChild(marker);
+
+            return { point, marker };
+        });
+
+        const pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        pathElement.setAttribute("stroke", "white");
+        pathElement.setAttribute("stroke-width", 1);
+        pathElement.setAttribute("fill", "none");
+        svg.appendChild(pathElement);
+        // A translate because we can't see negative space
+        const translate = 100;
+
+        function draw(timestamp) {
+
+            const rotationZ = [
+                [Math.cos(angle), -Math.sin(angle), 0],
+                [Math.sin(angle), Math.cos(angle), 0],
+                [0, 0, 1],
+            ];
+
+            const rotationX = [
+                [1, 0, 0],
+                [0, Math.cos(angle), -Math.sin(angle)],
+                [0, Math.sin(angle), Math.cos(angle)],
+            ];
+
+            const rotationY = [
+                [Math.cos(angle), 0, -Math.sin(angle)],
+                [0, 1, 0],
+                [Math.sin(angle), 0, Math.cos(angle)],
+            ];
+
+
+            const projectedPoints = points.map(([x, y, z]) => {
+                const pointMatrix = [[x], [y], [z]];
+                // Project point 
+                let rotated = multiplyMatrices(rotationX, pointMatrix);
+                rotated = multiplyMatrices(rotationY, rotated);
+                rotated = multiplyMatrices(rotationZ, rotated);
+
+                const projectedTo2D = multiplyMatrices(projection, rotated);
+                return projectedTo2D;
+            })
+            // Translate into viewable space 😬
+                .map(([[x], [y]]) => [[x + translate], [y + translate]]);
+
+
+            const path = projectedPoints.reduce((state, [[x], [y]], index) => {
+
+                switch (index) {
+                    // Assume first point is not the last point
+                    case 0:
+                        return state + `M${x},${y} `;
+                    case projectedPoints.length - 1:
+                        return state + `L${x},${y} Z`;
+                    default:
+                        return state + `L${x},${y} `;
+                }
+
+            }, "");
+
+
+            const pointToInstruction= (instruction, [[x], [y]]) => `${instruction} ${x} ${y} `;
+            const path2 =
+                // Move to first point
+                // Draw front plane
+                pointToInstruction("M", projectedPoints[0]) +
+                pointToInstruction("L", projectedPoints[1]) +
+                pointToInstruction("L", projectedPoints[2]) +
+                pointToInstruction("L", projectedPoints[3]) +
+                pointToInstruction("L", projectedPoints[0]) +
+                
+                // Draw back plane
+                pointToInstruction("M", projectedPoints[4]) +
+                pointToInstruction("L", projectedPoints[5]) +
+                pointToInstruction("L", projectedPoints[6]) +
+                pointToInstruction("L", projectedPoints[7]) +
+                pointToInstruction("L", projectedPoints[4]) +
+                
+                // Connect points of two plains with lines
+                pointToInstruction("M", projectedPoints[0]) +
+                pointToInstruction("L", projectedPoints[4]) +
+                
+                pointToInstruction("M", projectedPoints[1]) +
+                pointToInstruction("L", projectedPoints[5]) +
+                
+                pointToInstruction("M", projectedPoints[2]) +
+                pointToInstruction("L", projectedPoints[6]) +
+                
+                pointToInstruction("M", projectedPoints[3]) +
+                pointToInstruction("L", projectedPoints[7]);
+                // console.log(path2);
+            pathElement.setAttribute("d", path2)
+
+            // pointsWithMarker.forEach(({ point: [x, y, z], marker }) => {
+
+
+            //     const pointMatrix = [[x], [y], [z]];
+            //     // Project point 
+            //     let rotated = multiplyMatrices(rotationX, pointMatrix);
+            //     rotated = multiplyMatrices(rotationY, rotated);
+            //     rotated = multiplyMatrices(rotationZ, rotated);
+            //     const projectedTo2D = multiplyMatrices(projection, rotated);
+            //     // logMatrix(projectedTo2D);
+            //     // logMatrix(rotationZ);
+            //     const [[markerX], [markerY]] = rotated;
+            //     marker.setAttribute("cx", markerX + translate);
+            //     marker.setAttribute("cy", markerY + translate);
+            // });
+
+            angle += 0.005;
+            if(angle > 2 * Math.PI){
+                angle = 0;
+            }
+            requestAnimationFrame(draw);
+        }
+
+
+        requestAnimationFrame(draw);
 
     </script>
 </body>
