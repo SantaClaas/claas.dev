@@ -162,16 +162,6 @@
         let angle = 0;
         const svg = document.querySelector("svg");
 
-        const pointsWithMarker = points.map(point => {
-            // Side effects 😬
-            const marker = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            marker.setAttribute("r", 5);
-            marker.setAttribute("fill", "white");
-            svg.appendChild(marker);
-
-            return { point, marker };
-        });
-
         const pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
         pathElement.setAttribute("stroke", "white");
         pathElement.setAttribute("stroke-width", 1);
@@ -276,24 +266,8 @@
 
                 pointToInstruction("M", projectedPoints[3]) +
                 pointToInstruction("L", projectedPoints[7]);
-            // console.log(path2);
+
             pathElement.setAttribute("d", path2)
-
-            // pointsWithMarker.forEach(({ point: [x, y, z], marker }) => {
-
-
-            //     const pointMatrix = [[x], [y], [z]];
-            //     // Project point 
-            //     let rotated = multiplyMatrices(rotationX, pointMatrix);
-            //     rotated = multiplyMatrices(rotationY, rotated);
-            //     rotated = multiplyMatrices(rotationZ, rotated);
-            //     const projectedTo2D = multiplyMatrices(projection, rotated);
-            //     // logMatrix(projectedTo2D);
-            //     // logMatrix(rotationZ);
-            //     const [[markerX], [markerY]] = rotated;
-            //     marker.setAttribute("cx", markerX + translate);
-            //     marker.setAttribute("cy", markerY + translate);
-            // });
 
             angle += 0.005;
             if (angle > 2 * Math.PI) {
