@@ -129,15 +129,15 @@
         }
 
         const points = [
-            [-50, -50, -50],
-            [50, -50, -50],
-            [50, 50, -50],
-            [-50, 50, -50],
+            [-.5, -.5, -.5],
+            [.5, -.5, -.5],
+            [.5, .5, -.5],
+            [-.5, .5, -.5],
 
-            [-50, -50, 50],
-            [50, -50, 50],
-            [50, 50, 50],
-            [-50, 50, 50],
+            [-.5, -.5, .5],
+            [.5, -.5, .5],
+            [.5, .5, .5],
+            [-.5, .5, .5],
         ];
 
         // Projection matrix
@@ -166,6 +166,15 @@
         svg.appendChild(pathElement);
         // A translate because we can't see negative space
         const translate = 100;
+
+        let { width, height } = svg.getBoundingClientRect();
+        // Update width and height on resize
+        const observer = new ResizeObserver(([entry]) => {
+            width = entry.contentBoxSize[0].inlineSize;
+            height = entry.contentBoxSize[0].blockSize;
+        });
+        
+        observer.observe(svg);
 
         function draw(timestamp) {
 
@@ -198,8 +207,8 @@
                 const projectedTo2D = multiplyMatrices(projection, rotated);
                 return projectedTo2D;
             })
-            // Translate into viewable space 😬
-                .map(([[x], [y]]) => [[x + translate], [y + translate]]);
+                // Translate into viewable space 😬
+                .map(([[x], [y]]) => [[x * width + width / 2], [y * width + height / 2]]);
 
 
             const path = projectedPoints.reduce((state, [[x], [y]], index) => {
@@ -217,7 +226,7 @@
             }, "");
 
 
-            const pointToInstruction= (instruction, [[x], [y]]) => `${instruction} ${x} ${y} `;
+            const pointToInstruction = (instruction, [[x], [y]]) => `${instruction} ${x} ${y} `;
             const path2 =
                 // Move to first point
                 // Draw front plane
@@ -226,27 +235,27 @@
                 pointToInstruction("L", projectedPoints[2]) +
                 pointToInstruction("L", projectedPoints[3]) +
                 pointToInstruction("L", projectedPoints[0]) +
-                
+
                 // Draw back plane
                 pointToInstruction("M", projectedPoints[4]) +
                 pointToInstruction("L", projectedPoints[5]) +
                 pointToInstruction("L", projectedPoints[6]) +
                 pointToInstruction("L", projectedPoints[7]) +
                 pointToInstruction("L", projectedPoints[4]) +
-                
+
                 // Connect points of two plains with lines
                 pointToInstruction("M", projectedPoints[0]) +
                 pointToInstruction("L", projectedPoints[4]) +
-                
+
                 pointToInstruction("M", projectedPoints[1]) +
                 pointToInstruction("L", projectedPoints[5]) +
-                
+
                 pointToInstruction("M", projectedPoints[2]) +
                 pointToInstruction("L", projectedPoints[6]) +
-                
+
                 pointToInstruction("M", projectedPoints[3]) +
                 pointToInstruction("L", projectedPoints[7]);
-                // console.log(path2);
+            // console.log(path2);
             pathElement.setAttribute("d", path2)
 
             // pointsWithMarker.forEach(({ point: [x, y, z], marker }) => {
@@ -266,7 +275,7 @@
             // });
 
             angle += 0.005;
-            if(angle > 2 * Math.PI){
+            if (angle > 2 * Math.PI) {
                 angle = 0;
             }
             requestAnimationFrame(draw);
