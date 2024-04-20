@@ -1,78 +1,14 @@
+import {
+  calculateProjectedPointsByFrame,
+  calculateRotationFrames,
+} from "./functions.js";
+
 /** @typedef {number[][]} Matrix */
+/** @typedef {[number, number, number]} Row */
+/** @typedef {[Row, Row, Row]} RotationMatrix */
+/** @typedef {[number, number, number]} Point3d */
+/** @typedef {[number, number]} Point2d */
 
-/**
- *
- * @param {Matrix} matrixA
- * @param {Matrix} matrixB
- * @returns {Matrix}
- */
-function multiplyMatrices(matrixA, matrixB) {
-  // Assume all columns are same length and there is at least one column
-  const columnsCountA = matrixA[0].length;
-  const rowsCountA = matrixA.length;
-  const columsCountB = matrixB[0].length;
-  const rowsCountB = matrixB.length;
-
-  if (columnsCountA !== rowsCountB) {
-    throw new Error("Columns of A must match rows of B");
-  }
-
-  /** @type {Matrix} */
-  const result = new Array(rowsCountA)
-    .fill(0)
-    .map((a) => new Array(columsCountB).fill(0));
-
-  for (let rowIndex = 0; rowIndex < rowsCountA; rowIndex++) {
-    for (let columnIndex = 0; columnIndex < columsCountB; columnIndex++) {
-      let sum = 0;
-      for (let columnIndexB = 0; columnIndexB < columnsCountA; columnIndexB++) {
-        sum +=
-          matrixA[rowIndex][columnIndexB] * matrixB[columnIndexB][columnIndex];
-      }
-      result[rowIndex][columnIndex] = sum;
-    }
-  }
-
-  return result;
-}
-
-const screenSpaceRelative = 0.5;
-const points = [
-  [-screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
-  [screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
-  [screenSpaceRelative, screenSpaceRelative, -screenSpaceRelative],
-  [-screenSpaceRelative, screenSpaceRelative, -screenSpaceRelative],
-
-  [-screenSpaceRelative, -screenSpaceRelative, screenSpaceRelative],
-  [screenSpaceRelative, -screenSpaceRelative, screenSpaceRelative],
-  [screenSpaceRelative, screenSpaceRelative, screenSpaceRelative],
-  [-screenSpaceRelative, screenSpaceRelative, screenSpaceRelative],
-];
-
-// Projection matrix
-const orthographicProjection = [
-  [1, 0, 0],
-  [0, 1, 0],
-];
-
-/**
- *
- * @param {number} z
- * @returns {Matrix}
- */
-function getPerspectiveProjectionMatrix(z) {
-  const distance = 2;
-  // Naming things is hard
-  const otherZ = 1 / (distance - z);
-  const perspectiveProjection = [
-    [otherZ, 0, 0],
-    [0, otherZ, 0],
-  ];
-
-  return perspectiveProjection;
-}
-
-let angle = 0;
 const svg = document.querySelector("svg");
 if (!svg) throw new Error("No svg element found");
 
@@ -84,8 +20,6 @@ pathElement.setAttribute("stroke", "white");
 pathElement.setAttribute("stroke-width", "1");
 pathElement.setAttribute("fill", "none");
 svg.appendChild(pathElement);
-// A translate because we can't see negative space
-const translate = 100;
 
 let { width, height } = svg.getBoundingClientRect();
 // Update width and height on resize
@@ -96,107 +30,95 @@ const observer = new ResizeObserver(([entry]) => {
 
 observer.observe(svg);
 
+// requestAnimationFrame(draw);
+
+// console.debug("Creating worker");
+// const worker = new Worker("/worker/index.js", { type: "module" });
+// worker.addEventListener("error", (event) => {
+//   console.error("Worker:", event.error);
+//   // throw event.error;
+// });
+// worker.addEventListener("message", (event) => {
+//   console.log("Worker:", event.data);
+// });
+// console.debug("Worker created");
+// worker.postMessage("start");
+// console.debug("Worker started");
+
+const rotationFrames = calculateRotationFrames();
+
+console.debug("Calculated frames");
+
+const projectedPointsByFrame = calculateProjectedPointsByFrame(rotationFrames);
+console.debug("Calculated projected points by frame", projectedPointsByFrame);
+
 /**
- *
  * @param {"M" | "L"} instruction
- * @param {number[][]} param1
- * @returns
+ * @param {import("./index").Point2d} point
+ * @param {number} relative
+ * @returns {string}
  */
-function pointToInstruction(instruction, [[x], [y]]) {
-  return `${instruction} ${x} ${y} `;
+export function pointToViewableInstruction(instruction, [x, y], relative) {
+  const [adjustedX, adjustedY] = adjustToViewableSpace([x, y], relative);
+  return `${instruction} ${adjustedX} ${adjustedY} `;
 }
 /**
- * @param {DOMHighResTimeStamp} timestamp
+ * @param {import("./index").Point2d} point
+ * @param {number} relative
+ * @returns {import("./index").Point2d}
  */
-function draw(timestamp) {
-  const rotationZ = [
-    [Math.cos(angle), -Math.sin(angle), 0],
-    [Math.sin(angle), Math.cos(angle), 0],
-    [0, 0, 1],
-  ];
+export function adjustToViewableSpace([x, y], relative) {
+  return [x * relative + width / 2, y * relative + height / 2];
+}
 
-  const rotationX = [
-    [1, 0, 0],
-    [0, Math.cos(angle), -Math.sin(angle)],
-    [0, Math.sin(angle), Math.cos(angle)],
-  ];
-
-  const rotationY = [
-    [Math.cos(angle), 0, -Math.sin(angle)],
-    [0, 1, 0],
-    [Math.sin(angle), 0, Math.cos(angle)],
-  ];
-
-  // Use smalles side to resize so that the cube is always inside the viewport
+let frameIndex = 0;
+function newDraw() {
+  const projectedPoints = projectedPointsByFrame[frameIndex];
+  // Translate points into viewable space that might have changed since last frame
   const relative = Math.min(width, height);
 
-  const projectedPoints = points
-    .map(([x, y, z]) => {
-      const pointMatrix = [[x], [y], [z]];
-      // Project point
-      let rotated = multiplyMatrices(rotationX, pointMatrix);
-      rotated = multiplyMatrices(rotationY, rotated);
-      rotated = multiplyMatrices(rotationZ, rotated);
+  /**
+   *
+   * @param {"M" | "L"} instruction
+   * @param {Point2d} point
+   * @returns
+   */
+  const toInstruction = (instruction, point) =>
+    pointToViewableInstruction(instruction, point, relative);
 
-      // const projectedTo2D = multiplyMatrices(orthographicProjection, rotated);
-      const rotatedZ = rotated[2][0];
-      const perspectiveProjectionMatrix =
-        getPerspectiveProjectionMatrix(rotatedZ);
-      const projectedTo2D = multiplyMatrices(
-        perspectiveProjectionMatrix,
-        rotated
-      );
-      return projectedTo2D;
-    })
-    // Translate into viewable space 😬
-    .map(([[x], [y]]) =>
-      // Position to relative on screen and then translate to center
-      [[x * relative + width / 2], [y * relative + height / 2]]
-    );
-
-  const path = projectedPoints.reduce((state, [[x], [y]], index) => {
-    switch (index) {
-      // Assume first point is not the last point
-      case 0:
-        return state + `M${x},${y} `;
-      case projectedPoints.length - 1:
-        return state + `L${x},${y} Z`;
-      default:
-        return state + `L${x},${y} `;
-    }
-  }, "");
-
-  const path2 =
+  const path =
     // Move to first point
     // Draw front plane
-    pointToInstruction("M", projectedPoints[0]) +
-    pointToInstruction("L", projectedPoints[1]) +
-    pointToInstruction("L", projectedPoints[2]) +
-    pointToInstruction("L", projectedPoints[3]) +
-    pointToInstruction("L", projectedPoints[0]) +
+    toInstruction("M", projectedPoints[0]) +
+    toInstruction("L", projectedPoints[1]) +
+    toInstruction("L", projectedPoints[2]) +
+    toInstruction("L", projectedPoints[3]) +
+    toInstruction("L", projectedPoints[0]) +
     // Draw back plane
-    pointToInstruction("M", projectedPoints[4]) +
-    pointToInstruction("L", projectedPoints[5]) +
-    pointToInstruction("L", projectedPoints[6]) +
-    pointToInstruction("L", projectedPoints[7]) +
-    pointToInstruction("L", projectedPoints[4]) +
+    toInstruction("M", projectedPoints[4]) +
+    toInstruction("L", projectedPoints[5]) +
+    toInstruction("L", projectedPoints[6]) +
+    toInstruction("L", projectedPoints[7]) +
+    toInstruction("L", projectedPoints[4]) +
     // Connect points of two plains with lines
-    pointToInstruction("M", projectedPoints[0]) +
-    pointToInstruction("L", projectedPoints[4]) +
-    pointToInstruction("M", projectedPoints[1]) +
-    pointToInstruction("L", projectedPoints[5]) +
-    pointToInstruction("M", projectedPoints[2]) +
-    pointToInstruction("L", projectedPoints[6]) +
-    pointToInstruction("M", projectedPoints[3]) +
-    pointToInstruction("L", projectedPoints[7]);
+    toInstruction("M", projectedPoints[0]) +
+    toInstruction("L", projectedPoints[4]) +
+    toInstruction("M", projectedPoints[1]) +
+    toInstruction("L", projectedPoints[5]) +
+    toInstruction("M", projectedPoints[2]) +
+    toInstruction("L", projectedPoints[6]) +
+    toInstruction("M", projectedPoints[3]) +
+    toInstruction("L", projectedPoints[7]);
 
-  pathElement.setAttribute("d", path2);
+  pathElement.setAttribute("d", path);
 
-  angle += 0.005;
-  if (angle > 2 * Math.PI) {
-    angle = 0;
+  // Increase frame index
+  frameIndex++;
+  if (frameIndex === rotationFrames.length) {
+    frameIndex = 0;
   }
-  requestAnimationFrame(draw);
+
+  requestAnimationFrame(newDraw);
 }
 
-requestAnimationFrame(draw);
+requestAnimationFrame(newDraw);
