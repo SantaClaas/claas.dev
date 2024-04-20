@@ -3,14 +3,5 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "postinstall": "dotnet tool restore",
-    "prestart": "dotnet tool restore",
-    "dev": "dotnet fable watch src -s --run vite",
-    "build": "dotnet fable src --run vite build",
-    "preview": "dotnet fable src --run vite preview"
-  },
-  "devDependencies": {
-    "vite": "^4.0.0"
-  }
+  "scripts": {}
 }
