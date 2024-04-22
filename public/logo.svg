@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="841.89" height="595.28" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 841.89 595.28">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: url(#radial-gradient);
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="335.52" cy="407.35" fx="335.52" fy="407.35" r="299.05" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="#fdfdfd"/>
+      <stop offset=".17" stop-color="#bbb"/>
+      <stop offset=".33" stop-color="#828282"/>
+      <stop offset=".49" stop-color="#535353"/>
+      <stop offset=".64" stop-color="#2f2f2f"/>
+      <stop offset=".78" stop-color="#151515"/>
+      <stop offset=".9" stop-color="#050505"/>
+      <stop offset="1" stop-color="#000"/>
+    </radialGradient>
+  </defs>
+  <rect class="cls-2" y="0" width="841.89" height="595.28"/>
+  <polygon class="cls-1" points="450 36 333 378 657 225 450 36"/>
+  <polygon class="cls-1" points="630 324 297 486 258.76 595.28 .47 595.21 0 0 295.9 0 297 486 258.49 595.28 746.93 595.28 630 324"/>
+</svg>

@@ -2,6 +2,7 @@ import {
   calculateProjectedPointsByFrame,
   calculateRotationFrames,
 } from "./functions.js";
+import "./style.css";
 
 /** @typedef {number[][]} Matrix */
 /** @typedef {[number, number, number]} Row */
@@ -54,7 +55,7 @@ console.debug("Calculated projected points by frame", projectedPointsByFrame);
 
 /**
  * @param {"M" | "L"} instruction
- * @param {import("./index").Point2d} point
+ * @param {import("./main").Point2d} point
  * @param {number} relative
  * @returns {string}
  */
@@ -63,9 +64,9 @@ export function pointToViewableInstruction(instruction, [x, y], relative) {
   return `${instruction} ${adjustedX} ${adjustedY} `;
 }
 /**
- * @param {import("./index").Point2d} point
+ * @param {import("./main").Point2d} point
  * @param {number} relative
- * @returns {import("./index").Point2d}
+ * @returns {import("./main").Point2d}
  */
 export function adjustToViewableSpace([x, y], relative) {
   return [x * relative + width / 2, y * relative + height / 2];

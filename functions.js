@@ -1,7 +1,7 @@
 /**
  *
  * @param {number} z
- * @returns {import("./index").Matrix}
+ * @returns {import("./main").Matrix}
  */
 function getPerspectiveProjectionMatrix(z) {
   const distance = 2;
@@ -17,9 +17,9 @@ function getPerspectiveProjectionMatrix(z) {
 
 /**
  *
- * @param {import("./index").Matrix} matrixA
- * @param {import("./index").Matrix} matrixB
- * @returns {import("./index").Matrix}
+ * @param {import("./main").Matrix} matrixA
+ * @param {import("./main").Matrix} matrixB
+ * @returns {import("./main").Matrix}
  */
 function multiplyMatrices(matrixA, matrixB) {
   // Assume all columns are same length and there is at least one column
@@ -32,7 +32,7 @@ function multiplyMatrices(matrixA, matrixB) {
     throw new Error("Columns of A must match rows of B");
   }
 
-  /** @type {import("./index").Matrix} */
+  /** @type {import("./main").Matrix} */
   const result = new Array(rowsCountA)
     .fill(0)
     .map((a) => new Array(columsCountB).fill(0));
@@ -52,7 +52,7 @@ function multiplyMatrices(matrixA, matrixB) {
 }
 
 const screenSpaceRelative = 0.5;
-/** @type {import("./index").Point3d[]} */
+/** @type {import("./main").Point3d[]} */
 const points = [
   [-screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
   [screenSpaceRelative, -screenSpaceRelative, -screenSpaceRelative],
@@ -69,7 +69,7 @@ export function calculateRotationFrames() {
   const MAX_ANGLE = 2 * Math.PI;
   // You can't preallocate an array with fixed length
   /** Index is frame number and the array gives the rotation matrices for x, y, z for a specific frame
-   * @type {Array<[x: import("./index").RotationMatrix, y: import("./index").RotationMatrix, z: import("./index").RotationMatrix]>}
+   * @type {Array<[x: import("./main").RotationMatrix, y: import("./main").RotationMatrix, z: import("./main").RotationMatrix]>}
    */
   const rotationFrames = new Array();
 
@@ -77,21 +77,21 @@ export function calculateRotationFrames() {
   //   for (let index = 0; index < rotationFrames.length; index++) {
   // console.log(index);
   for (let angle = 0; angle <= MAX_ANGLE; angle += 0.005) {
-    /** @type {import("./index").RotationMatrix} */
+    /** @type {import("./main").RotationMatrix} */
     const rotationX = [
       [1, 0, 0],
       [0, Math.cos(angle), -Math.sin(angle)],
       [0, Math.sin(angle), Math.cos(angle)],
     ];
 
-    /** @type {import("./index").RotationMatrix} */
+    /** @type {import("./main").RotationMatrix} */
     const rotationY = [
       [Math.cos(angle), 0, -Math.sin(angle)],
       [0, 1, 0],
       [Math.sin(angle), 0, Math.cos(angle)],
     ];
 
-    /** @type {import("./index").RotationMatrix} */
+    /** @type {import("./main").RotationMatrix} */
     const rotationZ = [
       [Math.cos(angle), -Math.sin(angle), 0],
       [Math.sin(angle), Math.cos(angle), 0],
@@ -114,11 +114,11 @@ export function calculateProjectedPointsByFrame(rotationFrames) {
 
   // Can not preallocate an array with fixed length
   /**
-   * @type {import("./index").Point2d[][]}
+   * @type {import("./main").Point2d[][]}
    */
   const projectedPointsByFrame = new Array();
   for (const [rotationX, rotationY, rotationZ] of rotationFrames) {
-    /** @type {import("./index").Point2d[]} */
+    /** @type {import("./main").Point2d[]} */
     const projectedPoints = points.map(([x, y, z]) => {
       const pointMatrix = [[x], [y], [z]];
       // Project point

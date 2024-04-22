@@ -1,62 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="bg-black">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>claas.dev experimental</title>
-    <link href="/index.css" rel="stylesheet">
     <meta namne="color-scheme" content="dark light">
-    <style type="text/tailwindcss">
-
-
-        line {
-            fill: #fff;
-            stroke: #000;
-            stroke-miterlimit: 10;
-        }
-
-        .pinkline {
-            fill: #fff;
-            stroke: hotpink;
-            stroke-miterlimit: 10;
-            stroke-width: 20px;
-        }
-
-        .pinkline {
-            /*Hide for now*/
-            stroke: transparent;
-        }
-
-        .jump-line {
-            stroke-dashoffset: 0;
-            animation: jump linear 7s infinite;
-            stroke: white;
-        }
-        svg {
-            background: black;
-        }
-
-        /* Idea: make lines move at different speeds
-          Idea: overlay one line in background color and retract it at same pace so it looks like is moving in at the beginning;
-          Idea: when hovering over menu line let the line stop slowly and move in the line at the same speed that contains the menu option
-          Idea: make lines like strings in an instrument and bounce like them and play sound in browser
-          Idea: Add art quote: "Art - Art is a diverse range of human activity, and resulting product, that involves creative or imaginative talent expressive of technical proficiency, beauty, emotional power, or conceptual ideas. (Wikipedia link with icon)"
-          Idea: Make logo in a stary sky and go down into mountains that are from the As*/
-
-
-        @keyframes jump {
-
-            0% {
-                stroke-dashoffset: 100;
-            }
-            100% {
-                stroke-dashoffset: 0;
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body class="h-screen w-screen">
@@ -78,7 +29,7 @@
 
     </svg>
 
-    <script src="/index.js" type="module">
+    <script type="module" src="/main.js"></script>
     </script>
 </body>
 
