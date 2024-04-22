@@ -71,8 +71,26 @@ export function adjustToViewableSpace([x, y], relative) {
   return [x * relative + width / 2, y * relative + height / 2];
 }
 
+/**
+ *
+ * @param {[number[], number]} param0
+ * @param {Point2d[]} framePoints
+ * @returns {[number[], number]}
+ */
+function reducer([deltas, previousX], framePoints) {
+  // Get x of first point in every frame
+  const [x] = framePoints[0];
+
+  const delta = x - previousX;
+  deltas.push(delta);
+  return [deltas, x];
+}
+
+// Look at the deltas for the first point x coordinate over time
+const deltas = projectedPointsByFrame.reduce(reducer, [[], 0]);
+console.debug("Deltas", deltas);
 let frameIndex = 0;
-function newDraw() {
+function draw() {
   const projectedPoints = projectedPointsByFrame[frameIndex];
   // Translate points into viewable space that might have changed since last frame
   const relative = Math.min(width, height);
@@ -118,7 +136,7 @@ function newDraw() {
     frameIndex = 0;
   }
 
-  requestAnimationFrame(newDraw);
+  requestAnimationFrame(draw);
 }
 
-requestAnimationFrame(newDraw);
+requestAnimationFrame(draw);
