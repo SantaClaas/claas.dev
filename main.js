@@ -194,10 +194,13 @@ export class Point2dFrames {
    * @param {number} dimensionIndex
    * @param {number} adjustYOutput
    */
-  toPath(pointIndex, dimensionIndex, adjustYOutput = 0.5) {
+  toEasingPath(pointIndex, dimensionIndex, adjustYOutput = 0.5) {
     // Point frames by dimension
     const framesByDimension = this.#points[pointIndex];
     const dimension = framesByDimension[dimensionIndex];
+    // Max value in dimension
+    const max = Math.max(...dimension);
+    const min = Math.min(...dimension);
     // Adjust to always start at a 0.5 value for y
     const adjustment = -dimension[0] + adjustYOutput;
     const firstY = dimension[0];
@@ -206,10 +209,15 @@ export class Point2dFrames {
     let path = `M 0,${firstYAdjusted}`;
     for (let frameIndex = 1; frameIndex < dimensionFrameCount; frameIndex++) {
       // Normalize index to be between 0 and 1
-      const normalized = frameIndex / dimensionFrameCount;
+      const normalizedX = frameIndex / dimensionFrameCount;
       const y = dimension[frameIndex];
       const adjustedY = y + adjustment;
-      path += ` L ${normalized},${adjustedY}`;
+      // Set animation curve to move between the bounds as in 0 and 1 on y (the easing curve)
+      // Normalize y between 0 and 1
+      //TODO needs to be adjusted from min-max to 0-1
+      const normalizedY = (adjustedY - min) / (max - min + adjustment);
+
+      path += ` L ${normalizedX},${normalizedY}`;
     }
 
     return path;
@@ -240,11 +248,7 @@ function createPathStyle(path, easingName) {
 const sheet = new CSSStyleSheet();
 // Add general rule for circles but without the easing timiming
 sheet.insertRule(`
-
-
-
   circle {
-    animation-name: moveX, moveY;
     animation-duration: 10s;
     animation-iteration-count: infinite;
   }
@@ -256,19 +260,54 @@ const round = 3;
 let index = 0;
 const relative = Math.min(width, height);
 
-// Create keyframes for each point
 for (const point of pointFrames) {
+  const id = `point${index}`;
+
+  // Create keyframes for each point
   // Get max x and y values to get bounds for animation to move between
   const xValues = point[0];
   const yValues = point[1];
   const maxX = Math.max(...xValues);
+  const minX = Math.min(...xValues);
   const maxY = Math.max(...yValues);
-  console.debug(maxX, maxY);
-}
-// Set animation curve to move between the bounds as in 0 and 1 on y (the easing curve)
+  const minY = Math.min(...yValues);
+  const [adjustedMaxX, adjustedMaxY] = adjustToViewableSpace(
+    [maxX, maxY],
+    relative
+  );
+  const [adjustedMinX, adjustedMinY] = adjustToViewableSpace(
+    [minX, minY],
+    relative
+  );
+  // console.debug(maxX, maxY, adjustedMaxX, adjustedMaxY);
+  const keyframesXId = `moveX${id}`;
+  const keyframesYId = `moveY${id}`;
+  //TODO fix: the max might not actually be 1
+  const keyframesX = `
+    @keyframes ${keyframesXId} {
+      from {
+        cx: ${adjustedMinX};
+      }
+      to {
+        cx: ${adjustedMaxX};
+      }
+    }`;
 
-for (const point of pointFrames) {
-  const id = `point-${index}`;
+  // console.debug(keyframesX);
+
+  const keyframesY = `
+    @keyframes ${keyframesYId} {
+      from {
+        cy: ${adjustedMinY};
+      }
+      to {
+        cy: ${adjustedMaxY};
+      }
+    }`;
+  sheet.insertRule(keyframesX);
+  sheet.insertRule(keyframesY);
+  console.debug(keyframesX, keyframesY);
+
   // Starting position
   const [xs, ys] = point;
   const [x, y] = adjustToViewableSpace([xs[0], ys[0]], relative);
@@ -277,8 +316,8 @@ for (const point of pointFrames) {
   svg.appendChild(circle);
 
   // Create path styles
-  const pathX = pointFrames.toPath(index, 0);
-  const pathY = pointFrames.toPath(index, 1);
+  const pathX = pointFrames.toEasingPath(index, 0);
+  const pathY = pointFrames.toEasingPath(index, 1);
 
   const styleX = createPathStyle(pathX, `${id}-x`);
   const styleY = createPathStyle(pathY, `${id}-y`);
@@ -287,6 +326,7 @@ for (const point of pointFrames) {
   sheet.insertRule(styleY);
   sheet.insertRule(`
     #${id} {
+      animation-name: ${keyframesXId}, ${keyframesYId};
       animation-timing-function: var(--${id}-x-easing), var(--${id}-y-easing);
     }
   `);
