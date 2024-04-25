@@ -1,5 +1,4 @@
 // The following code is taken and adapted from https://github.com/jakearchibald/linear-easing-generator
-// The license can be found in ./LICENSE. The license is missing name and yeart but it is most likely Jake Archibald.
 
 import { svgPathProperties as SVGPathProperties } from "svg-path-properties";
 
