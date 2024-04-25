@@ -192,7 +192,7 @@ export class Point2dFrames {
    * Can be put into https://linear-easing-generator.netlify.app/
    * @param {number} pointIndex
    * @param {number} dimensionIndex
-   * @param {number} adjustYOutput
+   * @returns {string}
    */
   toEasingPath(pointIndex, dimensionIndex) {
     // Point frames by dimension
@@ -208,7 +208,7 @@ export class Point2dFrames {
      * @param {number} value
      * @returns {number}
      */
-    const map = (value) => (value - min) / (max - min);
+    const map = (value) => (value - min) / (max - min); /* * (1-0) + 0 */
     const firstY = dimension[0];
     const firstYAdjusted = map(firstY);
     const dimensionFrameCount = dimension.length;
@@ -267,7 +267,7 @@ const relative = Math.min(width, height);
 // Collect paths to draw later
 const paths = [];
 for (const point of pointFrames) {
-  const id = `point${index}`;
+  const id = `point-${index}`;
 
   // Create keyframes for each point
   // Get max x and y values to get bounds for animation to move between
@@ -310,7 +310,6 @@ for (const point of pointFrames) {
     }`;
   sheet.insertRule(keyframesX);
   sheet.insertRule(keyframesY);
-  console.debug(keyframesX, keyframesY);
 
   // Starting position
   const [xs, ys] = point;
