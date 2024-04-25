@@ -194,20 +194,20 @@ export class Point2dFrames {
    * @param {number} dimensionIndex
    * @param {number} adjustYOutput
    */
-  toEasingPath(pointIndex, dimensionIndex, adjustYOutput = 0.5) {
+  toEasingPath(pointIndex, dimensionIndex) {
     // Point frames by dimension
     const framesByDimension = this.#points[pointIndex];
     const dimension = framesByDimension[dimensionIndex];
     // Max value in dimension
     const max = Math.max(...dimension);
     const min = Math.min(...dimension);
-    // Adjust to always start at a 0.5 value for y
-    const adjustment = -dimension[0] + adjustYOutput;
     /**
+     * Maps a value in a range to a value to a value in another range by its relative position between the min and max
+     * In this case the first range is min and max of the values the dimension can take and the second range is 0 and 1
+     * for the animation easing curve.
      * @param {number} value
      * @returns {number}
      */
-    // const map = (value) => (value - min) / (max - min + adjustment);
     const map = (value) => (value - min) / (max - min);
     const firstY = dimension[0];
     const firstYAdjusted = map(firstY);
@@ -220,7 +220,6 @@ export class Point2dFrames {
       const adjustedY = y;
       // Set animation curve to move between the bounds as in 0 and 1 on y (the easing curve)
       // Normalize y between 0 and 1
-      //TODO needs to be adjusted from min-max to 0-1
       const normalizedY = map(adjustedY);
 
       path += ` L ${normalizedX},${normalizedY}`;
@@ -286,10 +285,8 @@ for (const point of pointFrames) {
     [minX, minY],
     relative
   );
-  // console.debug(maxX, maxY, adjustedMaxX, adjustedMaxY);
   const keyframesXId = `moveX-${id}`;
   const keyframesYId = `moveY-${id}`;
-  //TODO fix: the max might not actually be 1
   const keyframesX = `
     @keyframes ${keyframesXId} {
       from {
@@ -339,16 +336,6 @@ for (const point of pointFrames) {
       animation-timing-function: var(--${id}-x-easing), var(--${id}-y-easing);
     }
   `);
-  //   sheet.insertRule(`@keyframes moveX {
-  //     from {
-  //         cx: 0%;
-  //     }
-
-  //     to {
-  //         cx: 100%;
-  //     }
-  // }
-  //     `);
 
   index++;
 }
