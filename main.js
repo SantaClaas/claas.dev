@@ -48,18 +48,28 @@ observer.observe(svg);
 
 // svg.appendChild(line);
 
-// Create circle element for first experiment
-const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-circle.setAttribute("stroke", "white");
-circle.setAttribute("stroke-width", "1");
-circle.setAttribute("fill", "none");
-circle.setAttribute("r", "10");
-// Set id
-circle.id = "circle";
-circle.cx.baseVal.value = width / 2;
-circle.cy.baseVal.value = height / 2;
+/**
+ *
+ * @param {string} id
+ * @returns {SVGCircleElement}
+ */
+function createCircle(id, x = 0, y = 0) {
+  // Create circle element for first experiment
+  const circle = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "circle"
+  );
+  circle.setAttribute("stroke", "white");
+  circle.setAttribute("stroke-width", "1");
+  circle.setAttribute("fill", "none");
+  circle.setAttribute("r", "10");
+  // Set id
+  circle.id = id;
+  circle.cx.baseVal.value = x ? x : width / 2;
+  circle.cy.baseVal.value = y ? y : height / 2;
 
-svg.appendChild(circle);
+  return circle;
+}
 
 const rotationFrames = calculateRotationFrames();
 
@@ -179,6 +189,7 @@ export class Point2dFrames {
    * Generates an SVG path for the value of the points dimension over time.
    * Time is normalized between 0 and 1 to be usable in animation linear timing function.
    * Additionally the path is adjusted to start at 0.5 for y.
+   * Can be put into https://linear-easing-generator.netlify.app/
    * @param {number} pointIndex
    * @param {number} dimensionIndex
    * @param {number} adjustYOutput
@@ -213,15 +224,90 @@ for (const frame of projectedPointsByFrame) {
   }
 }
 
-// Generates a path to be put into https://linear-easing-generator.netlify.app/
-const path = pointFrames.toPath(0, 0);
-const data = processSvgData(path);
-// User setting tha goes from 0.00001 to 0.025
-const simplify = 0.00001;
-const simplified = simplifyDouglasPeucker(data, simplify);
-const syntaxed = toLinearSyntax(simplified, 2);
-const friendly = toFriendlyLinearCode(syntaxed, "point", 0);
-console.log("Friendly", friendly);
+/**
+ * @param {string} path
+ * @param {string} easingName
+ * @returns {string}
+ */
+function createPathStyle(path, easingName) {
+  const data = processSvgData(path);
+  const simplified = simplifyDouglasPeucker(data, simplify);
+  const syntaxed = toLinearSyntax(simplified, round);
+  const friendly = toFriendlyLinearCode(syntaxed, easingName, 0);
+  return friendly;
+}
+
+const sheet = new CSSStyleSheet();
+// Add general rule for circles but without the easing timiming
+sheet.insertRule(`
+
+
+
+  circle {
+    animation-name: moveX, moveY;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+  }
+`);
+// User setting that goes from 0.00001 to 0.025 default 0.0017
+const simplify = 0.0017;
+// User setting that goes from 2 to 5 default 3
+const round = 3;
+let index = 0;
+const relative = Math.min(width, height);
+
+// Create keyframes for each point
+for (const point of pointFrames) {
+  // Get max x and y values to get bounds for animation to move between
+  const xValues = point[0];
+  const yValues = point[1];
+  const maxX = Math.max(...xValues);
+  const maxY = Math.max(...yValues);
+  console.debug(maxX, maxY);
+}
+// Set animation curve to move between the bounds as in 0 and 1 on y (the easing curve)
+
+for (const point of pointFrames) {
+  const id = `point-${index}`;
+  // Starting position
+  const [xs, ys] = point;
+  const [x, y] = adjustToViewableSpace([xs[0], ys[0]], relative);
+  const circle = createCircle(id, x, y);
+  // Draw circle to screen
+  svg.appendChild(circle);
+
+  // Create path styles
+  const pathX = pointFrames.toPath(index, 0);
+  const pathY = pointFrames.toPath(index, 1);
+
+  const styleX = createPathStyle(pathX, `${id}-x`);
+  const styleY = createPathStyle(pathY, `${id}-y`);
+
+  sheet.insertRule(styleX);
+  sheet.insertRule(styleY);
+  sheet.insertRule(`
+    #${id} {
+      animation-timing-function: var(--${id}-x-easing), var(--${id}-y-easing);
+    }
+  `);
+  //   sheet.insertRule(`@keyframes moveX {
+  //     from {
+  //         cx: 0%;
+  //     }
+
+  //     to {
+  //         cx: 100%;
+  //     }
+  // }
+  //     `);
+
+  index++;
+}
+
+// const circle = createCircle("point-69");
+// svg.appendChild(circle);
+// sheet.replaceSync(friendly);
+document.adoptedStyleSheets.push(sheet);
 
 let frameIndex = 0;
 function draw() {
@@ -273,4 +359,4 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-requestAnimationFrame(draw);
+// requestAnimationFrame(draw);
