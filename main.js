@@ -209,7 +209,7 @@ export class Point2dFrames {
      */
     const map = (value) => (value - min) / (max - min + adjustment);
     const firstY = dimension[0];
-    const firstYAdjusted = map(firstY);
+    const firstYAdjusted = map(firstY + adjustment);
     const dimensionFrameCount = dimension.length;
     let path = `M 0,${firstYAdjusted}`;
     for (let frameIndex = 1; frameIndex < dimensionFrameCount; frameIndex++) {
