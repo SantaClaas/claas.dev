@@ -203,8 +203,13 @@ export class Point2dFrames {
     const min = Math.min(...dimension);
     // Adjust to always start at a 0.5 value for y
     const adjustment = -dimension[0] + adjustYOutput;
+    /**
+     * @param {number} value
+     * @returns {number}
+     */
+    const map = (value) => (value - min) / (max - min + adjustment);
     const firstY = dimension[0];
-    const firstYAdjusted = firstY + adjustment;
+    const firstYAdjusted = map(firstY);
     const dimensionFrameCount = dimension.length;
     let path = `M 0,${firstYAdjusted}`;
     for (let frameIndex = 1; frameIndex < dimensionFrameCount; frameIndex++) {
@@ -215,7 +220,7 @@ export class Point2dFrames {
       // Set animation curve to move between the bounds as in 0 and 1 on y (the easing curve)
       // Normalize y between 0 and 1
       //TODO needs to be adjusted from min-max to 0-1
-      const normalizedY = (adjustedY - min) / (max - min + adjustment);
+      const normalizedY = map(adjustedY);
 
       path += ` L ${normalizedX},${normalizedY}`;
     }
@@ -259,7 +264,8 @@ const simplify = 0.0017;
 const round = 3;
 let index = 0;
 const relative = Math.min(width, height);
-
+// Collect paths to draw later
+const paths = [];
 for (const point of pointFrames) {
   const id = `point${index}`;
 
@@ -319,6 +325,8 @@ for (const point of pointFrames) {
   const pathX = pointFrames.toEasingPath(index, 0);
   const pathY = pointFrames.toEasingPath(index, 1);
 
+  paths.push(pathX, pathY);
+
   const styleX = createPathStyle(pathX, `${id}-x`);
   const styleY = createPathStyle(pathY, `${id}-y`);
 
@@ -348,6 +356,34 @@ for (const point of pointFrames) {
 // svg.appendChild(circle);
 // sheet.replaceSync(friendly);
 document.adoptedStyleSheets.push(sheet);
+
+const section = document.createElement("section");
+section.style.display = "flex";
+section.style.gap = "1rem";
+section.style.flexWrap = "wrap";
+
+// Draw paths
+for (const path of paths) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.style.border = "0.1px solid gray";
+  svg.setAttribute("viewBox", "0 0 1 1");
+  svg.setAttribute("width", "10rem");
+  svg.setAttribute("height", "10rem");
+
+  const pathElement = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "path"
+  );
+  pathElement.setAttribute("stroke", "white");
+  pathElement.setAttribute("stroke-width", "0.01");
+  pathElement.setAttribute("fill", "none");
+  pathElement.setAttribute("d", path);
+  svg.appendChild(pathElement);
+
+  section.appendChild(svg);
+}
+
+document.body.appendChild(section);
 
 let frameIndex = 0;
 function draw() {
