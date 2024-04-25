@@ -207,16 +207,17 @@ export class Point2dFrames {
      * @param {number} value
      * @returns {number}
      */
-    const map = (value) => (value - min) / (max - min + adjustment);
+    // const map = (value) => (value - min) / (max - min + adjustment);
+    const map = (value) => (value - min) / (max - min);
     const firstY = dimension[0];
-    const firstYAdjusted = map(firstY + adjustment);
+    const firstYAdjusted = map(firstY);
     const dimensionFrameCount = dimension.length;
     let path = `M 0,${firstYAdjusted}`;
     for (let frameIndex = 1; frameIndex < dimensionFrameCount; frameIndex++) {
       // Normalize index to be between 0 and 1
       const normalizedX = frameIndex / dimensionFrameCount;
       const y = dimension[frameIndex];
-      const adjustedY = y + adjustment;
+      const adjustedY = y;
       // Set animation curve to move between the bounds as in 0 and 1 on y (the easing curve)
       // Normalize y between 0 and 1
       //TODO needs to be adjusted from min-max to 0-1
@@ -286,8 +287,8 @@ for (const point of pointFrames) {
     relative
   );
   // console.debug(maxX, maxY, adjustedMaxX, adjustedMaxY);
-  const keyframesXId = `moveX${id}`;
-  const keyframesYId = `moveY${id}`;
+  const keyframesXId = `moveX-${id}`;
+  const keyframesYId = `moveY-${id}`;
   //TODO fix: the max might not actually be 1
   const keyframesX = `
     @keyframes ${keyframesXId} {
