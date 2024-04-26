@@ -2,12 +2,6 @@ import {
   calculateProjectedPointsByFrame,
   calculateRotationFrames,
 } from "./functions.js";
-import {
-  processSvgData,
-  simplifyDouglasPeucker,
-  toFriendlyLinearCode,
-  toLinearSyntax,
-} from "./linear-easing-generator/index.js";
 import "./style.css";
 
 /** @typedef {number[][]} Matrix */
@@ -37,40 +31,6 @@ const observer = new ResizeObserver(([entry]) => {
 
 observer.observe(svg);
 
-// Create line element for second experiment
-// const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-// line.setAttribute("stroke", "white");
-// line.setAttribute("stroke-width", "1");
-// line.x1.baseVal.value = width / 2 - 10;
-// line.y1.baseVal.value = height / 2 - 10;
-// line.x2.baseVal.value = width / 2;
-// line.y2.baseVal.value = height / 2;
-
-// svg.appendChild(line);
-
-/**
- *
- * @param {string} id
- * @returns {SVGCircleElement}
- */
-function createCircle(id, x = 0, y = 0) {
-  // Create circle element for first experiment
-  const circle = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "circle"
-  );
-  circle.setAttribute("stroke", "white");
-  circle.setAttribute("stroke-width", "1");
-  circle.setAttribute("fill", "none");
-  circle.setAttribute("r", "10");
-  // Set id
-  circle.id = id;
-  circle.cx.baseVal.value = x ? x : width / 2;
-  circle.cy.baseVal.value = y ? y : height / 2;
-
-  return circle;
-}
-
 const rotationFrames = calculateRotationFrames();
 
 const projectedPointsByFrame = calculateProjectedPointsByFrame(rotationFrames);
@@ -92,50 +52,6 @@ export function pointToViewableInstruction(instruction, [x, y], relative) {
 export function adjustToViewableSpace([x, y], relative) {
   return [x * relative + width / 2, y * relative + height / 2];
 }
-
-/**
- *
- * @param {number} pointIndex
- * @returns {(param0: [number[], number], framePoints: Point2d[]) => [number[], number]}
- */
-function reducer(pointIndex) {
-  /**
-   *
-   * @param {[number[], number]} param0
-   * @param {Point2d[]} framePoints
-   * @returns {[number[], number]}
-   */
-  return ([deltas, previousX], framePoints) => {
-    // Get x of first point in every frame
-    const [x] = framePoints[pointIndex];
-
-    const delta = x - previousX;
-    deltas.push(delta);
-    return [deltas, x];
-  };
-}
-// const pointsCount = projectedPointsByFrame[0].length;
-// const framesCount = projectedPointsByFrame.length;
-
-// /**
-//  * @type {Point2d[][]}
-//  */
-// const pointFramesByPoint = new Array(pointsCount).fill([]);
-
-// for (const frame of projectedPointsByFrame) {
-//   // For each point
-//   for (let index = 0; index < frame.length; index++) {
-//     const point = frame[index];
-
-//     pointFramesByPoint[index].push(point);
-//   }
-// }
-
-// // Look at the deltas for the first point x coordinate over time
-// const [deltas] = projectedPointsByFrame.reduce(reducer(0), [[], 0]);
-
-// /** @type {Point2d[][]} */
-// const pointsOverTime = new Array(deltas.length).fill([]);
 
 /** @typedef {[x: number[], y: number[]]} Point2dOverTime */
 /** 2D points coordinates over time */
@@ -249,36 +165,9 @@ for (const frame of projectedPointsByFrame) {
   }
 }
 
-/**
- * @param {string} path
- * @param {string} easingName
- * @returns {string}
- */
-function createPathStyle(path, easingName) {
-  const data = processSvgData(path);
-  const simplified = simplifyDouglasPeucker(data, simplify);
-  const syntaxed = toLinearSyntax(simplified, round);
-  const friendly = toFriendlyLinearCode(syntaxed, easingName, 0);
-  return friendly;
-}
-
-const sheet = new CSSStyleSheet();
-// Add general rule for circles but without the easing timiming
-sheet.insertRule(`
-  circle {
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-  }
-`);
-// User setting that goes from 0.00001 to 0.025 default 0.0017
-const simplify = 0.0017;
-// User setting that goes from 2 to 5 default 3
-const round = 3;
-let index = 0;
 const relative = Math.min(width, height);
 // Collect paths to draw later
 const paths = [];
-// Generate lines
 /**
  *
  * @param {Point2dOverTime} point1
@@ -316,33 +205,6 @@ if (!point6) throw new Error("No point found");
 const point7 = pointFrames.at(7);
 if (!point7) throw new Error("No point found");
 
-/**
- *
- * @param {Point2dOverTime} point
- * @returns {[min: Point2d, max: Point2d]}
- */
-function getAdjustedPointBounds(point) {
-  const xValues = point[0];
-  const yValues = point[1];
-  const maxX = Math.max(...xValues);
-  const minX = Math.min(...xValues);
-  const maxY = Math.max(...yValues);
-  const minY = Math.min(...yValues);
-  const max = adjustToViewableSpace([maxX, maxY], relative);
-  const min = adjustToViewableSpace([minX, minY], relative);
-
-  return [min, max];
-}
-
-/**
- *
- * @param {number} index
- * @param {"x" | "y"} dimension
- * @returns {string}
- */
-function getPointEasingVariableName(index, dimension) {
-  return `--point-${index}-${dimension}-easing`;
-}
 /**
  *
  * @param {"x1" | "y1" | "x2"| "y2"} attribute
@@ -505,8 +367,6 @@ for (let index = 0; index < pointFrames.length; index++) {
   paths.push(pathX, pathY);
 }
 
-document.adoptedStyleSheets.push(sheet);
-
 const section = document.createElement("section");
 section.style.display = "flex";
 section.style.gap = "1rem";
@@ -534,55 +394,3 @@ for (const path of paths) {
 }
 
 document.body.appendChild(section);
-
-let frameIndex = 0;
-function draw() {
-  const projectedPoints = projectedPointsByFrame[frameIndex];
-  // Translate points into viewable space that might have changed since last frame
-  const relative = Math.min(width, height);
-
-  /**
-   *
-   * @param {"M" | "L"} instruction
-   * @param {Point2d} point
-   * @returns
-   */
-  const toInstruction = (instruction, point) =>
-    pointToViewableInstruction(instruction, point, relative);
-
-  const path =
-    // Move to first point
-    // Draw front plane
-    toInstruction("M", projectedPoints[0]) +
-    toInstruction("L", projectedPoints[1]) +
-    toInstruction("L", projectedPoints[2]) +
-    toInstruction("L", projectedPoints[3]) +
-    toInstruction("L", projectedPoints[0]) +
-    // Draw back plane
-    toInstruction("M", projectedPoints[4]) +
-    toInstruction("L", projectedPoints[5]) +
-    toInstruction("L", projectedPoints[6]) +
-    toInstruction("L", projectedPoints[7]) +
-    toInstruction("L", projectedPoints[4]) +
-    // Connect points of two plains with lines
-    toInstruction("M", projectedPoints[0]) +
-    toInstruction("L", projectedPoints[4]) +
-    toInstruction("M", projectedPoints[1]) +
-    toInstruction("L", projectedPoints[5]) +
-    toInstruction("M", projectedPoints[2]) +
-    toInstruction("L", projectedPoints[6]) +
-    toInstruction("M", projectedPoints[3]) +
-    toInstruction("L", projectedPoints[7]);
-
-  pathElement.setAttribute("d", path);
-
-  // Increase frame index
-  frameIndex++;
-  if (frameIndex === rotationFrames.length) {
-    frameIndex = 0;
-  }
-
-  requestAnimationFrame(draw);
-}
-
-// requestAnimationFrame(draw);
