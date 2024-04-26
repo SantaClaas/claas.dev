@@ -299,52 +299,201 @@ function createLine(point1, point2) {
   line.y2.baseVal.value = y2;
   return line;
 }
-const point1 = pointFrames.at(0);
+const point0 = pointFrames.at(0);
+if (!point0) throw new Error("No point found");
+const point1 = pointFrames.at(1);
 if (!point1) throw new Error("No point found");
-const point2 = pointFrames.at(1);
+const point2 = pointFrames.at(2);
 if (!point2) throw new Error("No point found");
-const point3 = pointFrames.at(2);
+const point3 = pointFrames.at(3);
 if (!point3) throw new Error("No point found");
-const point4 = pointFrames.at(3);
+const point4 = pointFrames.at(4);
 if (!point4) throw new Error("No point found");
-const point5 = pointFrames.at(4);
+const point5 = pointFrames.at(5);
 if (!point5) throw new Error("No point found");
-const point6 = pointFrames.at(5);
+const point6 = pointFrames.at(6);
 if (!point6) throw new Error("No point found");
-const point7 = pointFrames.at(6);
+const point7 = pointFrames.at(7);
 if (!point7) throw new Error("No point found");
-const point8 = pointFrames.at(7);
-if (!point8) throw new Error("No point found");
+
+/**
+ *
+ * @param {Point2dOverTime} point
+ * @returns {[min: Point2d, max: Point2d]}
+ */
+function getAdjustedPointBounds(point) {
+  const xValues = point[0];
+  const yValues = point[1];
+  const maxX = Math.max(...xValues);
+  const minX = Math.min(...xValues);
+  const maxY = Math.max(...yValues);
+  const minY = Math.min(...yValues);
+  const max = adjustToViewableSpace([maxX, maxY], relative);
+  const min = adjustToViewableSpace([minX, minY], relative);
+
+  return [min, max];
+}
+
+/**
+ *
+ * @param {number} index
+ * @param {"x" | "y"} dimension
+ * @returns {string}
+ */
+function getPointEasingVariableName(index, dimension) {
+  return `--point-${index}-${dimension}-easing`;
+}
+
+/**
+ * @param {Point2dFrames} pointFrames
+ */
+function* crateEasingPathStyles(pointFrames) {
+  for (let index = 0; index < pointFrames.length; index++) {
+    // Create path styles
+    const pathX = pointFrames.toEasingPath(index, 0);
+    const pathY = pointFrames.toEasingPath(index, 1);
+
+    yield createPathStyle(pathX, getPointEasingVariableName(index, "x"));
+    yield createPathStyle(pathY, getPointEasingVariableName(index, "y"));
+  }
+}
+
+/**
+ * @param {Point2dFrames} pointFrames
+ */
+function* createAnimationStyles(pointFrames) {
+  let index = 0;
+  for (const point of pointFrames) {
+    let [[minX, minY], [maxX, maxY]] = getAdjustedPointBounds(point);
+
+    const x1KeyframesName = `move-point-${index}-as-x1`;
+    const y1KeyframesName = `move-point-${index}-as-y1`;
+    const x2KeyframesName = `move-point-${index}-as-x2`;
+    const y2KeyframesName = `move-point-${index}-as-y2`;
+
+    // "as 1" means it is the first point in the line. "as 2" means it is the second point in the line
+
+    yield `
+      @keyframes ${x1KeyframesName} {
+        from {
+          x1: ${minX};
+          cx: ${minX};
+          stroke: red;
+        }
+        to {
+          x1: ${maxX};
+          cx: ${maxX};
+          stroke: blue;
+        }
+      }`;
+
+    yield `
+      @keyframes ${y1KeyframesName} {
+        from {
+          y1: ${minY};
+        }
+        to {
+          y1: ${maxY};
+        }
+      }`;
+
+    yield `
+      @keyframes ${x2KeyframesName} {
+        from {
+          x2: ${minX};
+        }
+        to {
+          x2: ${maxX};
+        }
+      }`;
+
+    yield `
+      @keyframes ${y2KeyframesName} {
+        from {
+          y2: ${minY};
+        }
+        to {
+          y2: ${maxY};
+        }
+      }`;
+
+    const xEasingName = getPointEasingVariableName(index, "x");
+    const yEasingName = getPointEasingVariableName(index, "y");
+
+    yield `
+      .point-${index}-as-xy1 {
+        animation-name: ${x1KeyframesName}, ${y1KeyframesName};
+      }`;
+
+    yield `
+    .point-${index}-as-xy2 {
+      animation-name: ${x2KeyframesName}, ${y2KeyframesName};
+    }`;
+
+    yield `
+    .point-${index}-as-xy1, .point-${index}-as-xy2 {
+      animation-timing-function: var(${xEasingName}), var(${yEasingName});
+    }`;
+
+    index++;
+  }
+}
+
+const easingPathStyles = crateEasingPathStyles(pointFrames);
+const animationStyles = createAnimationStyles(pointFrames);
+// It's probably better to insert all rules at once with a big string
+// but I backed myself into a corner with how I designed the functions
+// and I don't feel like correcting it right now
+for (const style of easingPathStyles) {
+  sheet.insertRule(style);
+}
+for (const style of animationStyles) {
+  sheet.insertRule(style);
+}
 
 // Could abstract this repetitive drawing into a loop but this is clearer to understand
 // Draw front plane
-let line = createLine(point1, point2);
+// Direction of lines does not matter so use 0,2,4,6 for point1 and 1,3,5,7 for point2
+// This way the animation can use x1 and y1 for the first point and x2 and y2 for the second point
+let line = createLine(point0, point1);
+line.classList.add("point-0-as-xy1", "point-1-as-xy2");
+svg.appendChild(line);
+line = createLine(point2, point1);
+line.classList.add("point-2-as-xy1", "point-1-as-xy2");
 svg.appendChild(line);
 line = createLine(point2, point3);
+line.classList.add("point-2-as-xy1", "point-3-as-xy2");
 svg.appendChild(line);
-line = createLine(point3, point4);
-svg.appendChild(line);
-line = createLine(point4, point1);
+line = createLine(point0, point3);
+line.classList.add("point-0-as-xy1", "point-3-as-xy2");
 svg.appendChild(line);
 
 // Draw back plane
-line = createLine(point5, point6);
+line = createLine(point4, point5);
+line.classList.add("point-4-as-xy1", "point-5-as-xy2");
+svg.appendChild(line);
+line = createLine(point6, point5);
+line.classList.add("point-6-as-xy1", "point-5-as-xy2");
 svg.appendChild(line);
 line = createLine(point6, point7);
+line.classList.add("point-6-as-xy1", "point-7-as-xy2");
 svg.appendChild(line);
-line = createLine(point7, point8);
-svg.appendChild(line);
-line = createLine(point8, point5);
+line = createLine(point4, point7);
+line.classList.add("point-4-as-xy1", "point-7-as-xy2");
 svg.appendChild(line);
 
 // Connect points of two plains with lines
+line = createLine(point0, point4);
+line.classList.add("point-0-as-xy1", "point-4-as-xy2");
+svg.appendChild(line);
 line = createLine(point1, point5);
+line.classList.add("point-1-as-xy1", "point-5-as-xy2");
 svg.appendChild(line);
 line = createLine(point2, point6);
+line.classList.add("point-2-as-xy1", "point-6-as-xy2");
 svg.appendChild(line);
 line = createLine(point3, point7);
-svg.appendChild(line);
-line = createLine(point4, point8);
+line.classList.add("point-3-as-xy1", "point-7-as-xy2");
 svg.appendChild(line);
 
 for (const point of pointFrames) {
@@ -352,20 +501,9 @@ for (const point of pointFrames) {
 
   // Create keyframes for each point
   // Get max x and y values to get bounds for animation to move between
-  const xValues = point[0];
-  const yValues = point[1];
-  const maxX = Math.max(...xValues);
-  const minX = Math.min(...xValues);
-  const maxY = Math.max(...yValues);
-  const minY = Math.min(...yValues);
-  const [adjustedMaxX, adjustedMaxY] = adjustToViewableSpace(
-    [maxX, maxY],
-    relative
-  );
-  const [adjustedMinX, adjustedMinY] = adjustToViewableSpace(
-    [minX, minY],
-    relative
-  );
+  const [[adjustedMinX, adjustedMinY], [adjustedMaxX, adjustedMaxY]] =
+    getAdjustedPointBounds(point);
+
   const keyframesXId = `moveX-${id}`;
   const keyframesYId = `moveY-${id}`;
   const keyframesX = `
@@ -405,15 +543,13 @@ for (const point of pointFrames) {
 
   paths.push(pathX, pathY);
 
-  const styleX = createPathStyle(pathX, `${id}-x`);
-  const styleY = createPathStyle(pathY, `${id}-y`);
+  const xEasingName = getPointEasingVariableName(index, "x");
+  const yEasingName = getPointEasingVariableName(index, "y");
 
-  sheet.insertRule(styleX);
-  sheet.insertRule(styleY);
   sheet.insertRule(`
     #${id} {
       animation-name: ${keyframesXId}, ${keyframesYId};
-      animation-timing-function: var(--${id}-x-easing), var(--${id}-y-easing);
+      animation-timing-function: var(${xEasingName}), var(${yEasingName});
     }
   `);
 

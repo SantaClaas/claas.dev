@@ -233,7 +233,7 @@ export function toFriendlyLinearCode(parts, name, idealDuration) {
   if (parts.length === 0) return "";
 
   let outputStart = ":root {\n";
-  let linearStart = `  --${name}-easing: linear(`;
+  let linearStart = `  ${name}: linear(`;
   let linearEnd = ");";
   let outputEnd = "\n}";
   let lines = [];
