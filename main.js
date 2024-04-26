@@ -343,112 +343,28 @@ function getAdjustedPointBounds(point) {
 function getPointEasingVariableName(index, dimension) {
   return `--point-${index}-${dimension}-easing`;
 }
-
 /**
- * @param {Point2dFrames} pointFrames
+ *
+ * @param {"x1" | "y1" | "x2"| "y2"} attribute
+ * @param {Point2dOverTime} point
+ * @param {number} dimension
  */
-function* crateEasingPathStyles(pointFrames) {
-  for (let index = 0; index < pointFrames.length; index++) {
-    // Create path styles
-    const pathX = pointFrames.toEasingPath(index, 0);
-    const pathY = pointFrames.toEasingPath(index, 1);
+function createAnimate(attribute, point, dimension) {
+  const animate = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "animate"
+  );
+  //x * relative + width / 2
+  const spaceDimension = dimension === 0 ? width : height;
+  const values = point[dimension]
+    .map((value) => value * relative + spaceDimension / 2)
+    .join(";");
+  animate.setAttribute("attributeName", attribute);
+  animate.setAttribute("dur", "10s");
+  animate.setAttribute("repeatCount", "indefinite");
+  animate.setAttribute("values", values);
 
-    yield createPathStyle(pathX, getPointEasingVariableName(index, "x"));
-    yield createPathStyle(pathY, getPointEasingVariableName(index, "y"));
-  }
-}
-
-/**
- * @param {Point2dFrames} pointFrames
- */
-function* createAnimationStyles(pointFrames) {
-  let index = 0;
-  for (const point of pointFrames) {
-    let [[minX, minY], [maxX, maxY]] = getAdjustedPointBounds(point);
-
-    const x1KeyframesName = `move-point-${index}-as-x1`;
-    const y1KeyframesName = `move-point-${index}-as-y1`;
-    const x2KeyframesName = `move-point-${index}-as-x2`;
-    const y2KeyframesName = `move-point-${index}-as-y2`;
-
-    // "as 1" means it is the first point in the line. "as 2" means it is the second point in the line
-
-    yield `
-      @keyframes ${x1KeyframesName} {
-        from {
-          x1: ${minX};
-          cx: ${minX};
-          stroke: red;
-        }
-        to {
-          x1: ${maxX};
-          cx: ${maxX};
-          stroke: blue;
-        }
-      }`;
-
-    yield `
-      @keyframes ${y1KeyframesName} {
-        from {
-          y1: ${minY};
-        }
-        to {
-          y1: ${maxY};
-        }
-      }`;
-
-    yield `
-      @keyframes ${x2KeyframesName} {
-        from {
-          x2: ${minX};
-        }
-        to {
-          x2: ${maxX};
-        }
-      }`;
-
-    yield `
-      @keyframes ${y2KeyframesName} {
-        from {
-          y2: ${minY};
-        }
-        to {
-          y2: ${maxY};
-        }
-      }`;
-
-    const xEasingName = getPointEasingVariableName(index, "x");
-    const yEasingName = getPointEasingVariableName(index, "y");
-
-    yield `
-      .point-${index}-as-xy1 {
-        animation-name: ${x1KeyframesName}, ${y1KeyframesName};
-      }`;
-
-    yield `
-    .point-${index}-as-xy2 {
-      animation-name: ${x2KeyframesName}, ${y2KeyframesName};
-    }`;
-
-    yield `
-    .point-${index}-as-xy1, .point-${index}-as-xy2 {
-      animation-timing-function: var(${xEasingName}), var(${yEasingName});
-    }`;
-
-    index++;
-  }
-}
-
-const easingPathStyles = crateEasingPathStyles(pointFrames);
-const animationStyles = createAnimationStyles(pointFrames);
-// It's probably better to insert all rules at once with a big string
-// but I backed myself into a corner with how I designed the functions
-// and I don't feel like correcting it right now
-for (const style of easingPathStyles) {
-  sheet.insertRule(style);
-}
-for (const style of animationStyles) {
-  sheet.insertRule(style);
+  return animate;
 }
 
 // Could abstract this repetitive drawing into a loop but this is clearer to understand
@@ -456,109 +372,139 @@ for (const style of animationStyles) {
 // Direction of lines does not matter so use 0,2,4,6 for point1 and 1,3,5,7 for point2
 // This way the animation can use x1 and y1 for the first point and x2 and y2 for the second point
 let line = createLine(point0, point1);
-line.classList.add("point-0-as-xy1", "point-1-as-xy2");
+// Add animate object for every x and y
+let animateX1 = createAnimate("x1", point0, 0);
+let animateY1 = createAnimate("y1", point0, 1);
+let animateX2 = createAnimate("x2", point1, 0);
+let animateY2 = createAnimate("y2", point1, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point2, point1);
-line.classList.add("point-2-as-xy1", "point-1-as-xy2");
+animateX1 = createAnimate("x1", point2, 0);
+animateY1 = createAnimate("y1", point2, 1);
+animateX2 = createAnimate("x2", point1, 0);
+animateY2 = createAnimate("y2", point1, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point2, point3);
-line.classList.add("point-2-as-xy1", "point-3-as-xy2");
+animateX1 = createAnimate("x1", point2, 0);
+animateY1 = createAnimate("y1", point2, 1);
+animateX2 = createAnimate("x2", point3, 0);
+animateY2 = createAnimate("y2", point3, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point0, point3);
-line.classList.add("point-0-as-xy1", "point-3-as-xy2");
+animateX1 = createAnimate("x1", point0, 0);
+animateY1 = createAnimate("y1", point0, 1);
+animateX2 = createAnimate("x2", point3, 0);
+animateY2 = createAnimate("y2", point3, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 
 // Draw back plane
 line = createLine(point4, point5);
-line.classList.add("point-4-as-xy1", "point-5-as-xy2");
+animateX1 = createAnimate("x1", point4, 0);
+animateY1 = createAnimate("y1", point4, 1);
+animateX2 = createAnimate("x2", point5, 0);
+animateY2 = createAnimate("y2", point5, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point6, point5);
-line.classList.add("point-6-as-xy1", "point-5-as-xy2");
+animateX1 = createAnimate("x1", point6, 0);
+animateY1 = createAnimate("y1", point6, 1);
+animateX2 = createAnimate("x2", point5, 0);
+animateY2 = createAnimate("y2", point5, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point6, point7);
-line.classList.add("point-6-as-xy1", "point-7-as-xy2");
+animateX1 = createAnimate("x1", point6, 0);
+animateY1 = createAnimate("y1", point6, 1);
+animateX2 = createAnimate("x2", point7, 0);
+animateY2 = createAnimate("y2", point7, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point4, point7);
-line.classList.add("point-4-as-xy1", "point-7-as-xy2");
+animateX1 = createAnimate("x1", point4, 0);
+animateY1 = createAnimate("y1", point4, 1);
+animateX2 = createAnimate("x2", point7, 0);
+animateY2 = createAnimate("y2", point7, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 
 // Connect points of two plains with lines
 line = createLine(point0, point4);
-line.classList.add("point-0-as-xy1", "point-4-as-xy2");
+animateX1 = createAnimate("x1", point0, 0);
+animateY1 = createAnimate("y1", point0, 1);
+animateX2 = createAnimate("x2", point4, 0);
+animateY2 = createAnimate("y2", point4, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point1, point5);
-line.classList.add("point-1-as-xy1", "point-5-as-xy2");
+animateX1 = createAnimate("x1", point1, 0);
+animateY1 = createAnimate("y1", point1, 1);
+animateX2 = createAnimate("x2", point5, 0);
+animateY2 = createAnimate("y2", point5, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point2, point6);
-line.classList.add("point-2-as-xy1", "point-6-as-xy2");
+animateX1 = createAnimate("x1", point2, 0);
+animateY1 = createAnimate("y1", point2, 1);
+animateX2 = createAnimate("x2", point6, 0);
+animateY2 = createAnimate("y2", point6, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 line = createLine(point3, point7);
-line.classList.add("point-3-as-xy1", "point-7-as-xy2");
+animateX1 = createAnimate("x1", point3, 0);
+animateY1 = createAnimate("y1", point3, 1);
+animateX2 = createAnimate("x2", point7, 0);
+animateY2 = createAnimate("y2", point7, 1);
+line.appendChild(animateX1);
+line.appendChild(animateY1);
+line.appendChild(animateX2);
+line.appendChild(animateY2);
 svg.appendChild(line);
 
-for (const point of pointFrames) {
-  const id = `point-${index}`;
-
-  // Create keyframes for each point
-  // Get max x and y values to get bounds for animation to move between
-  const [[adjustedMinX, adjustedMinY], [adjustedMaxX, adjustedMaxY]] =
-    getAdjustedPointBounds(point);
-
-  const keyframesXId = `moveX-${id}`;
-  const keyframesYId = `moveY-${id}`;
-  const keyframesX = `
-    @keyframes ${keyframesXId} {
-      from {
-        cx: ${adjustedMinX};
-      }
-      to {
-        cx: ${adjustedMaxX};
-      }
-    }`;
-
-  // console.debug(keyframesX);
-
-  const keyframesY = `
-    @keyframes ${keyframesYId} {
-      from {
-        cy: ${adjustedMinY};
-      }
-      to {
-        cy: ${adjustedMaxY};
-      }
-    }`;
-  sheet.insertRule(keyframesX);
-  sheet.insertRule(keyframesY);
-
-  // Starting position
-  const [xs, ys] = point;
-  const [x, y] = adjustToViewableSpace([xs[0], ys[0]], relative);
-  const circle = createCircle(id, x, y);
-  // Draw circle to screen
-  svg.appendChild(circle);
-
+for (let index = 0; index < pointFrames.length; index++) {
   // Create path styles
   const pathX = pointFrames.toEasingPath(index, 0);
   const pathY = pointFrames.toEasingPath(index, 1);
 
   paths.push(pathX, pathY);
-
-  const xEasingName = getPointEasingVariableName(index, "x");
-  const yEasingName = getPointEasingVariableName(index, "y");
-
-  sheet.insertRule(`
-    #${id} {
-      animation-name: ${keyframesXId}, ${keyframesYId};
-      animation-timing-function: var(${xEasingName}), var(${yEasingName});
-    }
-  `);
-
-  index++;
 }
 
-// const circle = createCircle("point-69");
-// svg.appendChild(circle);
-// sheet.replaceSync(friendly);
 document.adoptedStyleSheets.push(sheet);
 
 const section = document.createElement("section");
