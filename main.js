@@ -147,6 +147,18 @@ export class Point2dFrames {
    */
   #points;
 
+  get length() {
+    return this.#points.length;
+  }
+
+  /**
+   * @param {number} index
+   * @returns {Point2dOverTime | undefined}
+   */
+  at(index) {
+    return this.#points.at(index);
+  }
+
   get framesCount() {
     return this.#points[0][0].length;
   }
@@ -266,6 +278,75 @@ let index = 0;
 const relative = Math.min(width, height);
 // Collect paths to draw later
 const paths = [];
+// Generate lines
+/**
+ *
+ * @param {Point2dOverTime} point1
+ * @param {Point2dOverTime} point2
+ */
+function createLine(point1, point2) {
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line.setAttribute("stroke", "white");
+  line.setAttribute("stroke-width", "1");
+  line.setAttribute("fill", "none");
+  const [xs1, ys1] = point1;
+  let [x1, y1] = adjustToViewableSpace([xs1[0], ys1[0]], relative);
+  line.x1.baseVal.value = x1;
+  line.y1.baseVal.value = y1;
+  const [xs2, ys2] = point2;
+  let [x2, y2] = adjustToViewableSpace([xs2[0], ys2[0]], relative);
+  line.x2.baseVal.value = x2;
+  line.y2.baseVal.value = y2;
+  return line;
+}
+const point1 = pointFrames.at(0);
+if (!point1) throw new Error("No point found");
+const point2 = pointFrames.at(1);
+if (!point2) throw new Error("No point found");
+const point3 = pointFrames.at(2);
+if (!point3) throw new Error("No point found");
+const point4 = pointFrames.at(3);
+if (!point4) throw new Error("No point found");
+const point5 = pointFrames.at(4);
+if (!point5) throw new Error("No point found");
+const point6 = pointFrames.at(5);
+if (!point6) throw new Error("No point found");
+const point7 = pointFrames.at(6);
+if (!point7) throw new Error("No point found");
+const point8 = pointFrames.at(7);
+if (!point8) throw new Error("No point found");
+
+// Could abstract this repetitive drawing into a loop but this is clearer to understand
+// Draw front plane
+let line = createLine(point1, point2);
+svg.appendChild(line);
+line = createLine(point2, point3);
+svg.appendChild(line);
+line = createLine(point3, point4);
+svg.appendChild(line);
+line = createLine(point4, point1);
+svg.appendChild(line);
+
+// Draw back plane
+line = createLine(point5, point6);
+svg.appendChild(line);
+line = createLine(point6, point7);
+svg.appendChild(line);
+line = createLine(point7, point8);
+svg.appendChild(line);
+line = createLine(point8, point5);
+svg.appendChild(line);
+
+// Connect points of two plains with lines
+line = createLine(point1, point5);
+svg.appendChild(line);
+line = createLine(point2, point6);
+svg.appendChild(line);
+line = createLine(point3, point7);
+svg.appendChild(line);
+line = createLine(point4, point8);
+svg.appendChild(line);
+
 for (const point of pointFrames) {
   const id = `point-${index}`;
 
