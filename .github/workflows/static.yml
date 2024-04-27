@@ -41,9 +41,12 @@ jobs:
         run: pnpm install
       - name: 👷 Build
         run: pnpm build
-        # No tests
-        #- name: Test
-        #  run: pnpm test
+      # No tests
+      #- name: Test
+      #  run: pnpm test
+      # Copy index.html to 404.html to serve the same file when a file is not found. This fixes GitHub Pages routing issues
+      - name: 🚷 Show index instead of 404
+        run: cp ./dist/index.html ./dist/404.html
       - name: 🆙 Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
