@@ -32,7 +32,7 @@ jobs:
           node-version: lts/*
           cache: pnpm
       - name: 🛬 Install dependencies
-        run: pnpm ci
+        run: pnpm install
       - name: 👷 Build
         run: pnpm build
         # No tests
