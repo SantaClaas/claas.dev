@@ -1,0 +1,60 @@
+name: Test, Build, Publish
+
+on:
+  # Workflow dispatch only works when version has not been published yet
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    tags:
+      # Publish npm package when a new tag is pushed
+      - "*.*.*"
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: solid-start
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - name: 🦭 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - name: 🛬 Install dependencies
+        run: pnpm ci
+      - name: 👷 Build
+        run: pnpm build
+        # No tests
+        #- name: Test
+        #  run: pnpm test
+      - name: 🆙 Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    # Only start after build
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v4
+      - name: 🚨 Setup Pages
+        uses: actions/configure-pages@v5
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
