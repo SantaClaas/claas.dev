@@ -1,0 +1,21 @@
+{
+  "name": "claas.dev",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve"
+  },
+  "keywords": [],
+  "author": "claas <hello@claas.dev>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@11ty/eleventy": "3.0.0-alpha.9",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^7.0.1",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  }
+}
