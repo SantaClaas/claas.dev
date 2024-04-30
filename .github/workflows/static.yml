@@ -46,7 +46,7 @@ jobs:
       #  run: pnpm test
       # Copy index.html to 404.html to serve the same file when a file is not found. This fixes GitHub Pages routing issues
       - name: 🚷 Show index instead of 404
-        run: cp ./eleventy/_site/index.html ./eleventy/_site/404.html
+        run: cp ./_site/index.html ./_site/404.html
       - name: 🆙 Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
