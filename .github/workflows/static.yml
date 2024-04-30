@@ -24,7 +24,7 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: solid-start
+        working-directory: eleventy
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout
@@ -46,11 +46,11 @@ jobs:
       #  run: pnpm test
       # Copy index.html to 404.html to serve the same file when a file is not found. This fixes GitHub Pages routing issues
       - name: 🚷 Show index instead of 404
-        run: cp .output/public/index.html .output/public/404.html
+        run: cp .eleventy/_site/index.html .eleventy/_site/404.html
       - name: 🆙 Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: solid-start/.output/public
+          path: eleventy/_site
 
   deploy:
     # Only start after build
