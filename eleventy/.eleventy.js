@@ -7,12 +7,15 @@ import postcss from "postcss";
 // Can be async too
 /** @param {import("@11ty/eleventy/src/UserConfig").default} configuration */
 export default function (configuration) {
-  // configuration.addWatchTarget("./index.css");
-  // configuration.addAsyncFilter("postcss", postcssFilter);
-
   configuration.addTemplateFormats("css");
   configuration.addExtension("css", {
     outputFileExtension: "css",
+
+    /**
+     * @param {string} content
+     * @param {string} path
+     * @returns {Promise<string>}
+     */
     async compile(content, path) {
       // Processing
       // Only use central CSS file in which everything is imported
