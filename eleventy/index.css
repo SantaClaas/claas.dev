@@ -5,6 +5,7 @@
 @layer base {
   :root {
     /* Just some fun base styles that are global */
-    @apply bg-light-surface text-light-on-surface caret-light-primary accent-light-primary selection:bg-light-primary selection:text-light-on-primary;
+    /* surface container color is the background of the page to have it as background for the navigation elements */
+    @apply bg-light-surface-container text-light-on-surface caret-light-primary accent-light-primary selection:bg-light-primary selection:text-light-on-primary;
   }
 }

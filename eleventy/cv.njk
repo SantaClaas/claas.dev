@@ -55,15 +55,23 @@ layout: layout.html
     }
 </script>
 
-<header class="grid grid-rows-[auto_1fr] [margin-block-end:1.75rem] [margin-block-start:1.25rem]">
-    <hgroup>
-        <h1 class="text-display-lg">Claas Möhlmann</h1>
-        <p class="text-display-md">Curriculum Vitae</p>
-    </hgroup>
+<header class="grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4">
 
-    <menu class="flex justify-end row-start-1 gap-6 trailing-icons surface-container">
+    <h1 class="px-4 md:px-6 pb-7 text-headline-md">Curriculum Vitae</h1>
+
+    <!-- Top app bar (large) -->
+    <menu
+        class="flex w-full h-12 col-span-2 row-start-1 px-1 pt-2 md:px-3 place-self-end trailing-icons text-light-on-surface-variant">
+        <li class="grow">
+            <a href="/" class="inline-block p-3 size-12 grow">
+                <span class="sr-only">Back</span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                </svg>
+            </a>
+        </li>
         <li>
-            <button onmousedown="shareCv()">
+            <button onmousedown="shareCv()" class="p-3 size-12">
                 <span class="sr-only">
                     Share
                 </span>
@@ -74,7 +82,7 @@ layout: layout.html
             </button>
         </li>
         <li>
-            <button onmousedown="print()">
+            <button onmousedown="print()" class="p-3 size-12">
                 <span class="sr-only">
                     Print
                 </span>
@@ -87,10 +95,14 @@ layout: layout.html
     </menu>
 </header>
 
-<main class="grid p-4 rounded-extra-large bg-light-surface-container text-body-lg grid-cols-[auto_1fr]">
+<main class="mx-4 max-w-max md:mx-6 grid p-4 rounded-extra-large bg-light-surface text-body-lg grid-cols-[auto_1fr]">
 
-    <article class="grid grid-cols-1 col-span-2 items-center [margin-block-end:1.5rem] md:grid-cols-subgrid">
-        <img class="object-cover w-40 h-48 rounded-large" src="/images/claas.jpg">
+    <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid">
+        <img class="object-cover h-48 rounded-extra-large" src="/images/claas.jpg">
+        <hgroup>
+            <h1 class="text-display-md">Claas Möhlmann </h1>
+            <p class="text-display-sm">(he/him)</p>
+        </hgroup>
         <address class="grid grid-cols-[auto_1fr] gap-x-4 fill-current text-light-primary not-italic
             *:grid *:grid-cols-subgrid *:col-span-2  *:min-h-12 *:items-center">
             <a href="mailto:hireme@claas.dev">
