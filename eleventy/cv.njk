@@ -11,18 +11,19 @@ layout: layout.html
     </h2>
     {% for step in steps %}
     <section
-        class="col-span-2 grid grid-rows-[auto_auto_auto] [padding-block:1rem] border-s border-light-outline-variant ps-3">
+        class="col-span-2 md:grid-cols-subgrid grid grid-rows-[auto_auto_auto] [padding-block:1rem] border-s border-light-outline-variant ps-3">
 
         {% if step.activity.title %}
-        <hgroup class="activity">
+        <hgroup class="md:col-start-2">
             <h3 class="text-title-lg">{{ step.activity.title }}</h3>
             <p class="text-title-md">{{ step.activity.subjectArea }}</p>
         </hgroup>
         {% else %}
-        <h3 class="title-large activity">{{ step.activity }}</h3>
+        <h3 class="text-title-lg md:col-start-2">{{ step.activity }}</h3>
         {% endif %}
 
-        <p class="row-start-1 text-body-md text-light-on-surface-variant">
+        <p
+            class="row-start-1 align-baseline md:leading-7 md:row-start-1 md:col-start-1 text-body-md text-light-on-surface-variant">
             {% if step.since %}
             Since <time datetime="{{ step.since.date }}">{{ step.since.label }}</time>
             {% elif step.from and step.to %}
@@ -30,8 +31,8 @@ layout: layout.html
             &ndash; <time datetime="{{ step.to.date }}">{{ step.to.label }}</time>
             {% endif %}
         </p>
-        <p class="organization">{{ step.at }}</p>
-        <p class="city">{{ step.in.city }}, {{ step.in.country }}</p>
+        <p class="md:col-start-2">{{ step.at }}</p>
+        <p class="md:col-start-2">{{ step.in.city }}, {{ step.in.country }}</p>
     </section>
     {% endfor %}
 </article>
