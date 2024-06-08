@@ -1,0 +1,51 @@
+[
+  {
+    "activity": "Software Developer",
+    "from": {
+      "label": "February 2021",
+      "date": "2021-02"
+    },
+    "to": {
+      "label": "October 2022",
+      "date": "2022-10"
+    },
+    "at": "ck.solution GmbH",
+    "in": {
+      "city": "Ibbenbüren",
+      "country": "Germany"
+    }
+  },
+  {
+    "activity": "Software Development Apprentice",
+    "from": {
+      "label": "March 2019",
+      "date": "2019-03"
+    },
+    "to": {
+      "label": "February 2021",
+      "date": "2021-02"
+    },
+    "at": "ck.solution GmbH",
+    "in": {
+      "city": "Ibbenbüren",
+      "country": "Germany"
+    }
+  },
+  {
+    "activity": "Software Development Apprentice",
+    "from": {
+      "label": "August 2018",
+      "date": "2018-08"
+    },
+    "to": {
+      "label": "March 2019",
+      "date": "2019-03"
+    },
+    "at": "All about Ashley GmbH",
+    "in": {
+      "city": "Ibbenbüren",
+      "country": "Germany"
+    },
+    "note": "All about Ashley GmbH went bankrupt early 2019. I continued my training at ck.solution GmbH."
+  }
+]

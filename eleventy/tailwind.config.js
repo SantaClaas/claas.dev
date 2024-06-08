@@ -1,7 +1,8 @@
 import materialTailwind from "@claas.dev/material-tailwind";
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./main.js"],
+  content: ["./**/*.html", "./main.js", "./cv.njk", "!./_site/**/*"],
+
   theme: {
     extend: {},
   },

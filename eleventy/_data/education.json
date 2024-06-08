@@ -1,0 +1,69 @@
+[
+  {
+    "activity": {
+      "title": "B.Sc. Digital Technologies & Coding",
+      "fieldOfStudy": "Web Development"
+    },
+    "since": {
+      "label": "October 2022",
+      "date": "2022-10"
+    },
+    "at": "Macromedia University of Applied Sciences",
+    "in": {
+      "city": "Cologne",
+      "country": "Germany"
+    }
+  },
+  {
+    "activity": {
+      "title": "Computer Science Expert",
+      "subjectArea": "Software Development",
+      "note": "Part of the German Vocational/Dual Training System"
+    },
+    "from": {
+      "label": "August 2018",
+      "date": "2018-08"
+    },
+    "to": {
+      "label": "February 2021",
+      "date": "2021-02"
+    },
+    "at": "ck.solution GmbH",
+    "in": {
+      "city": "Ibbenbüren",
+      "country": "Germany"
+    }
+  },
+  {
+    "activity": "B.Sc. Technical Computer Science",
+    "from": {
+      "label": "October 2017",
+      "date": "2017-10"
+    },
+    "to": {
+      "label": "August 2018",
+      "date": "2018-08"
+    },
+    "at": "University of Twente",
+    "in": {
+      "city": "Enschede",
+      "country": "Netherlands"
+    }
+  },
+  {
+    "activity": "General Qualification for University Entrance",
+    "from": {
+      "label": "June 2008",
+      "date": "2008-0"
+    },
+    "to": {
+      "label": "June 2017",
+      "date": "2017-06"
+    },
+    "at": "IGS Bonn-Beuel",
+    "in": {
+      "city": "Bonn-Beuel",
+      "country": "Germany"
+    }
+  }
+]
