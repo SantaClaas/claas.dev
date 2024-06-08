@@ -11,15 +11,15 @@ layout: layout.html
     </h2>
     {% for step in steps %}
     <section
-        class="col-span-2 md:grid-cols-subgrid grid grid-rows-[auto_auto_auto] [padding-block:1rem] border-s border-light-outline-variant ps-3">
+        class="col-span-2 gap-x-2 md:grid-cols-subgrid grid grid-rows-[auto_auto_auto] [padding-block:1rem] border-s border-light-outline-variant ps-3">
 
         {% if step.activity.title %}
-        <hgroup class="md:col-start-2">
+        <hgroup class="md:col-start-2 text-pretty">
             <h3 class="text-title-lg">{{ step.activity.title }}</h3>
             <p class="text-title-md">{{ step.activity.subjectArea }}</p>
         </hgroup>
         {% else %}
-        <h3 class="text-title-lg md:col-start-2">{{ step.activity }}</h3>
+        <h3 class="text-title-lg md:col-start-2 text-pretty">{{ step.activity }}</h3>
         {% endif %}
 
         <p
@@ -87,12 +87,12 @@ layout: layout.html
     </menu>
 </header>
 
-<main class="p-4 rounded-extra-large bg-light-surface-container text-body-lg">
+<main class="grid p-4 rounded-extra-large bg-light-surface-container text-body-lg grid-cols-[auto_1fr]">
 
-    <article class="grid grid-cols-1 items-center [margin-block-end:1.5rem]">
+    <article class="grid grid-cols-1 col-span-2 items-center [margin-block-end:1.5rem] md:grid-cols-subgrid">
         <img class="object-cover w-40 h-48 rounded-large" src="/images/claas.jpg">
         <address class="grid grid-cols-[auto_1fr] gap-x-4 fill-current text-light-primary not-italic
-            *:grid *:grid-cols-subgrid *:col-span-2 *:px-4 *:min-h-12 *:items-center">
+            *:grid *:grid-cols-subgrid *:col-span-2  *:min-h-12 *:items-center">
             <a href="mailto:hireme@claas.dev">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path
@@ -150,17 +150,16 @@ layout: layout.html
         </address>
     </article>
 
-    <article class=" [margin-block-end:1.5rem]">
+    <article class=" [margin-block-end:1.5rem] col-span-2 min-w-[45ch] max-w-[75ch]">
         <p>
             I am a software developer with a focus on web technologies. I am interested in the whole stack, from the
             frontend to the backend. I am also interested in the design of user interfaces and user experience.
         </p>
     </article>
 
-    <div class="grid grid-cols-[auto_1fr]">
-        {{ career('Education', education) }}
-        {{ career('Experience', experience) }}
-    </div>
+    {{ career('Education', education) }}
+    {{ career('Experience', experience) }}
+
 
     <article class="body-large">
         <h2 class="headline-large">
