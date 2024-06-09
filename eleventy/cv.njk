@@ -98,13 +98,18 @@ layout: layout.html
 <main class="mx-4 max-w-max md:mx-6 grid p-4 rounded-extra-large bg-light-surface text-body-lg grid-cols-[auto_1fr]">
 
     <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid">
-        <img class="object-cover h-48 rounded-large" src="/images/claas.jpg">
-        <hgroup>
-            <h1 class="text-display-md">Claas Möhlmann </h1>
-            <p class="text-display-sm">(he/him)</p>
-        </hgroup>
-        <address class="grid grid-cols-[auto_1fr] gap-x-4 fill-current text-light-primary not-italic
-            *:grid *:grid-cols-subgrid *:col-span-2  *:min-h-12 *:items-center">
+        <section class="flex flex-wrap col-span-2 gap-4 [margin-block-end:1.5rem]">
+            <img class="object-cover h-48 place-self-end rounded-large" src="/images/claas.jpg">
+            <hgroup>
+                <h1 class="font-semibold text-display-md">Claas Möhlmann</h1>
+                <span class="font-light text-display-sm">(he/him)</span>
+                <p class="text-display-sm">
+                    Software Developer
+                </p>
+            </hgroup>
+        </section>
+        <address class="grid col-span-2 grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto_1fr] gap-x-4 fill-current text-light-primary not-italic
+        *:grid *:grid-cols-subgrid *:col-span-2  *:min-h-12 *:items-center">
             <a href="mailto:hireme@claas.dev">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path
