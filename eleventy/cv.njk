@@ -4,7 +4,6 @@ layout: layout.html
 bodystyles: class="mx-auto max-w-max"
 ---
 
-
 {% macro career (title, steps) %}
 <article class="col-span-2 grid grid-cols-subgrid [margin-block-end:1.5rem]">
     <h2 class="col-span-2 text-headline-lg [margin-block-end:0.5rem]">
@@ -96,7 +95,8 @@ bodystyles: class="mx-auto max-w-max"
     </menu>
 </header>
 
-<main class="mx-4 max-w-max md:mx-6 grid p-4 rounded-extra-large bg-light-surface text-body-lg grid-cols-[auto_1fr]">
+<main
+    class="mx-4 max-w-max md:mx-6 grid p-4 rounded-extra-large bg-light-surface text-body-lg grid-cols-[auto_1fr] print:border-light-outline print:border">
 
     <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid">
         <section class="flex flex-wrap col-span-2 gap-4 [margin-block-end:1.5rem]">
