@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_4" data-name="Layer 4" xmlns="http://www.w3.org/2000/svg" width="2048" height="2048" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2048 2048">
+  <defs>
+    <clipPath id="clippath">
+      <rect x="0" y="0" width="2048" height="2048" rx="321.77" ry="321.77" style="fill: none; stroke-width: 0px;"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="528.23" cy="1558.22" fx="528.23" fy="1558.22" r="1223.88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset="0" stop-color="#010101"/>
+      <stop offset=".17" stop-color="#434343"/>
+      <stop offset=".33" stop-color="#7c7c7c"/>
+      <stop offset=".49" stop-color="#ababab"/>
+      <stop offset=".64" stop-color="#cfcfcf"/>
+      <stop offset=".78" stop-color="#e9e9e9"/>
+      <stop offset=".9" stop-color="#f9f9f9"/>
+      <stop offset="1" stop-color="#fff"/>
+    </radialGradient>
+  </defs>
+  <g style="clip-path: url(#clippath);">
+    <rect x="-844.88" y="-108.86" width="3445.44" height="2436.18" style="fill: url(#radial-gradient); stroke: #fff; stroke-miterlimit: 10;"/>
+  </g>
+  <path d="M1843.89,811.95l-1325.97,626.15L996.74,38.47l847.15,773.48ZM1850.99,2048c108.8,0,197.01-88.2,197.01-197.01v-240.99l-324-378.68L350.59,1850.1,364.1,0h-167.09C88.2,0,0,88.2,0,197.01v1653.99C0,1959.8,88.2,2048,197.01,2048h1653.99Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10;"/>
+</svg>

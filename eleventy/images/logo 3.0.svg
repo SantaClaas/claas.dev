@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_4" data-name="Layer 4" xmlns="http://www.w3.org/2000/svg" width="2048" height="2048" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2048 2048">
+  <defs>
+    <clipPath id="clippath">
+      <path d="M241.69,1810.12l-16.81-1612.9C223.74,88.63,311.46,0,420.06,0h1384.23c134.6,0,243.71,109.11,243.71,243.71v909.03c0,67.56-40.08,128.68-102.04,155.61L462.34,1953.18c-103.55,45.01-219.48-30.15-220.65-143.05Z" style="fill: none; stroke-width: 0px;"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="594.89" cy="1450.05" fx="594.89" fy="1450.05" r="1440.18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset="0" stop-color="#010101"/>
+      <stop offset=".17" stop-color="#434343"/>
+      <stop offset=".33" stop-color="#7c7c7c"/>
+      <stop offset=".49" stop-color="#ababab"/>
+      <stop offset=".64" stop-color="#cfcfcf"/>
+      <stop offset=".78" stop-color="#e9e9e9"/>
+      <stop offset=".9" stop-color="#f9f9f9"/>
+      <stop offset="1" stop-color="#fff"/>
+    </radialGradient>
+  </defs>
+  <g style="clip-path: url(#clippath);">
+    <path d="M261.02,134.09v1634.65c0,95.94,97.82,160.84,186.22,123.55l1518.79-640.74c49.68-20.96,81.97-69.63,81.97-123.55V134.09c0-74.06-60.04-134.09-134.09-134.09H395.12c-74.06,0-134.09,60.04-134.09,134.09Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10;"/>
+    <rect x="-1020.89" y="-511.67" width="4054.37" height="2866.74" style="fill: url(#radial-gradient); stroke: #fff; stroke-miterlimit: 10;"/>
+    <path d="M2143.08,571.88l-1560.32,736.82L1146.22-338.3l996.87,910.18ZM2151.44,2026.38c128.03,0,231.82-103.79,231.82-231.82v-283.59l-381.26-445.6L385.87,1793.5l15.9-2177.07h-196.63c-128.03,0-231.82,103.79-231.82,231.82v1946.31c0,128.03,103.79,231.82,231.82,231.82h1946.31Z" style="fill: #fff; stroke: #fff; stroke-miterlimit: 10;"/>
+  </g>
+</svg>
