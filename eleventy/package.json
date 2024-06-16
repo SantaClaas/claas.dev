@@ -13,7 +13,9 @@
   "author": "claas <hello@claas.dev>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@11ty/eleventy": "3.0.0-alpha.10",
+    "@11ty/eleventy": "3.0.0-alpha.13",
+    "@11ty/eleventy-img": "5.0.0-beta.4",
+    "@11ty/eleventy-plugin-webc": "^0.11.2",
     "@claas.dev/material-tailwind": "^0.4.0",
     "autoprefixer": "^10.4.19",
     "cssnano": "^7.0.2",
