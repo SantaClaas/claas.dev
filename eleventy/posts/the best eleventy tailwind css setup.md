@@ -1,3 +1,8 @@
+---
+title: The easiest Eleventy + Tailwind CSS setup
+tags: posts
+---
+
 # The easiest Eleventy + Tailwind CSS setup
 
 1. Initialize Tailwind CSS by following their documentation
@@ -8,7 +13,7 @@ For reference, check out [the commit where I implemented it](https://github.com/
 
 ## Downsides
 
-There is no or at least I haven't figured out a good hot reload experience for smoother development process.
+There is no hot reload or at least I haven't figured out a good hot reload experience for smoother development process.
 
 ## Looking forward to Lightning CSS
 
