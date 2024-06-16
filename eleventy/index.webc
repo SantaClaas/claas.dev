@@ -1,6 +1,7 @@
 ---
 title: claas.dev
-layout: layout.html
+layout: "layout.webc"
+description: "Claas: Claas as a service. Blog, CV and more."
 ---
 
 <header class="absolute inset-x-0 top-0 z-50">
@@ -25,7 +26,7 @@ layout: layout.html
         </div>
         <div class="hidden lg:flex lg:gap-x-12">
 
-            <a href="/cv" class="text-sm font-semibold leading-6 text-light-on-surface">Curriculum Vitae</a>
+            <a href="/cv/" class="text-sm font-semibold leading-6 text-light-on-surface">Curriculum Vitae</a>
             <a href="#" class="text-sm font-semibold leading-6 cursor-default text-light-on-surface-variant">Blog <span
                     class="text-light-on-surface-variant">(Coming Soon)</span></a>
             <!-- <a href="#" class="text-sm font-semibold leading-6 text-light-on-surface">Marketplace</a>
@@ -59,7 +60,7 @@ layout: layout.html
             <div class="flow-root mt-6">
                 <div class="-my-6 divide-y divide-gray-500/10">
                     <div class="py-6 space-y-2">
-                        <a href="/cv"
+                        <a href="/cv/"
                             class="block px-3 py-2 -mx-3 text-base font-semibold leading-7 rounded-lg text-light-on-surface hover:bg-gray-50">Curriculum
                             Vitae</a>
                         <a href="#"
@@ -87,7 +88,8 @@ layout: layout.html
         <div class="hidden sm:mb-8 sm:flex sm:justify-center">
             <div
                 class="relative px-3 py-1 text-sm leading-6 text-gray-600 rounded-full ring-1 ring-light-on-surface/10 hover:ring-light-on-surface/20">
-                There is not much here yet so <a href="/cv" class="font-semibold underline text-light-primary">check out
+                There is not much here yet so <a href="/cv/" class="font-semibold underline text-light-primary">check
+                    out
                     my CV <span aria-hidden="true">&rarr;</span></a>
             </div>
         </div>
@@ -99,10 +101,10 @@ layout: layout.html
                 Claas
             </p>
             <div class="flex items-center justify-center mt-10 gap-x-6">
-                <!-- <a href="/cv"
+                <!-- <a href="/cv/"
                     class="rounded-md bg-light-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-primary">Curriculum
                     Vitae</a> -->
-                <a href="/cv" class="text-sm font-semibold leading-6 text-light-on-surface">Curriculum Vitae <span
+                <a href="/cv/" class="text-sm font-semibold leading-6 text-light-on-surface">Curriculum Vitae <span
                         aria-hidden="true">→</span></a>
             </div>
         </div>

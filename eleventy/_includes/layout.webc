@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="/index.css">
-    <meta name="description" content="{{ description}}">
+    <title @raw="this.title"></title>
+    <!--- webc:keep keeps WebC from trying to touch index.css  -->
+    <link webc:keep rel="stylesheet" href="/index.css">
+    <meta webc:if="this.description" name="description" :content="this.description">
     <meta name="color-scheme" content="light">
     <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
 
 </head>
 
-<body {{ bodystyles }}>
-    {{ content }}
+<body @html="this.content">
+
 </body>
 
 </html>
