@@ -3,6 +3,13 @@ title: Learning WebC
 tags: post
 ---
 
+WebC is a templating language for building static websites with [Eleventy](https://www.11ty.dev/).
+It brings "first-class components to Eleventy" and allows you to easily progressively enhance your blog like adding web
+components to it.
+These are reasons I wanted to try it as even the official site seems to be switching to it. But what pushed me over the
+edge was using the official [Eleventy Image plugin](https://www.11ty.dev/docs/plugins/image/) which for me is an easier
+solution to optimizing my images than the other ways to integrate the plugin.
+
 # List of pitfalls I encountered
 
 ## Looping through posts
