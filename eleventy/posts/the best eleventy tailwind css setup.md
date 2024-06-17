@@ -1,6 +1,6 @@
 ---
 title: The easiest Eleventy + Tailwind CSS setup
-tags: posts
+tags: post
 ---
 
 # The easiest Eleventy + Tailwind CSS setup
