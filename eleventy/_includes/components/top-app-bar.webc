@@ -1,0 +1,17 @@
+<header class="grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4">
+
+    <slot name="headline"></slot>
+    <!--- Top app bar (large) -->
+    <menu
+        class="flex w-full h-12 col-span-2 row-start-1 px-1 pt-2 md:px-3 place-self-end trailing-icons text-light-on-surface-variant">
+        <li class="grow">
+            <slot name="leading-navigation"></slot>
+        </li>
+        <li>
+            <slot name="trailing-1"></slot>
+        </li>
+        <li>
+            <slot name="trailing-2"></slot>
+        </li>
+    </menu>
+</header>
