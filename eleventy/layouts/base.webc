@@ -10,7 +10,8 @@
     <meta webc:if="this.description" name="description" :content="this.description">
     <meta name="color-scheme" content="light">
     <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
-
+    <style @raw="getBundle('css')" webc:keep></style>
+    <script @raw="getBundle('js')" webc:keep></script>
 </head>
 
 <body @html="this.content" class="grid grid-rows-[auto_1fr] place-content-center">
