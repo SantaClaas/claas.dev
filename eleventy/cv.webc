@@ -19,7 +19,7 @@ description: Curriculum Vitae of Claas Möhlmann
 
         navigator.share(shareData)
             .then(() => console.debug('Successful share'))
-            .catch((error) => console.error('Error sharing', error));
+            .catch((error) => error instanceof DOMException && error.name === "AbortError" ? console.debug("Aborted sharing:", error.message) : console.error('Error sharing', error));
     }
 </script>
 
