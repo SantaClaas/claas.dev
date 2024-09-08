@@ -30,7 +30,8 @@ Downsides
 Doing it manually would take as long as finding out how to integrate Rust, a more familiar language and ecosystem I had good experiences with. I'll spare the rant about Kotlin/Java weird understanding of bytes and the EC key having an odd number of bytes.
 I tried to use the platform native cryptography libraries in an Expo module but gave up on an almost done Kotlin implementation. I because I became frustrated that I could not control the format of the exported public key.
 This is based on the [work by Daniel Cortes](https://github.com/dgca/expo-rust-demo)
-TODO reference Crux
+
+<!-- TODO reference Crux -->
 
 ## Prequisites
 
@@ -54,7 +55,11 @@ rustup target add aarch64-apple-ios aarch64-apple-ios-sim
 cargo install cargo-ndk
 ```
 
-#TODO swiftformat and kotlinlint (format)
+<!-- #TODO swiftformat and kotlinlint (format) -->
+
+# Swiftformat and kotlinlint
+
+You might want to add those too.
 
 ## Step-by-step
 

@@ -2,6 +2,10 @@
 layout: "base.webc"
 ---
 
-<main @html="this.content" class="mx-auto max-w-7xl">
+<main class="mx-auto max-w-7xl">
+    <article @html="this.content"
+        class="prose lg:prose-xl prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg">
+
+    </article>
 
 </main>

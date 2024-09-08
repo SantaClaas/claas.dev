@@ -2,6 +2,8 @@
 title: Learning WebC
 ---
 
+# Learning WebC
+
 WebC is a templating language for building static websites with [Eleventy](https://www.11ty.dev/).
 It brings "first-class components to Eleventy" and allows you to easily progressively enhance your blog like adding web
 components to it.
@@ -9,9 +11,9 @@ These are reasons I wanted to try it as even the official site seems to be switc
 edge was using the official [Eleventy Image plugin](https://www.11ty.dev/docs/plugins/image/) which for me is an easier
 solution to optimizing my images than the other ways to integrate the plugin.
 
-# List of pitfalls I encountered
+## List of pitfalls I encountered
 
-## Looping through posts
+### Looping through posts
 
 This is one of the most basic things a blog wants to do. And it is very simple with WebC, but it took
 me longer to find out how to do than I'd want to admit.
@@ -67,12 +69,12 @@ This is from the [official eleventy website repository](https://github.com/11ty/
 Though it is an unfair comparison as it does more than the first example. But it illustrates how most examples I could find
 for looping through posts use custom markup generating JavaScrip. Which for my basic usecase felt icky.
 
-## Loop Syntax Gotcha
+### Loop Syntax Gotcha
 
 The WebC Syntax aims to be like JavaScipt so you need to use `webc:for="item **of** items"` instead of `webc:for="item **in** items`.
 But this is probably just a 11pm recovering from feeling sick skill issue. And if we want to blame someone we should blame JS.
 (Why is it `in` for object properties in the first place?)
 
-## Include bundled scripts
+### Include bundled scripts
 
 If you use a `script` tag without the `webc:keep` attribute, add `<script webc:keep @raw="getBundle('js')"></script>` in your layout so that it appears in the head or wherever you want the script to land. Otherwise the script will not be loaded.
