@@ -17,9 +17,9 @@ podman run --rm --volumes-from CONTAINER -v $(pwd):/backup ubuntu tar cvfz /back
 # This command does:
 
 1. `podman run` runs a new container
-2. (`--rm`)[https://docs.docker.com/reference/cli/docker/container/run/#rm] this makes our container temporary and automatically cleans up the container after it has run.
-3. (`--volumes-from CONTAINER`)[https://docs.docker.com/reference/cli/docker/container/run/#volumes-from] attaches all volumes used by the container we want to backup from the container named `CONTAINER`. Replace this with your container name which you can look up with `podman ps`.
-4. (`-v $(pwd):/backup`)[https://docs.docker.com/reference/cli/docker/container/run/#volume] binds a volume in the process working directory (pwd) as a volume in our temporary container under the path `/backup`. This is where we are going to store the backup.
+2. [`--rm`](https://docs.docker.com/reference/cli/docker/container/run/#rm) this makes our container temporary and automatically cleans up the container after it has run.
+3. [`--volumes-from CONTAINER`](https://docs.docker.com/reference/cli/docker/container/run/#volumes-from) attaches all volumes used by the container we want to backup from the container named `CONTAINER`. Replace this with your container name which you can look up with `podman ps`.
+4. [`-v $(pwd):/backup`](https://docs.docker.com/reference/cli/docker/container/run/#volume) binds a volume in the process working directory (pwd) as a volume in our temporary container under the path `/backup`. This is where we are going to store the backup.
 5. `ubuntu` is the image we are using to run the backup command in. You can choose a more lightweight image like `busybox` if you want but I don't really care about the potentially small performance improvement for this and prefer using something I am more familiar with.
 6. `tar cvfz` collects all files and archives them in a single file for our convenience. `cvfz` is a list of options we pass to the command.
    - `c` (create) instructs tar to create a new archive.
