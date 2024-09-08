@@ -215,7 +215,7 @@ description: Curriculum Vitae of Claas Möhlmann
             <p class="md:col-start-2">at <a href="https://cksolution.de" target="_blank"
                     class="text-light-primary">ck.solution
                     &nearr;</a></p>
-            {#TODO Add description what company does #}
+            <!-- {#TODO Add description what company does #} -->
             <p class="md:col-start-2 max-w-[75ch]">In my role as apprentice I helped maintaining and developing new
                 features for a
                 document managament solution for SAP Business One that contained features such as digital archival
