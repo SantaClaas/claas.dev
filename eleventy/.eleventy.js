@@ -43,9 +43,7 @@ export default function (configuration) {
       "npm:@11ty/eleventy-img/*.webc",
     ],
   });
-  // Can't use the image as a plugin because
-  // Setting widths gives error that sizes is missing in the template (idk why)
-  // Can't set picture styles as picture is block element and the styled image is not where it was in the template
+
   configuration.addPlugin(
     Image.eleventyImagePlugin,
     /** @type {import("@11ty/eleventy-img").PluginOptions} */ ({
@@ -60,22 +58,6 @@ export default function (configuration) {
     })
   );
 
-  // configuration.addShortcode("image", async function (src, alt, sizes) {
-  //   const metadata = await Image(src, {
-  //     widths: [300, 600],
-  //   });
-
-  //   const imageAttributes = {
-  //     alt,
-  //     sizes,
-  //     loading: "lazy",
-  //     decoding: "async",
-  //   };
-
-  //   // You bet we throw an error on a missing alt (alt="" works okay)
-  //   return Image.generateHTML(metadata, imageAttributes);
-  // });
-  configuration.addPassthroughCopy("images");
   return {
     dir: {
       layouts: "layouts",
