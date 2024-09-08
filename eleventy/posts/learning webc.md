@@ -25,7 +25,7 @@ The solution:
 </ol>
 ```
 
-Thanks to Raymond Camden who got me on the right path with [his blog post](https://www.raymondcamden.com/2023/04/04/webc-updates-in-eleventy-looping).
+Thanks to [Raymond Camden's blog post](https://www.raymondcamden.com/2023/04/04/webc-updates-in-eleventy-looping) which got me on the right track.
 If you search on the web you are most likely to find a different solution:
 Writing some JavaScript to create HTML markup string. Which would look something like this:
 
@@ -67,8 +67,12 @@ This is from the [official eleventy website repository](https://github.com/11ty/
 Though it is an unfair comparison as it does more than the first example. But it illustrates how most examples I could find
 for looping through posts use custom markup generating JavaScrip. Which for my basic usecase felt icky.
 
-### Loop Syntax Gotcha
+## Loop Syntax Gotcha
 
 The WebC Syntax aims to be like JavaScipt so you need to use `webc:for="item **of** items"` instead of `webc:for="item **in** items`.
 But this is probably just a 11pm recovering from feeling sick skill issue. And if we want to blame someone we should blame JS.
 (Why is it `in` for object properties in the first place?)
+
+## Include bundled scripts
+
+If you use a `script` tag without the `webc:keep` attribute, add `<script webc:keep @raw="getBundle('js')"></script>` in your layout so that it appears in the head or wherever you want the script to land. Otherwise the script will not be loaded.
