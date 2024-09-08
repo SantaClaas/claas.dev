@@ -51,6 +51,11 @@ export default function (configuration) {
     /** @type {import("@11ty/eleventy-img").PluginOptions} */ ({
       // widths: ["auto"],
       // widths: [300, 600, 900, 1200, 1500],
+      // The urlPath should be ./img/ by default but it dumps them into the root directory for some reason maybe a bug
+      // This is to adjust the HTML url paths as we are fine with them being in the root when deployed
+      urlPath: "./",
+      // Default output directory
+      // outputDir: "./img/",
       svgShortCircuit: false,
     })
   );
