@@ -13,7 +13,7 @@
 
 </head>
 
-<body @html="this.content">
+<body @html="this.content" class="grid grid-rows-[auto_1fr] place-content-center">
 
 </body>
 

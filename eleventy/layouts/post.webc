@@ -1,0 +1,7 @@
+---
+layout: "base.webc"
+---
+
+<main @html="this.content" class="mx-auto max-w-7xl">
+
+</main>

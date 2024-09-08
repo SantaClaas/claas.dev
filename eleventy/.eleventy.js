@@ -5,7 +5,6 @@ import tailwindConfig from "./tailwind.config.js";
 import postcss from "postcss";
 import Image from "@11ty/eleventy-img";
 import webCPlugin from "@11ty/eleventy-plugin-webc";
-
 // Can be async too
 /** @param {import("@11ty/eleventy/src/UserConfig").default} configuration */
 export default function (configuration) {
@@ -72,4 +71,9 @@ export default function (configuration) {
   //   return Image.generateHTML(metadata, imageAttributes);
   // });
   configuration.addPassthroughCopy("images");
+  return {
+    dir: {
+      layouts: "layouts",
+    },
+  };
 }

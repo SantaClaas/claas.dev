@@ -1,4 +1,4 @@
-<header class="grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4">
+<header class="grid max-w-7xl gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4">
 
     <slot name="headline"></slot>
     <!--- Top app bar (large) -->

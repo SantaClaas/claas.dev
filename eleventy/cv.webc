@@ -1,6 +1,6 @@
 ---
 title: Claas' CV
-layout: "layout.webc"
+layout: "base.webc"
 bodystyles: class="mx-auto max-w-max"
 description: Curriculum Vitae of Claas Möhlmann
 ---
@@ -22,6 +22,7 @@ description: Curriculum Vitae of Claas Möhlmann
             .catch((error) => console.error('Error sharing', error));
     }
 </script>
+
 
 <top-app-bar>
     <h1 slot="headline" class="px-4 md:px-6 pb-7 text-headline-md">Curriculum Vitae</h1>
@@ -69,8 +70,8 @@ description: Curriculum Vitae of Claas Möhlmann
             </hgroup>
         </section>
         <address class="grid col-span-2 grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto_1fr] gap-x-4 fill-current text-light-primary not-italic
-        *:grid *:grid-cols-subgrid *:col-span-2  *:min-h-12 *:items-center">
-            <a href="mailto:hireme@claas.dev">
+        *:grid *:grid-cols-subgrid *:col-span-2 *:min-h-12 *:items-center">
+            <a href="mailto:jobs@claas.dev">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path
                         d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
@@ -79,7 +80,7 @@ description: Curriculum Vitae of Claas Möhlmann
                     <span class="sr-only">
                         Email address:
                     </span>
-                    hireme@claas.dev
+                    jobs@claas.dev
                 </span>
             </a>
 
@@ -130,8 +131,10 @@ description: Curriculum Vitae of Claas Möhlmann
     <article class=" [margin-block-end:1.5rem] col-span-2 max-w-[75ch]">
         <p>
             Hi, I'm Claas. I'm developing software since 2017 and have build many projects in different languages.
-            Most of what I do is web development which is why I am currently putting my focus on it in while studying
-            Digital Technologies & Coding B.Sc. at Macromedia University in Cologne. When I am not learning or working
+            Most of what I do is web development which is why I am currently putting my focus on it in while
+            studying
+            Digital Technologies & Coding B.Sc. at Macromedia University in Cologne. When I am not learning or
+            working
             on projects for my studies I like to follow my many ideas for software projects and try out new
             Technologies. The part that is the most fun for me is creating interfaces and apps for people and think
             about how I can make them approachable for everyone to use. I believe that technology plays an important
@@ -183,10 +186,12 @@ description: Curriculum Vitae of Claas Möhlmann
                 <ul class="list-disc list-inside ">
                     <li>Developing and maintaining a RESTful web API</li>
                     <li>Developing a web app using the before mentioned web API</li>
-                    <li>Developing a React app that acts as Microsoft Outlook Add-in to archive emails using the web API
+                    <li>Developing a React app that acts as Microsoft Outlook Add-in to archive emails using the web
+                        API
                     </li>
                     <li>
-                        Developing a web app to centrally install, update and manage apps from ck.solution on customer
+                        Developing a web app to centrally install, update and manage apps from ck.solution on
+                        customer
                         systems
                     </li>
                 </ul>
@@ -213,18 +218,22 @@ description: Curriculum Vitae of Claas Möhlmann
             {#TODO Add description what company does #}
             <p class="md:col-start-2 max-w-[75ch]">In my role as apprentice I helped maintaining and developing new
                 features for a
-                document managament solution for SAP Business One that contained features such as digital archival of
+                document managament solution for SAP Business One that contained features such as digital archival
+                of
                 documents, approval processes and more. Additionally I helped maintain a job search web application.
                 To the end of my two-year apprenticeship I rebuild a web application to allow access to
                 the document management system outside of SAP Business One and a companies network for external
                 employees or business partners. In addition I advised on, designed and developed a RESTful Web API
-                including an authentication and authorization system to secure the system against unauthorized access as
+                including an authentication and authorization system to secure the system against unauthorized
+                access as
                 needed to be exposed to the internet. The project was part of my final examination for the at the
                 <a href="https://en.wikipedia.org/wiki/Association_of_German_Chambers_of_Industry_and_Commerce"
                     class="text-light-primary">Association
-                    of Chambers of Industry and Commerce<sup aria-hidden="true">&nearr;</sup></a> which I passed with an
+                    of Chambers of Industry and Commerce<sup aria-hidden="true">&nearr;</sup></a> which I passed
+                with an
                 A.
-                After completing my apprenticeship, I continued working at ck.solution in my role as Software Developer.
+                After completing my apprenticeship, I continued working at ck.solution in my role as Software
+                Developer.
             </p>
         </section>
         <section
@@ -247,7 +256,8 @@ description: Curriculum Vitae of Claas Möhlmann
             </p>
             <section class="md:col-start-2 max-w-[75ch]">
                 <p>
-                    During my time, I learned programming and got to work on small projects as part of my position as
+                    During my time, I learned programming and got to work on small projects as part of my position
+                    as
                     Apprentice Computer Science Expert in Software Development or <i lang="de-DE">Ausbildung zum
                         Fachinformatiker der Anwendungsentwicklung</i> in German which is part of the <a
                         href="https://www.bmbf.de/bmbf/en/education/the-german-vocational-training-system/the-german-vocational-training-system_node.html"
@@ -278,7 +288,8 @@ description: Curriculum Vitae of Claas Möhlmann
                     Twente &nearr;</a></p>
             <p class="md:col-start-2 max-w-[75ch]">
                 At the University of Twente in the Netherlands I started studying for my Bachelor's degree in
-                Technical Computer Science. This was my first contact with software development. After 1½ semesters I
+                Technical Computer Science. This was my first contact with software development. After 1½ semesters
+                I
                 decided to apply for an Apprenticeship position at <i>All about Ashley</i> in Ibbenbüren Germany
                 instead as that helped me more learning software development.
             </p>
@@ -298,7 +309,8 @@ description: Curriculum Vitae of Claas Möhlmann
             <p class="md:col-start-2">at <a href="https://www.gebonn.de/" target="_blank" class="text-light-primary">IGS
                     Bonn-Beuel &nearr;</a></p>
             <p class="md:col-start-2 max-w-[75ch]">
-                I went to school in Bonn, Germany until 2017 and finished with the General Qualification for University
+                I went to school in Bonn, Germany until 2017 and finished with the General Qualification for
+                University
                 or <a href="https://en.wikipedia.org/wiki/Abitur" target="_blank" class="text-light-primary"
                     lang="de-DE">Abitur<sup aria-hidden="true" class="text-xs">&nearr;</sup></a>
                 in German. It is comparable to American High School Diploma or A-Levels and is required for
