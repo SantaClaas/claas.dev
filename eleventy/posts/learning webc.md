@@ -25,7 +25,7 @@ The solution:
 </ol>
 ```
 
-Thanks to [Raymond Camden's blog post](https://www.raymondcamden.com/2023/04/04/webc-updates-in-eleventy-looping) which got me on the right track.
+Thanks to [Raymond Camden's blog post](https://www.raymondcamden.com/2023/04/04/webc-updates-in-eleventy-looping) for putting me on the right track.
 If you search on the web you are most likely to find a different solution:
 Writing some JavaScript to create HTML markup string. Which would look something like this:
 
