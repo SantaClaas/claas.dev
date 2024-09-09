@@ -14,9 +14,9 @@ importers:
       '@11ty/eleventy-img':
         specifier: 5.0.0-beta.10
         version: 5.0.0-beta.10
-      '@11ty/eleventy-plugin-syntaxhighlight':
-        specifier: ^5.0.0
-        version: 5.0.0
+      '@11ty/eleventy-plugin-inclusive-language':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@11ty/eleventy-plugin-webc':
         specifier: ^0.11.2
         version: 0.11.2
@@ -35,6 +35,9 @@ importers:
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
+      shiki:
+        specifier: ^1.16.2
+        version: 1.16.2
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.4
@@ -68,8 +71,8 @@ packages:
     resolution: {integrity: sha512-zGyPp1g6bi+VC2I5ylwj4w29nivDmx4Uki5gWY6v3MT/1muK0JTtnc1KOMC7yUurv6YwtwdiLYyFK2eFyKv2wg==}
     engines: {node: '>=18'}
 
-  '@11ty/eleventy-plugin-syntaxhighlight@5.0.0':
-    resolution: {integrity: sha512-y9BUmP1GofmbJgxM1+ky/UpFCpD8JSOeLeKItUs0WApgnrHk9haHziW7lS86lbArX5SiCVo4zTTw9x53gvRCaA==}
+  '@11ty/eleventy-plugin-inclusive-language@1.0.3':
+    resolution: {integrity: sha512-hQ+kD04aPphK2VYZZ3zqpOSwtvoFxLxxmi+5SVTvlqeQlWQ0SYA57Dg3W0Nj2LdshlYf6gwdGQq34O/MlyolYw==}
 
   '@11ty/eleventy-plugin-webc@0.11.2':
     resolution: {integrity: sha512-oa/XlAqI5KtVO7M14qaN92D2yJfBEMMSb66YWY6YZVbRqFSVbjO4WmRJ2Ti2ZZb1FNvxj4ypGNV8VJleGE69xw==}
@@ -262,6 +265,12 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
+  '@shikijs/core@1.16.2':
+    resolution: {integrity: sha512-XSVH5OZCvE4WLMgdoBqfPMYmGHGmCC3OgZhw0S7KcSi2XKZ+5oHGe71GFnTljgdOxvxx5WrRks6QoTLKrl1eAA==}
+
+  '@shikijs/vscode-textmate@9.2.0':
+    resolution: {integrity: sha512-5FinaOp6Vdh/dl4/yaOTh0ZeKch+rYS8DUb38V3GMKYVkdqzxw53lViRKUYkVILRiVQT7dcPC7VvAKOR73zVtQ==}
+
   '@sindresorhus/slugify@2.2.1':
     resolution: {integrity: sha512-MkngSCRZ8JdSOCHRaYd+D01XhvU3Hjy6MGl06zhOk614hp9EOAp5gIkBeQg7wtmxpitU6eAL4kdiRMcJa2dlrw==}
     engines: {node: '>=12'}
@@ -278,6 +287,12 @@ packages:
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
+
+  '@types/hast@3.0.4':
+    resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
+
+  '@types/unist@3.0.3':
+    resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
   a-sync-waterfall@1.0.1:
     resolution: {integrity: sha512-RYTOHHdWipFUliRFMCS4X2Yn2X8M87V/OpSqWzKKOGhzqyUxzyVmhHDH9sAvG+ZuQf/TAOFsLCpMw09I1ufUnA==}
@@ -400,6 +415,10 @@ packages:
 
   caniuse-lite@1.0.30001629:
     resolution: {integrity: sha512-c3dl911slnQhmxUIT4HhYzT7wnBK/XYpGnYLOj4nJBaRiw52Ibe7YxlDaAeRECvA786zCuExhxIUJ2K7nHMrBw==}
+
+  chalk@4.1.2:
+    resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
+    engines: {node: '>=10'}
 
   chardet@2.0.0:
     resolution: {integrity: sha512-xVgPpulCooDjY6zH4m9YW3jbkaBe3FKIAvF5sj5t7aBNsVl2ljIE+xwJ4iNgiDZHFQvNIpjdKdVOQvvk5ZfxbQ==}
@@ -749,6 +768,10 @@ packages:
   gray-matter@4.0.3:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
     engines: {node: '>=6.0'}
+
+  has-flag@4.0.0:
+    resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
+    engines: {node: '>=8'}
 
   has-property-descriptors@1.0.2:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
@@ -1344,10 +1367,6 @@ packages:
     resolution: {integrity: sha512-JcEmHlyLK/o0uGAlj65vgg+7LIms0xKXe60lcDOTU7oVX/3LuEuLwrQpW3VJ7de5TaFKiW4kWkaIpJL42FEgxQ==}
     engines: {node: '>=12.0.0'}
 
-  prismjs@1.29.0:
-    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
-    engines: {node: '>=6'}
-
   promise@7.3.1:
     resolution: {integrity: sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==}
 
@@ -1435,6 +1454,9 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
+  shiki@1.16.2:
+    resolution: {integrity: sha512-gSym0hZf5a1U0iDPsdoOAZbvoi+e0c6c3NKAi03FoSLTm7oG20tum29+gk0wzzivOasn3loxfGUPT+jZXIUbWg==}
+
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
@@ -1495,6 +1517,10 @@ packages:
     resolution: {integrity: sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==}
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
+
+  supports-color@7.2.0:
+    resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
+    engines: {node: '>=8'}
 
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
@@ -1661,9 +1687,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@11ty/eleventy-plugin-syntaxhighlight@5.0.0':
+  '@11ty/eleventy-plugin-inclusive-language@1.0.3':
     dependencies:
-      prismjs: 1.29.0
+      chalk: 4.1.2
 
   '@11ty/eleventy-plugin-webc@0.11.2':
     dependencies:
@@ -1884,6 +1910,13 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
+  '@shikijs/core@1.16.2':
+    dependencies:
+      '@shikijs/vscode-textmate': 9.2.0
+      '@types/hast': 3.0.4
+
+  '@shikijs/vscode-textmate@9.2.0': {}
+
   '@sindresorhus/slugify@2.2.1':
     dependencies:
       '@sindresorhus/transliterate': 1.6.0
@@ -1902,6 +1935,12 @@ snapshots:
       tailwindcss: 3.4.4
 
   '@trysound/sax@0.2.0': {}
+
+  '@types/hast@3.0.4':
+    dependencies:
+      '@types/unist': 3.0.3
+
+  '@types/unist@3.0.3': {}
 
   a-sync-waterfall@1.0.1: {}
 
@@ -2017,6 +2056,11 @@ snapshots:
       lodash.uniq: 4.5.0
 
   caniuse-lite@1.0.30001629: {}
+
+  chalk@4.1.2:
+    dependencies:
+      ansi-styles: 4.3.0
+      supports-color: 7.2.0
 
   chardet@2.0.0: {}
 
@@ -2371,6 +2415,8 @@ snapshots:
       kind-of: 6.0.3
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
+
+  has-flag@4.0.0: {}
 
   has-property-descriptors@1.0.2:
     dependencies:
@@ -2881,8 +2927,6 @@ snapshots:
       posthtml-parser: 0.11.0
       posthtml-render: 3.0.0
 
-  prismjs@1.29.0: {}
-
   promise@7.3.1:
     dependencies:
       asap: 2.0.6
@@ -2999,6 +3043,12 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
+  shiki@1.16.2:
+    dependencies:
+      '@shikijs/core': 1.16.2
+      '@shikijs/vscode-textmate': 9.2.0
+      '@types/hast': 3.0.4
+
   signal-exit@4.1.0: {}
 
   simple-swizzle@0.2.2:
@@ -3056,6 +3106,10 @@ snapshots:
       mz: 2.7.0
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
+
+  supports-color@7.2.0:
+    dependencies:
+      has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
 

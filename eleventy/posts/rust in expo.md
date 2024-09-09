@@ -5,7 +5,7 @@ tags: post
 
 # Expo with Rust
 
-React Native + Expo + Rust + UniFFI
+React Native + Rust with Expo and UniFFI
 
 ## Motivation
 
@@ -160,8 +160,8 @@ You might want to add those too.
 
    Add the `native_rust/uniffi-bindgen.rs` file
 
-   ```rustfn
-   main() {
+   ```rust
+   fn main() {
        uniffi::uniffi_bindgen_main()
    }
    ```
@@ -235,7 +235,7 @@ This happens on my system for every new Expo project but Android Studio seems to
 
 1. Add JNA dependency to `modules/my-rust-module/android/build.gradle`
 
-   ```gradle
+   ```groovy
    dependencies {
      //...
      implementation "net.java.dev.jna:jna:5.13.0@aar"

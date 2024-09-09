@@ -67,7 +67,7 @@ Writing some JavaScript to create HTML markup string. Which would look something
 
 This is from the [official eleventy website repository](https://github.com/11ty/11ty-website/blob/ab7c6c064e547b1436b64e87ad37648caeabe515/src/index.webc#L31C1-L49C2).
 Though it is an unfair comparison as it does more than the first example. But it illustrates how most examples I could find
-for looping through posts use custom markup generating JavaScrip. Which for my basic usecase felt icky.
+for looping through posts use custom markup generating JavaScript. Which for my basic usecase felt icky.
 
 ### Loop Syntax Gotcha
 
