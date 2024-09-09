@@ -6,29 +6,16 @@ import postcss from "postcss";
 import Image from "@11ty/eleventy-img";
 import webCPlugin from "@11ty/eleventy-plugin-webc";
 import inclusiveLanguage from "@11ty/eleventy-plugin-inclusive-language";
-import { createHighlighter, getSingletonHighlighter } from "shiki";
+import { createHighlighter } from "shiki";
 /**
  * New TypeScript 5.5 JSDoc import syntax
+ * @import { BundledLanguage, BundledTheme } from "shiki"
  * @import { UserConfig } from "@11ty/eleventy"
- * @import { BundledHighlighterOptions, BundledLanguage, BundledTheme } from "shiki"
+ * @typedef {{ theme: BundledTheme, languages: BundledLanguage[], themes: BundledTheme[] }} Options
  */
-
-function transformCodeBlocks(content) {
-  // Using this confuses me
-  // console.debug("Content", this.page.outputPath);
-  if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) {
-    console.debug("Not an HTML file");
-    return content;
-  }
-
-  const ast = parse(content);
-  ast.console.debug("AST", ast);
-  return content;
-}
-
 /**
  * @param {UserConfig} configuration
- * @param {{ theme: BundledTheme, languages: BundledLanguage[] }} options
+ * @param {Options} options
  */
 async function shikiPlugin(configuration, options) {
   const highlighter = await createHighlighter(options);
@@ -43,7 +30,7 @@ async function shikiPlugin(configuration, options) {
 
         return highlighter.codeToHtml(code, {
           lang: language,
-          theme: "dark-plus",
+          theme: options.theme,
         });
       },
     });
@@ -106,7 +93,8 @@ export default function (configuration) {
   // TODO checkout rehype for markdown processing as it works shiki
   configuration.addPlugin(
     shikiPlugin,
-    /** @type {BundledHighlighterOptions<BundledLanguage, BundledTheme>} */ ({
+    /** @type {Options} */ ({
+      theme: "dark-plus",
       themes: ["dark-plus"],
       // It is kind of a hassle to define each language beforehand but at least this doesn't silently break highlighting
       langs: [
