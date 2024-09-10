@@ -1,4 +1,4 @@
-<article class="grid grid-cols-2 gap-4 md:grid-cols-4 ">
+<article class="grid grid-cols-2 gap-4 md:grid-cols-4 rounded-large overflow-hidden">
     <div class="grid col-span-2 row-start-1 gap-1 grid-cols-subgrid md:col-span-3 md:grid-rows-subgrid md:row-span-4">
         <div class="grid col-span-2 gap-1 grid-cols-subgrid md:col-span-1 md:grid-rows-subgrid md:row-span-4">
             <span class="sr-only">Primary</span>
