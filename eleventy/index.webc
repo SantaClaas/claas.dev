@@ -2,6 +2,7 @@
 title: claas.dev
 layout: "base.webc"
 description: "Claas: Claas as a service. Blog, Resume and more."
+bodystyles: px-4
 ---
 
 <script webc:setup>
@@ -26,22 +27,32 @@ description: "Claas: Claas as a service. Blog, Resume and more."
         });
     }
 </script>
-<header>
+<header class="mx-auto max-w-7xl mb-6">
     <h1 class="text-display-lg">claas.dev</h1>
 </header>
 <main class="mx-auto max-w-7xl">
-    <h2 class="text-headline-lg">Posts</h2>
-    <ol class="grid grid-cols-2 gap-2">
+
+    <a href="/resume" class="p-4 grid content-between mb-4 bg-light-secondary-container text-light-on-primary-container rounded-medium">
+            <h2 class="text-title-lg mb-4">Resume</h2>
+
+    </a>
+    <a href="/color" class="p-4 grid content-between mb-4 bg-light-secondary-container text-light-on-primary-container rounded-medium">
+                <h2 class="text-title-lg mb-4">Color</h2>
+
+        </a>
+
+    <h2 class="text-headline-lg mb-4">Posts</h2>
+    <ol class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
         <!--- Filled card --->
-        <li webc:for="post of collections.post" class="p-4 bg-light-surface rounded-medium">
-            <h2 class="text-title-lg">
-                <a :href="post.url" @text="post.data.title"></a>
-            </h2>
+        <li webc:for="post of collections.post" >
+            <a :href="post.url" class="p-4 grid content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
+                <h2 class="text-title-lg mb-4" @text="post.data.title"> </h2>
+            <p class="text-body-sm text-light-on-surface-variant" @text="post.description"></p>
 
             <time :datetime="post.date.toISOString().split('T')[0]" @text="formatDate(post.date)"
-                class="text-body-sm text-light-on-surface-variant bg-light-surface-variant">
+                class="text-label-lg min-w-0 place-self-end text-light-on-surface-variant bg-light-surface-container px-4 h-8 content-center rounded-medium">
             </time>
-            <p class="text-body-sm text-light-on-surface-variant" @text="post.description"></p>
+            </a>
         </li>
     </ol>
 </main>
