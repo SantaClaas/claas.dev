@@ -7,6 +7,8 @@ import Image from "@11ty/eleventy-img";
 import webCPlugin from "@11ty/eleventy-plugin-webc";
 import inclusiveLanguage from "@11ty/eleventy-plugin-inclusive-language";
 import { createHighlighter } from "shiki";
+//TODO check on full 3.0 release if this is actually included in eleventy
+import bundler from "@11ty/eleventy-plugin-bundle";
 /**
  * New TypeScript 5.5 JSDoc import syntax
  * @import { BundledLanguage, BundledTheme } from "shiki"
@@ -43,32 +45,29 @@ async function shikiPlugin(configuration, options) {
 // Can be async too
 /** @param {UserConfig} configuration */
 export default function (configuration) {
-  configuration.addTemplateFormats("css");
-  configuration.addExtension("css", {
-    outputFileExtension: "css",
-
-    /**
-     * @param {string} content
-     * @param {string} path
-     * @returns {Promise<string>}
-     */
-    async compile(content, path) {
-      // Processing
-      // Only use central CSS file in which everything is imported
-      if (path !== "./index.css") return;
-
-      return async () => {
-        const output = await postcss([
-          tailwindcss(tailwindConfig),
-          autoprefixer(),
-          cssnano({
-            presets: "default",
-          }),
-        ]).process(content, { from: path });
+  // Running every CSS through postcss tanks performance 😬
+  //TODO wait for tailwindcss 4.0 to see if performance improves
+  //TODO like above check if this is necessary with eleventy 3.0
+  configuration.addPlugin(bundler);
+  const processor = postcss([
+    tailwindcss(tailwindConfig),
+    autoprefixer(),
+    cssnano({
+      presets: "default",
+    }),
+  ]);
+  configuration.addBundle("css", {
+    transforms: [
+      async function (content) {
+        // if (!this.page.inputPath.includes("index.css")) return content;
+        const output = await processor.process(content, {
+          from: this.page.inputPath,
+          to: null,
+        });
 
         return output.css;
-      };
-    },
+      },
+    ],
   });
 
   configuration.addPlugin(webCPlugin, {

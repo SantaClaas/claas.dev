@@ -14,6 +14,9 @@ importers:
       '@11ty/eleventy-img':
         specifier: 5.0.0-beta.10
         version: 5.0.0-beta.10
+      '@11ty/eleventy-plugin-bundle':
+        specifier: ^2.0.2
+        version: 2.0.2
       '@11ty/eleventy-plugin-inclusive-language':
         specifier: ^1.0.3
         version: 1.0.3

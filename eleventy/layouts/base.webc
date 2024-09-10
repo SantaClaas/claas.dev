@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title @text="this.title"></title>
-    <!--- webc:keep keeps WebC from trying to touch index.css  -->
-    <link webc:keep rel="stylesheet" href="/index.css">
+    <!--- This gets processed by the bundler with postcss and tailwindcss --->
+    <link rel="stylesheet" href="../index.css">
     <meta webc:if="this.description" name="description" :content="this.description">
     <meta name="color-scheme" content="light">
     <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+    <!--- Alternatively use getBundleFileUrl('css') to not inline but use a separate file --->
     <style @raw="getBundle('css')" webc:keep></style>
     <script @raw="getBundle('js')" webc:keep></script>
 </head>
 
 <!--- Should eleventy fail when bodystyles is undefined or null or should I open a PR? --->
+<!--- If :class is an empty string the attribute won't be rendered --->
 
 <body @html="this.content" :class="(bodystyles ?? '')">
 
