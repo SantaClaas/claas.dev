@@ -30,19 +30,19 @@ bodystyles: px-4
 <header class="mx-auto max-w-7xl mb-6">
     <h1 class="text-display-lg">claas.dev</h1>
 </header>
-<main class="mx-auto max-w-7xl">
+<main class="mx-auto max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
 
-    <a href="/resume" class="p-4 grid content-between mb-4 bg-light-secondary-container text-light-on-primary-container rounded-medium">
+    <section class="grid grid-cols-subgrid gap-2 col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
+        <a href="/resume" class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium">
             <h2 class="text-title-lg mb-4">Resume</h2>
-
-    </a>
-    <a href="/color" class="p-4 grid content-between mb-4 bg-light-secondary-container text-light-on-primary-container rounded-medium">
-                <h2 class="text-title-lg mb-4">Color</h2>
-
         </a>
+        <a href="/color" class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium">
+            <h2 class="text-title-lg mb-4">Color</h2>
+        </a>
+    </section>
 
     <h2 class="text-headline-lg mb-4">Posts</h2>
-    <ol class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+    <ol class="grid gap-2 grid-cols-subgrid col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
         <!--- Filled card --->
         <li webc:for="post of collections.post" >
             <a :href="post.url" class="p-4 grid content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
