@@ -1,4 +1,4 @@
-<div :class="(`${classes} px-3 grid content-between pb-3 pt-2.5 capitalize`)">
+<div :class="(`${classes} px-3 grid content-between pb-3 pt-2.5 capitalize print-color-exact`)">
     <p @text="role"></p>
     <p class="mt-auto text-end" @text="token"></p>
 </div>
