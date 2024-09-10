@@ -2,7 +2,7 @@
 title: claas.dev
 layout: "base.webc"
 description: "Claas: Claas as a service. Blog, Resume and more."
-bodystyles: px-4
+bodystyles: p-4
 ---
 
 <script webc:setup>

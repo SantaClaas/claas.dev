@@ -1,6 +1,6 @@
 ---
 layout: "base.webc"
-bodystyles: px-4
+bodystyles: px-4 pb-4
 ---
 
 <article class="mx-auto prose lg:prose-xl">
