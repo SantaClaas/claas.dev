@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title @raw="this.title"></title>
+    <title @text="this.title"></title>
     <!--- webc:keep keeps WebC from trying to touch index.css  -->
     <link webc:keep rel="stylesheet" href="/index.css">
     <meta webc:if="this.description" name="description" :content="this.description">

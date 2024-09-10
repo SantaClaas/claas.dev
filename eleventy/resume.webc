@@ -1,10 +1,10 @@
 ---
-title: Claas' CV
-layout: "base.webc"
-bodystyles: class="mx-auto max-w-max"
-description: Curriculum Vitae of Claas Möhlmann
+title: Resume
+layout: base.webc
+bodystyles: px-4
+description: Resume of Claas Möhlmann
 ---
-
+<!--
 
 <top-app-bar>
     <h1 slot="headline" class="px-4 md:px-6 pb-7 text-headline-md">Curriculum Vitae</h1>
@@ -26,17 +26,46 @@ description: Curriculum Vitae of Claas Möhlmann
                 d="M640-640v-120H320v120h-80v-200h480v200h-80Zm-480 80h640-640Zm560 100q17 0 28.5-11.5T760-500q0-17-11.5-28.5T720-540q-17 0-28.5 11.5T680-500q0 17 11.5 28.5T720-460Zm-80 260v-160H320v160h320Zm80 80H240v-160H80v-240q0-51 35-85.5t85-34.5h560q51 0 85.5 34.5T880-520v240H720v160Zm80-240v-160q0-17-11.5-28.5T760-560H200q-17 0-28.5 11.5T160-520v160h80v-80h480v80h80Z" />
         </svg>
     </button>
-</top-app-bar>
+</top-app-bar> -->
 
+<header class="max-w-[80ch] mx-auto grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-2">
+    <h1 @text="title" class="text-headline-md"></h1>
+    <!--- Top app bar (large) -->
+    <menu
+        class="flex w-full h-12 col-span-2 row-start-1 pt-2 print:hidden place-self-end trailing-icons text-light-on-surface-variant">
+        <li class="grow">
+            <a href="/" class="inline-block p-3 -ml-3 size-12 grow">
+                <span class="sr-only">Back</span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                </svg>
+            </a>
+        </li>
+        <li>
+            <share-button webc:nokeep></share-button>
+        </li>
+        <li>
+            <button onmousedown="print()" class="p-3 -mr-3 size-12">
+                <span class="sr-only">
+                    Print
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="M640-640v-120H320v120h-80v-200h480v200h-80Zm-480 80h640-640Zm560 100q17 0 28.5-11.5T760-500q0-17-11.5-28.5T720-540q-17 0-28.5 11.5T680-500q0 17 11.5 28.5T720-460Zm-80 260v-160H320v160h320Zm80 80H240v-160H80v-240q0-51 35-85.5t85-34.5h560q51 0 85.5 34.5T880-520v240H720v160Zm80-240v-160q0-17-11.5-28.5T760-560H200q-17 0-28.5 11.5T160-520v160h80v-80h480v80h80Z" />
+                </svg>
+            </button>
+        </li>
+    </menu>
+</header>
 <main
-    class="mx-4 max-w-max md:mx-6 grid p-4 rounded-extra-large bg-light-surface text-body-lg grid-cols-[auto_1fr] print:border-light-outline print:border">
+    class="p-4 mx-auto max-w-[80ch] rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium">
 
     <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid">
         <section class="flex flex-wrap col-span-2 gap-4 [margin-block-end:1.5rem]">
             <eleventy-image src="./images/claas.jpg" :width="[100, 200]" sizes="(192px)"
                 alt="photo of me in front of the cologne cathedral drinking a bubble tea"
                 class="object-contain w-48 rounded-extra-large"></eleventy-image>
-            <hgroup>
+            <hgroup class="max-w-min">
                 <h1 class="font-semibold text-display-md">Claas Möhlmann</h1>
                 <span class="font-light text-display-sm">(he/him)</span>
                 <p class="text-display-sm">
@@ -160,7 +189,7 @@ description: Curriculum Vitae of Claas Möhlmann
                 During my stay I was responsible for
                 <ul class="list-disc list-inside ">
                     <li>Developing and maintaining a RESTful web API</li>
-                    <li>Developing a web app using the before mentioned web API</li>
+                    <li>Developing a web app using the web API</li>
                     <li>Developing a React app that acts as Microsoft Outlook Add-in to archive emails using the web
                         API
                     </li>
