@@ -1,0 +1,174 @@
+<article class="grid grid-cols-4 gap-4">
+    <div class="grid col-span-3 gap-1 grid-cols-subgrid">
+        <div class="space-y-1">
+            <!-- Primary  -->
+            <div>
+                <swatch @role="Primary" @token="p-40"
+                    @classes="bg-primary-40 dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary">
+                </swatch>
+                <swatch @role="On Primary" @token="p-100"
+                    @classes="bg-light-on-primary dark:bg-dark-on-primary text-light-primary dark:text-dark-primary">
+                </swatch>
+            </div>
+            <div>
+                <swatch @role="Primary Container" @token="p-90"
+                    @classes="bg-light-primary-container dark:bg-dark-primary-container text-light-on-primary-container dark:text-dark-on-primary-container">
+                </swatch>
+                <swatch @role="On Primary Container" @token="p-10"
+                    @classes="bg-light-on-primary-container dark:bg-dark-on-primary-container text-light-primary-container dark:text-dark-primary-container">
+                </swatch>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <!---Secondary--->
+            <div>
+                <swatch @role="secondary" @token="s-40"
+                    @classes="bg-secondary-40 dark:bg-dark-secondary text-light-on-secondary dark:text-dark-on-secondary">
+                </swatch>
+                <swatch @role="On secondary" @token="s-100"
+                    @classes="bg-light-on-secondary dark:bg-dark-on-secondary text-light-secondary dark:text-dark-secondary">
+                </swatch>
+            </div>
+            <div>
+                <swatch @role="secondary Container" @token="s-90"
+                    @classes="bg-light-secondary-container dark:bg-dark-secondary-container text-light-on-secondary-container dark:text-dark-on-secondary-container">
+                </swatch>
+                <swatch @role="On secondary Container" @token="s-10"
+                    @classes="bg-light-on-secondary-container dark:bg-dark-on-secondary-container text-light-secondary-container dark:text-dark-secondary-container">
+                </swatch>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <!---Tertiary--->
+            <div>
+                <swatch @role="tertiary" @token="t-40"
+                    @classes="bg-tertiary-40 dark:bg-dark-tertiary text-light-on-tertiary dark:text-dark-on-tertiary">
+                </swatch>
+                <swatch @role="On tertiary" @token="p-100"
+                    @classes="bg-light-on-tertiary dark:bg-dark-on-tertiary text-light-tertiary dark:text-dark-tertiary">
+                </swatch>
+            </div>
+            <div>
+                <swatch @role="tertiary Container" @token="t-90"
+                    @classes="bg-light-tertiary-container dark:bg-dark-tertiary-container text-light-on-tertiary-container dark:text-dark-on-tertiary-container">
+                </swatch>
+                <swatch @role="On tertiary Container" @token="t-10"
+                    @classes="bg-light-on-tertiary-container dark:bg-dark-on-tertiary-container text-light-tertiary-container dark:text-dark-tertiary-container">
+                </swatch>
+            </div>
+        </div>
+    </div>
+    <div class="space-y-1">
+        <!---Error--->
+        <div>
+            <swatch @role="error" @token="e-40"
+                @classes="bg-error-40 dark:bg-dark-error text-light-on-error dark:text-dark-on-error"></swatch>
+            <swatch @role="On error" @token="p-100"
+                @classes="bg-light-on-error dark:bg-dark-on-error text-light-error dark:text-dark-error"></swatch>
+        </div>
+        <div>
+            <swatch @role="error Container" @token="e-90"
+                @classes="bg-light-error-container dark:bg-dark-error-container text-light-on-error-container dark:text-dark-on-error-container">
+            </swatch>
+            <swatch @role="On error Container" @token="e-10"
+                @classes="bg-light-on-error-container dark:bg-dark-on-error-container text-light-error-container dark:text-dark-error-container">
+            </swatch>
+        </div>
+    </div>
+    <div class="grid col-span-3 gap-1 grid-cols-subgrid">
+        <!---Fixed colors--->
+        <div class="grid grid-cols-2 ">
+            <!---Primary Fixed--->
+            <swatch @role="Primary Fixed" @token="p-90"
+                @classes="bg-light-primary-fixed dark:bg-dark-primary-fixed text-light-on-primary-fixed dark:text-dark-on-primary-fixed">
+            </swatch>
+            <swatch @role="Primary Fixed Dim" @token="p-80"
+                @classes="bg-light-primary-fixed-dim dark:bg-dark-primary-fixed-dim text-light-on-primary-fixed-variant dark:text-dark-on-primary-fixed-variant">
+            </swatch>
+            <swatch @role="On Primary Fixed" @token="p-10"
+                @classes="col-span-2 bg-light-on-primary-fixed dark:bg-dark-on-primary-fixed text-light-primary-fixed dark:text-dark-primary-fixed">
+            </swatch>
+            <swatch @role="On Primary Fixed Variant" @token="p-30"
+                @classes="col-span-2 bg-light-on-primary-fixed-variant dark:bg-dark-primary-fixed-variant text-light-primary-fixed-dim dark:text-dark-primary-fixed-dim">
+            </swatch>
+        </div>
+        <div class="grid grid-cols-2">
+            <!---Secondary Fixed--->
+            <swatch @role="secondary Fixed" @token="s-90"
+                @classes="bg-light-secondary-fixed dark:bg-dark-secondary-fixed text-light-on-secondary-fixed dark:text-dark-on-secondary-fixed">
+            </swatch>
+            <swatch @role="secondary Fixed Dim" @token="s-80"
+                @classes="bg-light-secondary-fixed-dim dark:bg-dark-secondary-fixed-dim text-light-on-secondary-fixed-variant dark:text-dark-on-secondary-fixed-variant">
+            </swatch>
+            <swatch @role="On secondary Fixed" @token="s-10"
+                @classes="col-span-2 bg-light-on-secondary-fixed dark:bg-dark-on-secondary-fixed text-light-secondary-fixed dark:text-dark-secondary-fixed">
+            </swatch>
+            <swatch @role="On secondary Fixed Variant" @token="s-30"
+                @classes="col-span-2 bg-light-on-secondary-fixed-variant dark:bg-dark-secondary-fixed-variant text-light-secondary-fixed-dim dark:text-dark-secondary-fixed-dim">
+            </swatch>
+        </div>
+        <div class="grid grid-cols-2">
+            <!---Tertiary Fixed--->
+            <swatch @role="tertiary Fixed" @token="t-90"
+                @classes="bg-light-tertiary-fixed dark:bg-dark-tertiary-fixed text-light-on-tertiary-fixed dark:text-dark-on-tertiary-fixed">
+            </swatch>
+            <swatch @role="tertiary Fixed Dim" @token="t-80"
+                @classes="bg-light-tertiary-fixed-dim dark:bg-dark-tertiary-fixed-dim text-light-on-tertiary-fixed-variant dark:text-dark-on-tertiary-fixed-variant">
+            </swatch>
+            <swatch @role="On tertiary Fixed" @token="t-10"
+                @classes="col-span-2 bg-light-on-tertiary-fixed dark:bg-dark-on-tertiary-fixed text-light-tertiary-fixed dark:text-dark-tertiary-fixed">
+            </swatch>
+            <swatch @role="On tertiary Fixed Variant" @token="t-30"
+                @classes="col-span-2 bg-light-on-tertiary-fixed-variant dark:bg-dark-tertiary-fixed-variant text-light-tertiary-fixed-dim dark:text-dark-tertiary-fixed-dim">
+            </swatch>
+        </div>
+    </div>
+    <div class="grid col-span-3 gap-1 grid-cols-subgrid">
+        <!---Bottom row--->
+        <div class="grid col-span-3 gap-0 grid-cols-subgrid text-light-on-surface dark:text-dark-on-surface">
+            <swatch @role="Surface Dim" @token="n-87" @classes="bg-light-surface-dim dark:bg-dark-surface-dim"></swatch>
+            <swatch @role="Surface" @token="n-98" @classes="bg-light-surface dark:bg-dark-surface"></swatch>
+            <swatch @role="Surface Bright" @token="n-98" @classes="bg-light-surface-bright dark:bg-dark-surface-bright">
+            </swatch>
+        </div>
+        <div class="grid grid-flow-col col-span-3 text-light-on-surface dark:text-dark-on-surface">
+            <swatch @role="Surf. Container Lowest" @token="n-100"
+                @classes="bg-light-surface-container-lowest dark:bg-dark-surface-container-lowest"></swatch>
+            <swatch @role="Surf. Container Low" @token="n-96"
+                @classes="bg-light-surface-container-low dark:bg-dark-surface-container-low"></swatch>
+            <swatch @role="Surf. Container" @token="n-94"
+                @classes="bg-light-surface-container dark:bg-dark-surface-container"></swatch>
+            <swatch @role="Surf. Container High" @token="n-92"
+                @classes="bg-light-surface-container-high dark:bg-dark-surface-container-high"></swatch>
+            <swatch @role="Surf. Container Highest" @token="n-90"
+                @classes="bg-light-surface-container-highest dark:bg-dark-surface-container-highest"></swatch>
+        </div>
+        <div class="grid grid-flow-col col-span-3 text-light-surface dark:text-dark-surface">
+            <swatch @role="On Surface" @token="n-10" @classes="bg-light-on-surface dark:bg-dark-on-surface"></swatch>
+            <swatch @role="On Surface Var." @token="NV-30"
+                @classes="bg-light-on-surface-variant dark:bg-dark-on-surface-variant"></swatch>
+            <swatch @role="Outline" @token="NV-50" @classes="bg-light-outline dark:bg-dark-outline"></swatch>
+            <swatch @role="Outline" @token="NV-80"
+                @classes="bg-light-outline-variant dark:bg-dark-outline-variant text-light-inverse-surface dark:text-dark-inverse-surface">
+            </swatch>
+        </div>
+    </div>
+    <div class="space-y-1">
+        <div>
+            <!---Inverses--->
+            <swatch @role="Inverse Surface" @token="N-20"
+                @classes="bg-light-inverse-surface dark:bg-dark-inverse-surface text-light-inverse-on-surface dark:text-dark-inverse-on-surface">
+            </swatch>
+            <swatch @role="Inverse On Surface" @token="N-95"
+                @classes=" bg-light-inverse-on-surface dark:bg-dark-inverse-on-surface text-light-inverse-surface dark:text-dark-inverse-surface">
+            </swatch>
+        </div>
+        <swatch @role="Inverse Primary" @token="P-80"
+            @classes="bg-light-inverse-primary dark:bg-dark-inverse-primary text-light-on-primary-container dark:text-dark-on-primary-container">
+        </swatch>
+        <div class="grid grid-cols-2 gap-4 text-light-surface">
+            <swatch @role="Scrim" @token="N-0" @classes="bg-light-scrim"></swatch>
+            <swatch @role="Shadow" @token="N-0" @classes="bg-light-shadow"></swatch>
+        </div>
+    </div>
+</article>

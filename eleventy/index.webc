@@ -1,7 +1,7 @@
 ---
 title: claas.dev
 layout: "base.webc"
-description: "Claas: Claas as a service. Blog, CV and more."
+description: "Claas: Claas as a service. Blog, Resume and more."
 ---
 
 <script webc:setup>
@@ -31,7 +31,7 @@ description: "Claas: Claas as a service. Blog, CV and more."
 </header>
 <main class="mx-auto max-w-7xl">
     <h2 class="text-headline-lg">Posts</h2>
-    <ol class="grid gap-2">
+    <ol class="grid grid-cols-2 gap-2">
         <!--- Filled card --->
         <li webc:for="post of collections.post" class="p-4 bg-light-surface rounded-medium">
             <h2 class="text-title-lg">
@@ -39,7 +39,7 @@ description: "Claas: Claas as a service. Blog, CV and more."
             </h2>
 
             <time :datetime="post.date.toISOString().split('T')[0]" @text="formatDate(post.date)"
-                class="text-body-sm text-light-on-surface-variant">
+                class="text-body-sm text-light-on-surface-variant bg-light-surface-variant">
             </time>
             <p class="text-body-sm text-light-on-surface-variant" @text="post.description"></p>
         </li>

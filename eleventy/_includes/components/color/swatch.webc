@@ -1,0 +1,4 @@
+<div :class="(`${classes} px-3 pb-3 pt-2.5 capitalize`)">
+    <p @text="role"></p>
+    <p class="text-end" @text="token"></p>
+</div>
