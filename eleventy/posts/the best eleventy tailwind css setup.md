@@ -1,9 +1,6 @@
 ---
-title: The easiest Eleventy + Tailwind CSS setup
-tags: post
+title: The easiest Eleventy + Tailwind CSS Setup
 ---
-
-# The easiest Eleventy + Tailwind CSS setup
 
 1. Initialize Tailwind CSS by following their documentation
 2. Follow [Vadim Makeev's article](https://pepelsbey.dev/articles/eleventy-css-js/) to set up PostCSS in Eleventy

@@ -3,8 +3,6 @@ title: Expo with Rust
 tags: post
 ---
 
-# Expo with Rust
-
 React Native + Rust with Expo and UniFFI
 
 ## Motivation

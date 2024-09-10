@@ -14,7 +14,9 @@
     <script @raw="getBundle('js')" webc:keep></script>
 </head>
 
-<body @html="this.content" class="grid grid-rows-[auto_1fr] place-content-center">
+<!--- Should eleventy fail when bodystyles is undefined or null or should I open a PR? --->
+
+<body @html="this.content" :class="(bodystyles ?? '')">
 
 </body>
 

@@ -2,8 +2,6 @@
 title: Shiki with eleventy
 ---
 
-# Shiki with eleventy
-
 Integrating [Shiki](https://shiki.matsu.io/) for syntax highlighting in a couple of lines with Eleventy 3.0 (alpha 19 at the time of writing).
 
 This builds up on [How I use Shiki in Eleventy by Stefan Zweifel](https://stefanzweifel.dev/posts/2024/06/03/how-i-use-shiki-in-eleventy/) who also built his solution upon [Using shiki with 11ty by Raphael Höser](https://www.hoeser.dev/blog/2023-02-07-eleventy-shiki-simple/).
@@ -66,3 +64,5 @@ export default function (configuration) {
   );
 }
 ```
+
+If you don't want to load languages manually, you can import `bundledLanguages` or `bundledThemes` from shiki `Object.keys` it to get all the values but this is [not recommended by shiki](https://shiki.matsu.io/guide/install#highlighter-usage).

@@ -18,6 +18,9 @@ import { createHighlighter } from "shiki";
  * @param {Options} options
  */
 async function shikiPlugin(configuration, options) {
+  //TODO use Unstyled transformer plugin to use classes instead of inline styles
+  // https://shiki.matsu.io/packages/transformers#unstyled
+  // This is run only once
   const highlighter = await createHighlighter(options);
   configuration.amendLibrary("md", (library) => {
     library.set({

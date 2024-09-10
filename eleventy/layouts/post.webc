@@ -1,9 +1,45 @@
 ---
 layout: "base.webc"
+bodystyles: px-4
 ---
-<!--- Include CSS for syntax highlighting for posts. It should get bundled by WebC --->
-<link rel="stylesheet" href="../syntax-highlight.css">
-<article @html="this.content"
-    class="min-w-0 m-4 prose prose-code:before:content-none prose-code:after:content-none prose-a:after:content-['_↗'] prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words lg:prose-xl prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium">
+
+<article class="mx-auto prose lg:prose-xl">
+    <header class="not-prose grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-7">
+        <h1 @text="title" class="text-display-md"></h1>
+        <!--- Top app bar (large) -->
+        <menu
+            class="flex w-full h-12 col-span-2 row-start-1 pt-2 print:hidden place-self-end trailing-icons text-light-on-surface-variant">
+            <li class="grow">
+                <a href="/" class="inline-block p-3 -ml-3 size-12 grow">
+                    <span class="sr-only">Back</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <share-button webc:nokeep></share-button>
+            </li>
+            <li>
+                <button onmousedown="print()" class="p-3 -mr-3 size-12">
+                    <span class="sr-only">
+                        Print
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path
+                            d="M640-640v-120H320v120h-80v-200h480v200h-80Zm-480 80h640-640Zm560 100q17 0 28.5-11.5T760-500q0-17-11.5-28.5T720-540q-17 0-28.5 11.5T680-500q0 17 11.5 28.5T720-460Zm-80 260v-160H320v160h320Zm80 80H240v-160H80v-240q0-51 35-85.5t85-34.5h560q51 0 85.5 34.5T880-520v240H720v160Zm80-240v-160q0-17-11.5-28.5T760-560H200q-17 0-28.5 11.5T160-520v160h80v-80h480v80h80Z" />
+                    </svg>
+                </button>
+            </li>
+        </menu>
+    </header>
+
+    <!--- No prose necessary here as it is defined for its width at the article element level --->
+    <section @html="content" class="rounded-extra-large bg-light-surface p-4
+    prose-code:before:content-none prose-code:after:content-none prose-a:after:content-['_↗']
+    prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface
+    prose-p:text-light-on-surface-variant prose-code:break-words  prose-h1:text-display-md
+    prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm
+    prose-h6:text-body-lg prose-pre:rounded-medium"></section>
 
 </article>

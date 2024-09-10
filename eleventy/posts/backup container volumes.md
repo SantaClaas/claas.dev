@@ -2,19 +2,17 @@
 title: Backup container volumes
 ---
 
-# Introduction
-
 This is a short one and is based on [Christian Lempa's YouTube video on backing up container volumes](https://youtu.be/ZEy8iFbgbPA). That video helped me quickly understand all the cryptic parts of that command. You can find the [command to backup](https://docs.docker.com/engine/storage/volumes/#back-up-restore-or-migrate-data-volumes) in the Docker documentation, but I wanted to have it written down for myself and future reference.
 
 This command uses podman as that is what NixOS uses to run containers and I happen to use NixOS on my server. But as it is usual with podman, you can run the same command with docker.
 
-# Command
+## Command
 
 ```bash
 podman run --rm --volumes-from CONTAINER -v $(pwd):/backup ubuntu tar cvfz /backup/backup.tar /data
 ```
 
-# This command does:
+## This command does:
 
 1. `podman run` runs a new container
 2. [`--rm`](https://docs.docker.com/reference/cli/docker/container/run/#rm) this makes our container temporary and automatically cleans up the container after it has run.
@@ -29,7 +27,7 @@ podman run --rm --volumes-from CONTAINER -v $(pwd):/backup ubuntu tar cvfz /back
 7. `/backup/backup.tar` is where tar should store the file. This puts it through the mount binding to the process working directory right into the directory from which we execute this command.
 8. `/data` is the last path that tells tar where the data to be backed up is in. This should be the directory inside the container where your container stores the data that would be lost if it was completely destroyed including its volumes.
 
-# Example
+## Example
 
 As I did this to back up a Core Keeper Game Server this is what I used it for:
 

@@ -2,8 +2,6 @@
 title: Learning WebC
 ---
 
-# Learning WebC
-
 WebC is a templating language for building static websites with [Eleventy](https://www.11ty.dev/).
 It brings "first-class components to Eleventy" and allows you to easily progressively enhance your blog like adding web
 components to it.
