@@ -1,7 +1,7 @@
 <article class="grid grid-cols-4 gap-4">
     <div class="grid col-span-3 gap-1 grid-cols-subgrid">
         <div class="space-y-1">
-            <!-- Primary  -->
+            <span class="sr-only">Primary</span>
             <div>
                 <swatch @role="Primary" @token="p-40"
                     @classes="bg-primary-40 dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="space-y-1">
-            <!---Secondary--->
+            <span class="sr-only">Secondary</span>
             <div>
                 <swatch @role="secondary" @token="s-40"
                     @classes="bg-secondary-40 dark:bg-dark-secondary text-light-on-secondary dark:text-dark-on-secondary">
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="space-y-1">
-            <!---Tertiary--->
+            <span class="sr-only">Tertiary</span>
             <div>
                 <swatch @role="tertiary" @token="t-40"
                     @classes="bg-tertiary-40 dark:bg-dark-tertiary text-light-on-tertiary dark:text-dark-on-tertiary">
@@ -59,7 +59,7 @@
         </div>
     </div>
     <div class="space-y-1">
-        <!---Error--->
+        <span class="sr-only">Error</span>
         <div>
             <swatch @role="error" @token="e-40"
                 @classes="bg-error-40 dark:bg-dark-error text-light-on-error dark:text-dark-on-error"></swatch>
@@ -76,9 +76,9 @@
         </div>
     </div>
     <div class="grid col-span-3 gap-1 grid-cols-subgrid">
-        <!---Fixed colors--->
+        <span class="sr-only">Fixed colors</span>
         <div class="grid grid-cols-2 ">
-            <!---Primary Fixed--->
+            <span class="sr-only">Primary Fixed</span>
             <swatch @role="Primary Fixed" @token="p-90"
                 @classes="bg-light-primary-fixed dark:bg-dark-primary-fixed text-light-on-primary-fixed dark:text-dark-on-primary-fixed">
             </swatch>
@@ -93,7 +93,7 @@
             </swatch>
         </div>
         <div class="grid grid-cols-2">
-            <!---Secondary Fixed--->
+            <span class="sr-only">Secondary Fixed</span>
             <swatch @role="secondary Fixed" @token="s-90"
                 @classes="bg-light-secondary-fixed dark:bg-dark-secondary-fixed text-light-on-secondary-fixed dark:text-dark-on-secondary-fixed">
             </swatch>
@@ -108,7 +108,7 @@
             </swatch>
         </div>
         <div class="grid grid-cols-2">
-            <!---Tertiary Fixed--->
+            <span class="sr-only">Tertiary Fixed</span>
             <swatch @role="tertiary Fixed" @token="t-90"
                 @classes="bg-light-tertiary-fixed dark:bg-dark-tertiary-fixed text-light-on-tertiary-fixed dark:text-dark-on-tertiary-fixed">
             </swatch>
@@ -124,7 +124,7 @@
         </div>
     </div>
     <div class="grid col-span-3 gap-1 grid-cols-subgrid">
-        <!---Bottom row--->
+        <span class="sr-only">Bottom row</span>
         <div class="grid col-span-3 gap-0 grid-cols-subgrid text-light-on-surface dark:text-dark-on-surface">
             <swatch @role="Surface Dim" @token="n-87" @classes="bg-light-surface-dim dark:bg-dark-surface-dim"></swatch>
             <swatch @role="Surface" @token="n-98" @classes="bg-light-surface dark:bg-dark-surface"></swatch>
@@ -155,7 +155,7 @@
     </div>
     <div class="space-y-1">
         <div>
-            <!---Inverses--->
+            <span class="sr-only">Inverses</span>
             <swatch @role="Inverse Surface" @token="N-20"
                 @classes="bg-light-inverse-surface dark:bg-dark-inverse-surface text-light-inverse-on-surface dark:text-dark-inverse-on-surface">
             </swatch>
