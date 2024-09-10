@@ -1,5 +1,5 @@
 ---
-title: Design
+title: Color
 layout: base.webc
 bodystyles: px-4
 description: Design reference for claas.dev
@@ -39,17 +39,11 @@ description: Design reference for claas.dev
 
 
     <section class="p-4 first:mt-0 rounded-extra-large bg-light-surface">
-        <p>
-            The design of claas.dev is heavily inspired by
-            <a href="https://material.io/">Google's Material You Design System</a>.
-            The design system is primarily used for Android phones but I try to use it for this platform where it makes
-            sense.
-        </p>
-        <h2 class="text-headline-lg">Colors</h2>
-        <p>
-            Colors created using my
+
+        <p class="mb-4">
+            Colors created using
             <a href="https://www.npmjs.com/package/@claas.dev/material-tailwind">
-                material plugin for Tailwind CSS
+                my material plugin for Tailwind CSS
             </a>
         </p>
         <scheme></scheme>

@@ -3,12 +3,7 @@ import typography from "@tailwindcss/typography";
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "selector",
-  content: [
-    "./**/*.{html,webc,njk}",
-    "./main.js",
-    "!./_site/**/*",
-    "./design.md",
-  ],
+  content: ["./**/*.{html,webc,njk}", "./main.js", "!./_site/**/*"],
 
   theme: {
     extend: {},
