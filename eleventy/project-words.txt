@@ -1,0 +1,59 @@
+# New Words
+# Generated using
+# echo "# New Words" >> project-words.txt
+# pnpm exec cspell --words-only --unique "**/*.md" | sort --ignore-case >> project-words.txt
+# See https://cspell.org/docs/getting-started/
+aarch
+androideabi
+armeabi
+armv
+Automerge
+bindgen
+cdylib
+claas
+cvfz
+dylib
+ECIES
+endraw
+Höser
+kotlinlint
+Kotlin's
+Lempa's
+libnative
+Makeev's
+myrustmodule
+newstitle
+overengineered
+podfile
+podspec
+prebuild
+rustup
+Shiki
+shiki
+staticlib
+Swiftformat
+swiftformat
+UniFFI
+usecase
+utilites
+Vadim
+webc
+Zweifel
+Abitur
+Anwendungsentwicklung
+Ausbildung
+Beuel
+bodystyles
+eleventy
+evenodd
+Fachinformatiker
+hgroup
+Ibbenbüren
+Macromedia
+Möhlmann
+nokeep
+onmousedown
+stylesheet
+subgrid
+viewbox
+nearr

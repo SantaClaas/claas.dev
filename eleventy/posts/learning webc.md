@@ -69,7 +69,7 @@ for looping through posts use custom markup generating JavaScript. Which for my 
 
 ### Loop Syntax Gotcha
 
-The WebC Syntax aims to be like JavaScipt so you need to use `webc:for="item **of** items"` instead of `webc:for="item **in** items`.
+The WebC Syntax aims to be like JavaScript so you need to use `webc:for="item **of** items"` instead of `webc:for="item **in** items`.
 But this is probably just a 11pm recovering from feeling sick skill issue. And if we want to blame someone we should blame JS.
 (Why is it `in` for object properties in the first place?)
 

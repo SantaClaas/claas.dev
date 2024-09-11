@@ -1,5 +1,6 @@
 ---
 title: Backup container volumes
+description: A dissection of the command to back up a container volume
 ---
 
 This is a short one and is based on [Christian Lempa's YouTube video on backing up container volumes](https://youtu.be/ZEy8iFbgbPA). That video helped me quickly understand all the cryptic parts of that command. You can find the [command to backup](https://docs.docker.com/engine/storage/volumes/#back-up-restore-or-migrate-data-volumes) in the Docker documentation, but I wanted to have it written down for myself and future reference.
@@ -35,7 +36,7 @@ As I did this to back up a Core Keeper Game Server this is what I used it for:
 podman run --rm --volumes-from coreKeeperGameServer -v $(pwd):/backup ubuntu tar cvfz /backup/backup.tar /home/steam/core-keeper-data
 ```
 
-If you need to backup multiple direcotries or files you should be able to just append them separated with a space.
+If you need to backup multiple directories or files you should be able to just append them separated with a space.
 Also note that I needed to run this as sudo as the container under NixOS runs under the system.
 Additionally if I wanted to have access to the file as I created it with privileges I needed to change the ownership with `chown claas backup.tar` using sudo.
-If you want to copy the backup to another machine you can use the `scp` (secure copy) command. This would copy it from the server to your local machine's current directory `scp username@server:/home/username/backup.tar .`. You can also use this to copy the file from server to server. Replace username and server with the same paramters you'd use for SSH.
+If you want to copy the backup to another machine you can use the `scp` (secure copy) command. This would copy it from the server to your local machine's current directory `scp username@server:/home/username/backup.tar .`. You can also use this to copy the file from server to server. Replace username and server with the same parameters you'd use for SSH.
