@@ -4,8 +4,13 @@ bodystyles: px-4 pb-4
 ---
 
 <article class="mx-auto prose lg:prose-xl">
-    <header class="not-prose grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-7">
-        <h1 @text="title" class="text-display-md" :style="`view-transition-name: headline-${uniqueId};`"></h1>
+    <header class="not-prose grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-6">
+
+        <h1 webc:if="!description" @text="title" class="text-display-md" :style="`view-transition-name: title-${uniqueId};`"></h1>
+        <hgroup webc:if="description">
+            <h1 @text="title" class="text-display-md" :style="`view-transition-name: title-${uniqueId};`"></h1>
+            <p webc:if="description" @text="description" class="col-start-1 text-body-lg" :style="`view-transition-name: description-${uniqueId};`"></p>
+        </hgroup>
         <!--- Top app bar (large) -->
         <menu
             class="flex w-full h-12 col-span-2 row-start-1 pt-2 print:hidden place-self-end trailing-icons text-light-on-surface-variant">
@@ -36,7 +41,8 @@ bodystyles: px-4 pb-4
 
     <!--- No prose necessary here as it is defined for its width at the article element level --->
     <section @html="content"
-        class="p-4 rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium">
+        class="p-4 rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium"
+        :style="`view-transition-name: card-${uniqueId};`">
     </section>
 
 </article>
