@@ -43,8 +43,8 @@ bodystyles: p-4
     <ol class="grid gap-2 grid-cols-subgrid col-span-full">
         <li webc:for="post of collections.post.reverse()" class="contents">
             <a :href="post.url" class="p-4 grid grid-rows-subgrid row-span-3 content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
-                <h2 class="text-title-lg mb-4 text-pretty overflow-ellipsis" @text="post.data.title"> </h2>
-                <p class="text-body-large text-light-on-surface-variant" @text="post.data.description"></p>
+                <h2 @text="post.data.title" class="text-title-lg mb-4 text-pretty overflow-ellipsis" :style="`view-transition-name: headline-${post.data.uniqueId};`"></h2>
+                <p @text="post.data.description" class="text-body-large text-light-on-surface-variant"></p>
 
                 <time :datetime="post.date.toISOString().split('T')[0]" @text="formatDate(post.date)"
                     class="text-label-lg bg-opacity-70 min-w-0 place-self-end text-light-on-surface-variant bg-light-surface-container px-4 h-8 content-center rounded-medium">

@@ -5,7 +5,7 @@ bodystyles: px-4 pb-4
 
 <article class="mx-auto prose lg:prose-xl">
     <header class="not-prose grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-7">
-        <h1 @text="title" class="text-display-md"></h1>
+        <h1 @text="title" class="text-display-md" :style="`view-transition-name: headline-${uniqueId};`"></h1>
         <!--- Top app bar (large) -->
         <menu
             class="flex w-full h-12 col-span-2 row-start-1 pt-2 print:hidden place-self-end trailing-icons text-light-on-surface-variant">
