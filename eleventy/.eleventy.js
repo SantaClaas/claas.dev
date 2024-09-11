@@ -21,7 +21,7 @@ import bundler from "@11ty/eleventy-plugin-bundle";
  */
 async function shikiPlugin(configuration, options) {
   // For the favicon
-  configuration.addPassthroughCopy("imgages");
+  configuration.addPassthroughCopy("images");
   //TODO use Unstyled transformer plugin to use classes instead of inline styles
   // https://shiki.matsu.io/packages/transformers#unstyled
   // This is run only once
