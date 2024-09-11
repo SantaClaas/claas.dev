@@ -1,5 +1,5 @@
 ---
-title: The easiest Eleventy + Tailwind CSS Setup
+title: The easiest Eleventy Tailwind CSS Setup
 description: How Tailwind CSS is used on this site
 ---
 
