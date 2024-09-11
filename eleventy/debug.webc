@@ -1,0 +1,20 @@
+<script webc:setup>
+function getEnvironment() {
+  switch (process.env.NODE_ENV) {
+    case "production": return "production";
+    case "development": return "development";
+    case undefined: return "undefined";
+    case null: return "null";
+    // Not leaking any environment variables even though this might be safe
+    default: return "Unknown NODE_ENV";
+  }
+}
+
+</script>
+
+<table>
+    <tr>
+        <th>Environment</th>
+        <td @text="getEnvironment()"></td>
+    </tr>
+</table>
