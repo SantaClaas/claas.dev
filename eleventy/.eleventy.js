@@ -1,10 +1,10 @@
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
-import tailwindConfig from "./tailwind.config.js";
+import tailwindConfiguration from "./tailwind.config.js";
 import postcss from "postcss";
 import Image from "@11ty/eleventy-img";
-import webCPlugin from "@11ty/eleventy-plugin-webc";
+import webC from "@11ty/eleventy-plugin-webc";
 import inclusiveLanguage from "@11ty/eleventy-plugin-inclusive-language";
 import { createHighlighter } from "shiki";
 //TODO check on full 3.0 release if this is actually included in eleventy
@@ -52,7 +52,7 @@ export default function (configuration) {
   //TODO like above check if this is necessary with eleventy 3.0
   configuration.addPlugin(bundler);
   const processor = postcss([
-    tailwindcss(tailwindConfig),
+    tailwindcss(tailwindConfiguration),
     autoprefixer(),
     cssnano({
       presets: "default",
@@ -72,7 +72,7 @@ export default function (configuration) {
     ],
   });
 
-  configuration.addPlugin(webCPlugin, {
+  configuration.addPlugin(webC, {
     components: [
       "./_includes/components/**/*.webc",
       // Add image as a global WebC component
@@ -91,7 +91,7 @@ export default function (configuration) {
       // Default output directory
       // outputDir: "./img/",
       svgShortCircuit: false,
-    })
+    }),
   );
 
   // TODO checkout rehype for markdown processing as it works shiki
@@ -111,7 +111,7 @@ export default function (configuration) {
         "ruby",
         "swift",
       ],
-    })
+    }),
   );
   configuration.addPlugin(inclusiveLanguage);
 

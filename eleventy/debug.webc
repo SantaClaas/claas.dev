@@ -1,6 +1,6 @@
 <script webc:setup>
 function getEnvironment() {
-  switch (process.env.NODE_ENV) {
+  switch (process.env.CLAAS_DEV_ENVIRONMENT) {
     case "production": return "production";
     case "development": return "development";
     case undefined: return "undefined";
