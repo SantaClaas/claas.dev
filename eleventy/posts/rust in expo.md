@@ -1,6 +1,6 @@
 ---
 title: Expo with Rust
-tags: post
+description: A recipe for how to integrate Rust in a React Native project with UniFFI and Expo
 ---
 
 React Native + Rust with Expo and UniFFI

@@ -1,5 +1,6 @@
 ---
 title: The easiest Eleventy + Tailwind CSS Setup
+description: How Tailwind CSS is used on this site
 ---
 
 1. Initialize Tailwind CSS by following their documentation

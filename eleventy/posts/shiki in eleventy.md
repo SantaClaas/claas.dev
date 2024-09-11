@@ -1,5 +1,6 @@
 ---
 title: Shiki with eleventy
+description: How syntax highlighting for code is implemented on this site
 ---
 
 Integrating [Shiki](https://shiki.matsu.io/) for syntax highlighting in a couple of lines with Eleventy 3.0 (alpha 19 at the time of writing).

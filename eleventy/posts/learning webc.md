@@ -1,5 +1,6 @@
 ---
 title: Learning WebC
+description: A collection of pitfalls I encountered while learning the templating language WebC
 ---
 
 WebC is a templating language for building static websites with [Eleventy](https://www.11ty.dev/).
