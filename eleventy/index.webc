@@ -44,7 +44,7 @@ bodystyles: p-4
     <h2 class="text-headline-lg mb-4">Posts</h2>
     <ol class="grid gap-2 grid-cols-subgrid col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
         <!--- Filled card --->
-        <li webc:for="post of collections.post" >
+        <li webc:for="post of collections.post.reverse()" >
             <a :href="post.url" class="p-4 grid content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
                 <h2 class="text-title-lg mb-4" @text="post.data.title"> </h2>
             <p class="text-body-sm text-light-on-surface-variant" @text="post.description"></p>
