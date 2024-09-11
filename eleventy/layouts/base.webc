@@ -13,13 +13,21 @@
     <!--- Alternatively use getBundleFileUrl('css') to not inline but use a separate file --->
     <style @raw="getBundle('css')" webc:keep></style>
     <script @raw="getBundle('js')" webc:keep></script>
+    <style webc:bucket="defer">
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
 </head>
 
 <!--- Should eleventy fail when bodystyles is undefined or null or should I open a PR? --->
 <!--- If :class is an empty string the attribute won't be rendered --->
 
-<body @html="this.content" :class="(bodystyles ?? '')">
+<body :class="(bodystyles ?? '')">
 
+    <template @html="this.content" webc:nokeep></template>
+    <!--- Load these at the end as they are progressive enhancements and not necessary --->
+    <style @raw="getBundle('css', 'defer')" webc:keep></style>
 </body>
 
 </html>
