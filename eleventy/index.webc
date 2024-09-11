@@ -28,9 +28,9 @@ bodystyles: p-4
 <header class="mx-auto max-w-7xl mb-6">
     <h1 class="text-display-lg">claas.dev</h1>
 </header>
-<main class="mx-auto max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+<main class="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 
-    <section class="grid grid-cols-subgrid gap-2 col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
+    <section class="grid grid-cols-subgrid gap-2 col-span-full">
         <a href="/resume" class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium">
             <h2 class="text-title-lg mb-4">Resume</h2>
         </a>
@@ -40,16 +40,15 @@ bodystyles: p-4
     </section>
 
     <h2 class="text-headline-lg mb-4">Posts</h2>
-    <ol class="grid gap-2 grid-cols-subgrid col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-        <!--- Filled card --->
-        <li webc:for="post of collections.post.reverse()" >
-            <a :href="post.url" class="p-4 grid content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
-                <h2 class="text-title-lg mb-4" @text="post.data.title"> </h2>
-            <p class="text-body-sm text-light-on-surface-variant" @text="post.description"></p>
+    <ol class="grid gap-2 grid-cols-subgrid col-span-full">
+        <li webc:for="post of collections.post.reverse()" class="contents">
+            <a :href="post.url" class="p-4 grid grid-rows-subgrid row-span-3 content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
+                <h2 class="text-title-lg mb-4 text-pretty overflow-ellipsis" @text="post.data.title"> </h2>
+                <p class="text-body-large text-light-on-surface-variant" @text="post.data.description"></p>
 
-            <time :datetime="post.date.toISOString().split('T')[0]" @text="formatDate(post.date)"
-                class="text-label-lg min-w-0 place-self-end text-light-on-surface-variant bg-light-surface-container px-4 h-8 content-center rounded-medium">
-            </time>
+                <time :datetime="post.date.toISOString().split('T')[0]" @text="formatDate(post.date)"
+                    class="text-label-lg bg-opacity-70 min-w-0 place-self-end text-light-on-surface-variant bg-light-surface-container px-4 h-8 content-center rounded-medium">
+                </time>
             </a>
         </li>
     </ol>
