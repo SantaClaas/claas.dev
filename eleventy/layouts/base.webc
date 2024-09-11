@@ -18,6 +18,8 @@
             navigation: auto;
         }
     </style>
+    <!--- https://darn.es/you-should-add-a-generator-tag-to-your-eleventy-site/ --->
+    <meta name="generator" webc:if="eleventy.generator" :content="eleventy.generator">
 </head>
 
 <!--- Should eleventy fail when bodystyles is undefined or null or should I open a PR? --->
