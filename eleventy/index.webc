@@ -1,7 +1,5 @@
 ---
-title: claas.dev
 layout: "base.webc"
-description: "Claas: Claas as a service. Blog, Resume and more."
 bodystyles: p-4
 ---
 

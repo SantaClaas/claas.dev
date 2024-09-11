@@ -7,6 +7,9 @@ import Image from "@11ty/eleventy-img";
 import webC from "@11ty/eleventy-plugin-webc";
 import inclusiveLanguage from "@11ty/eleventy-plugin-inclusive-language";
 import { createHighlighter } from "shiki";
+import { feedPlugin as feed } from "@11ty/eleventy-plugin-rss";
+import data from "./_data/page.js";
+
 //TODO check on full 3.0 release if this is actually included in eleventy
 import bundler from "@11ty/eleventy-plugin-bundle";
 /**
@@ -114,6 +117,22 @@ export default function (configuration) {
     }),
   );
   configuration.addPlugin(inclusiveLanguage);
+  // No types for options but look here https://www.11ty.dev/docs/plugins/rss/#virtual-template
+  configuration.addPlugin(feed, {
+    collection: {
+      name: "post",
+    },
+    metadata: {
+      language: "en-US",
+      title: data.title,
+      subtitle: data.description,
+      base: "https://claas.dev/",
+      author: {
+        name: data.author,
+        email: "rss-feed@claas.dev",
+      },
+    },
+  });
 
   //TODO integrate WCAG reporting https://github.com/hidde/eleventy-wcag-reporter and https://github.com/inclusive-design/idrc-wcag-reporter
   //TODO integrate W3C HTML validator https://www.npmjs.com/package/w3c-html-validator
