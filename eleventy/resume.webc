@@ -35,15 +35,16 @@ description: Resume of Claas Möhlmann
     </menu>
 </header>
 <main
-    class="p-4 mx-auto max-w-[80ch] rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium"
+    class="p-4 print:p-0 mx-auto max-w-[80ch] rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium"
     style="view-transition-name: card-resume;">
 
     <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid" >
         <section class="flex flex-wrap col-span-2 gap-4 [margin-block-end:1.5rem]">
-            <eleventy-image src="./images/claas.jpg" :width="[100, 200]" sizes="(192px)"
+            <!-- <eleventy-image src="./images/claas.jpg" :width="[100, 200]" sizes="(192px)"
                 alt="photo of me in front of the cologne cathedral drinking a bubble tea"
-                class="object-contain w-48 rounded-extra-large"></eleventy-image>
-            <hgroup class="max-w-min">
+                class="object-contain w-48 rounded-extra-large"></eleventy-image> -->
+            <!-- <hgroup class="max-w-min"> -->
+            <hgroup>
                 <h1 class="font-semibold text-display-md">Claas Möhlmann</h1>
                 <span class="font-light text-display-sm">(he/him)</span>
                 <p class="text-display-sm">
@@ -303,16 +304,76 @@ description: Resume of Claas Möhlmann
     </article>
 
     <article class="body-large">
-        <h2 class="headline-large">
+        <h2 class="headline-large mb-3">
             Skills
         </h2>
+
+        <ol class="list-disc list-inside">
+            <li>Communication</li>
+            <li>Problem Solving</li>
+            <li>Critical Thinking</li>
+            <li>Collaboration</li>
+            <li>Adaptability</li>
+            <li>Empath</li>
+            <!---
+            <li>Web Development</li>
+            <li>
+                <rust-icon class="text-light-on-surface-variant rounded-large overflow-hidden" height="24" width="24"></rust-icon>
+                <span>Rust</span>
+            </li>
+            <li>
+                <span>HTML</span>
+            </li>
+            <li>
+                <span>CSS</span>
+            </li>
+            <li ">
+               <javascript-icon-cutout class="text-light-on-surface-variant" height="100" width="100"></javascript-icon-cutout>
+                <span>JavaScript</span>
+            </li>
+            <li>
+               <typescript-icon class="text-light-on-surface-variant" height="100" width="100"></typescript-icon>
+                <span>TypeScript</span>
+            </li>
+            <li>
+                <span>Tailwind CSS</span>
+            </li>
+            <li>
+                <span>SolidJS</span>
+            </li>
+            <li>
+                <span>React</span>
+            </li>
+            <li>
+                <span>git</span>
+            </li>
+            <li>
+                <span>GitHub</span>
+            </li>
+            <li>
+                <span>Agile</span>
+            </li>
+            <li>
+                <span>F#</span>
+            </li>
+            <li>
+                <span>C#</span>
+            </li>
+            <li>
+                <span>.NET</span>
+            </li>
+--->
+        </ol>
 
     </article>
 
     <article class="body-large">
-        <h2 class="headline-large">
+        <h2 class="headline-large mb-3">
             Languages
         </h2>
-
+        <h3 class="mb-2">German</h3>
+        <p class="mb-3">Native</p>
+        <h3 class="mb-2">English</h3>
+        <p>Fluent</p>
     </article>
 </main>
