@@ -22,7 +22,7 @@
     "@11ty/eleventy-plugin-webc": "^0.11.2",
     "@claas.dev/material-tailwind": "^0.4.0",
     "@tailwindcss/typography": "^0.5.15",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "cspell": "^8.14.2",
     "cssnano": "^7.0.2",
     "postcss": "^8.4.38",
