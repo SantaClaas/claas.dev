@@ -24,7 +24,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
     "cspell": "^8.17.3",
-    "cssnano": "^7.0.2",
+    "cssnano": "^7.0.6",
     "postcss": "^8.4.38",
     "shiki": "^1.16.2",
     "slugify": "^1.6.6",
