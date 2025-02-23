@@ -1,17 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@claas.dev/material-tailwind" {
+  source-color: "#942DE3";
+}
 
 @layer base {
-    :root {
-        /* Just some fun base styles that are global */
-        /* surface container color is the background of the page to have it as background for the navigation elements */
-        @apply bg-light-surface-container text-light-on-surface caret-light-primary accent-light-primary selection:bg-light-primary selection:text-light-on-primary;
-    }
+  :root {
+    /* Just some fun base styles that are global */
+    /* surface container color is the background of the page to have it as background for the navigation elements */
+    @apply bg-light-surface-container text-light-on-surface caret-light-primary accent-light-primary selection:bg-light-primary selection:text-light-on-primary;
+  }
 }
 @layer utilities {
-    /* Print background colors exact for cases where the color is the point like the color page displaying all colors */
-    .print-color-exact {
-        print-color-adjust: exact;
-    }
+  /* Print background colors exact for cases where the color is the point like the color page displaying all colors */
+  .print-color-exact {
+    print-color-adjust: exact;
+  }
 }

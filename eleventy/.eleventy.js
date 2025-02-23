@@ -1,7 +1,6 @@
-import tailwindcss from "tailwindcss";
+import tailwindcss from "@tailwindcss/postcss";
 import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
-import tailwindConfiguration from "./tailwind.config.js";
 import postcss from "postcss";
 import Image from "@11ty/eleventy-img";
 import webC from "@11ty/eleventy-plugin-webc";
@@ -56,7 +55,7 @@ export default function (configuration) {
   //TODO like above check if this is necessary with eleventy 3.0
   configuration.addPlugin(bundler);
   const processor = postcss([
-    tailwindcss(tailwindConfiguration),
+    tailwindcss(),
     autoprefixer(),
     cssnano({
       presets: "default",
@@ -95,7 +94,7 @@ export default function (configuration) {
       // Default output directory
       // outputDir: "./img/",
       svgShortCircuit: false,
-    }),
+    })
   );
 
   // TODO checkout rehype for markdown processing as it works shiki
@@ -115,7 +114,7 @@ export default function (configuration) {
         "ruby",
         "swift",
       ],
-    }),
+    })
   );
   configuration.addPlugin(inclusiveLanguage);
   // No types for options but look here https://www.11ty.dev/docs/plugins/rss/#virtual-template
