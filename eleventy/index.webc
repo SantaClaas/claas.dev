@@ -32,14 +32,12 @@ bodystyles: p-4
 
     <section class="grid grid-cols-subgrid gap-2 col-span-full">
         <a href="/resume"
-            class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium"
-            style="view-transition-name: card-resume;">
-            <h2 class="text-title-lg mb-4" style="view-transition-name: title-resume;">Resume</h2>
+            class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium">
+            <h2 class="text-title-lg mb-4">Resume</h2>
         </a>
         <a href="/color"
-            class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium"
-            style="view-transition-name: card-color;">
-            <h2 class="text-title-lg mb-4" style="view-transition-name: title-color;">Color</h2>
+            class="p-4 grid content-between bg-light-secondary-container text-light-on-primary-container rounded-medium">
+            <h2 class="text-title-lg mb-4">Color</h2>
         </a>
     </section>
 
@@ -47,13 +45,10 @@ bodystyles: p-4
     <ol class="grid gap-2 grid-cols-subgrid col-span-full">
         <li webc:for="post of collections.post.reverse()" class="contents">
             <a :href="post.url"
-                class="p-4 grid grid-rows-subgrid row-span-3 content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium"
-                :style="`view-transition-name: card-${post.data.uniqueId};`">
-                <h2 @text="post.data.title" class="text-title-lg text-pretty overflow-ellipsis"
-                    :style="`view-transition-name: title-${post.data.uniqueId};`"></h2>
+                class="p-4 grid grid-rows-subgrid row-span-3 content-between aspect-square bg-light-secondary-container text-light-on-primary-container rounded-medium">
+                <h2 @text="post.data.title" class="text-title-lg text-pretty overflow-ellipsis"></h2>
                 <p webc:if="post.data.description" @text="post.data.description"
-                    class="text-body-large text-light-on-surface-variant"
-                    :style="`view-transition-name: description-${post.data.uniqueId};`"></p>
+                    class="text-body-large text-light-on-surface-variant"></p>
 
                 <time :datetime="post.date.toISOString().split('T')[0]" @text="formatDate(post.date)"
                     class="text-label-lg bg-opacity-70 min-w-0 place-self-end text-light-on-surface-variant bg-light-surface-container px-4 h-8 content-center rounded-medium">

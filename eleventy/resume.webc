@@ -6,7 +6,7 @@ description: Resume of Claas Möhlmann
 ---
 
 <header class="max-w-[80ch] mx-auto grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-2">
-    <h1 @text="title" class="text-headline-md" style="view-transition-name: title-resume;"></h1>
+    <h1 @text="title" class="text-headline-md"></h1>
     <!--- Top app bar (large) -->
     <menu
         class="flex w-full h-12 col-span-2 row-start-1 pt-2 print:hidden place-self-end trailing-icons text-light-on-surface-variant">
@@ -35,10 +35,9 @@ description: Resume of Claas Möhlmann
     </menu>
 </header>
 <main
-    class="p-4 print:p-0 mx-auto max-w-[80ch] rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium"
-    style="view-transition-name: card-resume;">
+    class="p-4 print:p-0 mx-auto max-w-[80ch] rounded-extra-large bg-light-surface prose-code:before:content-none prose-code:after:content-none prose-a:break-inside-avoid prose-a:after:text-sm prose-a:no-underline prose-a:text-light-primary prose-headings:text-light-on-surface prose-p:text-light-on-surface-variant prose-code:break-words prose-h1:text-display-md prose-h2:text-headline-lg prose-h3:text-title-lg prose-h4:text-title-md prose-h5:text-title-sm prose-h6:text-body-lg prose-pre:rounded-medium">
 
-    <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid" >
+    <article class="grid items-start grid-cols-1 col-span-2 [margin-block-end:1.5rem] md:grid-cols-subgrid">
         <section class="flex flex-wrap col-span-2 gap-4 [margin-block-end:1.5rem]">
             <!-- <eleventy-image src="./images/claas.jpg" :width="[100, 200]" sizes="(192px)"
                 alt="photo of me in front of the cologne cathedral drinking a bubble tea"

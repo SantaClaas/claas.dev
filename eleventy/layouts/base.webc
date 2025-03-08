@@ -14,8 +14,70 @@
     <style @raw="getBundle('css')" webc:keep></style>
     <script @raw="getBundle('js')" webc:keep></script>
     <style webc:bucket="defer">
-        @view-transition {
-            navigation: auto;
+        @media (prefers-reduced-motion: no-preference) {
+            @view-transition {
+                navigation: auto;
+            }
+        }
+
+        ::view-transition-group(root) {
+            /* animation-duration: 2s; */
+        }
+
+        @keyframes slide-in-right {
+            from {
+                translate: 100vw 0;
+            }
+        }
+
+        @keyframes slide-out-right {
+            to {
+                translate: 100vw 0;
+            }
+        }
+
+        @keyframes slide-out {
+            to {
+                translate: -100vw 0;
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fade-out {
+            to {
+                opacity: 0;
+            }
+        }
+
+        [data-direction="forward"] {
+            animation-timing-function: ease-in-out;
+            animation-duration: 250ms;
+
+            &::view-transition-old(root) {
+                animation-name: fade-out;
+            }
+
+            &::view-transition-new(root) {
+                animation-name: slide-in-right, fade-in;
+            }
+        }
+
+        [data-direction="backward"] {
+            animation-timing-function: ease-in-out;
+            animation-duration: 250ms;
+
+            &::view-transition-old(root) {
+                animation-name: slide-out-right, fade-out;
+            }
+
+            &::view-transition-new(root) {
+                animation-name: fade-in;
+            }
         }
     </style>
     <!--- https://darn.es/you-should-add-a-generator-tag-to-your-eleventy-site/ --->
@@ -33,3 +95,36 @@
 </body>
 
 </html>
+
+<script>
+
+    const pages = [
+        "/",
+        "/resume/",
+        "/color/",
+    ];
+
+    window.addEventListener("pagereveal", async (event) => {
+        if (!event.viewTransition) return;
+
+        const from = navigation.activation.from.url;
+        const to = navigation.activation.entry.url;
+
+        const fromPath = new URL(from).pathname;
+        const toPath = new URL(to).pathname;
+
+        console.debug({ fromPath, toPath });
+        const fromIndex = pages.indexOf(fromPath);
+        const toIndex = pages.indexOf(toPath);
+
+        const direction = fromIndex < toIndex ? "forward" : "backward";
+
+
+        document.documentElement.dataset.direction = direction;
+
+        await event.viewTransition.finished;
+
+        console.debug("transition finished");
+        delete document.documentElement.dataset.direction;
+    });
+</script>
