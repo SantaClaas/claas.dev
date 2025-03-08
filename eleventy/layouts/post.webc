@@ -3,13 +3,15 @@ layout: "base.webc"
 bodystyles: px-4 pb-4
 ---
 
-<article class="mx-auto prose lg:prose-xl">
+<article class="max-w-[80ch] mx-auto prose lg:prose-xl">
     <header class="not-prose grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-6">
 
-        <h1 webc:if="!description" @text="title" class="text-display-md" :style="`view-transition-name: title-${uniqueId};`"></h1>
+        <h1 webc:if="!description" @text="title" class="text-display-md"
+            :style="`view-transition-name: title-${uniqueId};`"></h1>
         <hgroup webc:if="description">
             <h1 @text="title" class="text-display-md" :style="`view-transition-name: title-${uniqueId};`"></h1>
-            <p webc:if="description" @text="description" class="col-start-1 text-body-lg" :style="`view-transition-name: description-${uniqueId};`"></p>
+            <p webc:if="description" @text="description" class="col-start-1 text-body-lg"
+                :style="`view-transition-name: description-${uniqueId};`"></p>
         </hgroup>
         <!--- Top app bar (large) -->
         <menu
