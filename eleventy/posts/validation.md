@@ -1,4 +1,9 @@
-# Thoughts on Forms
+---
+title: Thoughts on Forms
+description: You might be surprised what the web can offer you for handling forms without having to reach for a framework
+---
+
+> This is only a draft and rough thoughts that I want to formulate better
 
 Alternative titles:
 
@@ -16,7 +21,7 @@ Alternative titles:
   - This gives you keyboard navigation for free and users can submit with their enter key. And keyboard navigation is usually associated with accessibility too!
   - If you need a reset button there is a [reset button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type) but this might annoy users.
 
-- Congratulations, you got HTML code that you can even use without JavaScript. This makes your code more portable should you decide to ever move to a different architecture. Even though I think portability is a bad argument. (Looking at you ORMs abstracting SQL an abstraction over database access and the argument that you can switch databases easier). But what this definitively gives you is [progressive enhancement](https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement) and it respects the [rule of least power](https://www.w3.org/2001/tag/doc/leastPower.html)
+- Congratulations, you got HTML code that you can even use without JavaScript. This makes your code more portable should you decide to ever move to a different architecture or web framework. Even though I think portability is a weak argument. Comparable to ORMs advertising portability for their abstraction over SQL because you will definitively switch databases. But what this definitively gives you is [progressive enhancement](https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement) and it respects the [rule of least power](https://www.w3.org/2001/tag/doc/leastPower.html)
 - Now you can add a submit event handler and add the preventDefault.
 
 ## Controlled vs uncontrolled inputs
