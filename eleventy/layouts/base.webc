@@ -82,6 +82,9 @@
     </style>
     <!--- https://darn.es/you-should-add-a-generator-tag-to-your-eleventy-site/ --->
     <meta name="generator" webc:if="eleventy.generator" :content="eleventy.generator">
+    <!--- Umami analytics --->
+    <script defer src="https://cloud.umami.is/script.js"
+        data-website-id="2947a8cc-cb3f-46fc-a0b0-036d09e7e3cd"></script>
 </head>
 
 <!--- Should eleventy fail when bodystyles is undefined or null or should I open a PR? --->
