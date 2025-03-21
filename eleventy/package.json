@@ -21,14 +21,14 @@
     "@11ty/eleventy-plugin-rss": "^2.0.3",
     "@11ty/eleventy-plugin-webc": "^0.11.2",
     "@claas.dev/material-tailwind": "^0.6.0",
-    "@tailwindcss/postcss": "^4.0.6",
-    "@tailwindcss/typography": "^0.5.15",
-    "autoprefixer": "^10.4.20",
-    "cspell": "^8.17.3",
+    "@tailwindcss/postcss": "^4.0.15",
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
+    "cspell": "^8.17.5",
     "cssnano": "^7.0.6",
-    "postcss": "^8.5.2",
-    "shiki": "^2.4.1",
+    "postcss": "^8.5.3",
+    "shiki": "^2.5.0",
     "slugify": "^1.6.6",
-    "tailwindcss": "^4.0.8"
+    "tailwindcss": "^4.0.15"
   }
 }
