@@ -26,6 +26,14 @@ This is what I came up with trying to follow the prior art by Tailwind CSS with 
 
 There are other scroll container queries but I think you get how it works and can fill in the blanks.
 
+And then use it like this:
+
+```html
+<div class="@container-scroll ...">
+  <div class="@stuck-top:bg-red-400 ..."></div>
+</div>
+```
+
 # Reference:
 
 - [Tailwind CSS custom variants](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-variants)
