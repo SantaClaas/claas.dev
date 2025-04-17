@@ -6,11 +6,10 @@ description: How to use the new scroll-state() container query in Tailwind CSS v
 Scroll state container queries are fresh out of the oven and can only be used in chromium browser right now.
 But if you like to play with cutting edge CSS and also want to use Tailwind CSS, this is for you.
 I recommend reading the [article on Scroll state container](https://developer.chrome.com/blog/css-scroll-state-queries) queries first.
-The cool thing about this CSS feature is that it can be easily used as progressive enhancement not breaking styles for users on browser without this feature.
-This is what I came up with trying to follow the prior art by Tailwind CSS with container queries.
+Then you can add this to your CSS file processed by Tailwind.
 
 ```css
-/* Following the existing container query classes or you can use @container-[scroll-state] */
+/* Following the pattern of existing container query classes or you can use @container-[scroll-state] */
 .\@container-scroll {
   container-type: scroll-state;
 }
@@ -24,7 +23,7 @@ This is what I came up with trying to follow the prior art by Tailwind CSS with 
 }
 ```
 
-There are other scroll container queries but I think you get how it works and can fill in the blanks.
+There are other scroll container queries but the pattern should be the same so I leave it as an exercise to you.
 
 And then use it like this:
 
@@ -33,6 +32,8 @@ And then use it like this:
   <div class="@stuck-top:bg-red-400 ..."></div>
 </div>
 ```
+
+The cool thing about this CSS feature is that it can be easily used as progressive enhancement not breaking styles for users on browser without this feature.
 
 # Reference:
 
