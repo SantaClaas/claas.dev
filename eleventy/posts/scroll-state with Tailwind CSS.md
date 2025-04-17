@@ -33,7 +33,7 @@ And then use it like this:
 </div>
 ```
 
-The cool thing about this CSS feature is that it can be easily used as progressive enhancement not breaking styles for users on browser without this feature.
+The cool thing about this CSS feature is that it can be easily used as progressive enhancement while not breaking styles for users on browser without this feature.
 
 # Reference:
 
