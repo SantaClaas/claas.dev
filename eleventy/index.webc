@@ -1,6 +1,11 @@
----
-layout: "base.webc"
-bodystyles: p-4
+---json
+{
+"layout": "base.webc",
+"bodystyles": "p-4",
+"eleventyNavigation": {
+"key": "index"
+}
+}
 ---
 
 <script webc:setup>

@@ -14,6 +14,9 @@ importers:
       '@11ty/eleventy-img':
         specifier: 6.0.1
         version: 6.0.1
+      '@11ty/eleventy-navigation':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@11ty/eleventy-plugin-bundle':
         specifier: ^3.0.1
         version: 3.0.1(posthtml@0.16.6)
@@ -77,6 +80,9 @@ packages:
   '@11ty/eleventy-img@6.0.1':
     resolution: {integrity: sha512-Ktr1C42cu7rHR7M0lT+JfMjWaOIwS2rXqzrXkNfKAEljgJxCPVg2vsWr5iyPBg2IL7OY8ipPCr5jbovMAz6B9w==}
     engines: {node: '>=18'}
+
+  '@11ty/eleventy-navigation@1.0.4':
+    resolution: {integrity: sha512-FgIfKiFP1e3plQdIvSRph1tFV44bbCXcYs+AWcwnsfrn5I6Gf0t3hBq9IrR4JdnZ06hlEKq8qRbnbb0nfEZg3A==}
 
   '@11ty/eleventy-plugin-bundle@1.0.5':
     resolution: {integrity: sha512-Esv97j+mOo/yfxjaWl4j8CyszOBsRjU/DOUWOBqVnnDLM8VDXeus2LTJUxF70nAU0g+z+b6fRn8fKnm6b2a/UQ==}
@@ -2113,6 +2119,10 @@ snapshots:
       sharp: 0.33.5
     transitivePeerDependencies:
       - supports-color
+
+  '@11ty/eleventy-navigation@1.0.4':
+    dependencies:
+      dependency-graph: 1.0.0
 
   '@11ty/eleventy-plugin-bundle@1.0.5':
     dependencies:

@@ -9,6 +9,7 @@ import { createHighlighter } from "shiki";
 import { feedPlugin as feed } from "@11ty/eleventy-plugin-rss";
 import data from "./_data/page.js";
 import { EleventyI18nPlugin } from "@11ty/eleventy";
+import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 
 //TODO check on full 3.0 release if this is actually included in eleventy
 import bundler from "@11ty/eleventy-plugin-bundle";
@@ -166,6 +167,7 @@ export default function (configuration) {
     return withBase;
   });
 
+  configuration.addPlugin(eleventyNavigationPlugin);
   //TODO integrate WCAG reporting https://github.com/hidde/eleventy-wcag-reporter and https://github.com/inclusive-design/idrc-wcag-reporter
   //TODO integrate W3C HTML validator https://www.npmjs.com/package/w3c-html-validator
   return {
