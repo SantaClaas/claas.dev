@@ -9,7 +9,7 @@ eleventyExcludeFromCollections: true
      * @type {string | undefined}
      */
     let baseUrl;
-    if (process.env.CLAAS_DEV_ENVIRONMENT === "production" && !process.env.HOSTNAME) throw new Error("CLAAS_DEV_HOSTNAME is required for production");
+    if (process.env.CLAAS_DEV_ENVIRONMENT === "production" && !process.env.CLAAS_DEV_HOSTNAME) throw new Error("CLAAS_DEV_HOSTNAME is required for production");
     if (process.env.HOSTNAME) {
         const url = URL.parse(`https://${process.env.CLAAS_DEV_HOSTNAME}`);
         if (url === null) throw new Error("Could not combine hostname to URL");
