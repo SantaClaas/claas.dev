@@ -119,9 +119,10 @@
         console.debug({ fromPath, toPath });
         const fromIndex = pages.indexOf(fromPath);
         const toIndex = pages.indexOf(toPath);
+        if (fromIndex === -1 || toIndex === -1) return;
+        console.debug({ fromIndex, toIndex });
 
         const direction = fromIndex < toIndex ? "forward" : "backward";
-
 
         document.documentElement.dataset.direction = direction;
 
