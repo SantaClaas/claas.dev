@@ -5,7 +5,7 @@ let counter = 0;
 export default {
   layout: "post.webc",
   tags: ["post"],
-  date: "git Created",
+  date: "git Last Modified",
   permalink: ({ title }) => `/posts/${slugify(title, { lower: true })}/`,
   eleventyComputed: {
     // As simple unique id to use for view transitions. It is ok that this might leak count

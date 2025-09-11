@@ -15,8 +15,8 @@ export function data() {
  * @param {{ withBase: (url: string) => string }} data
  * @returns
  */
-export default function render(data) {
-  return `Sitemap: ${data.withBase("/sitemap.xml")}
+export default function render({ withBase }) {
+  return `Sitemap: ${withBase("/sitemap.xml")}
 
 User-agent: *
 Disallow:`;

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../index.css">
     <meta webc:if="this.description" name="description" :content="this.description">
     <meta webc:if="this.keywords" name="keywords" :content="this.keywords">
-    <meta name="author" :contents="this.author ?? 'claas'">
+    <meta name="author" :contents="this.author ?? page.author">
     <meta name="color-scheme" content="light">
     <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
     <!--- Alternatively use getBundleFileUrl('css') to not inline but use a separate file --->

@@ -2,12 +2,24 @@
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
+<script webc:setup>
+    /**
+     * @param {Date} date
+     */
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
 
+        return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+    }
+</script>
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url webc:for="item of collections.all" webc:if="!item.data.excludeFromSitemap">
         <loc @text="withBase(item.url)"></loc>
+        <lastmod @text="formatDate(item.date)"></lastmod>
     </url>
 
 </urlset>
