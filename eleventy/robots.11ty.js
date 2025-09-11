@@ -17,6 +17,7 @@ export function data() {
  */
 export default function render(data) {
   return `Sitemap: ${data.withBase("/sitemap.xml")}
+
 User-agent: *
 Disallow:`;
 }
