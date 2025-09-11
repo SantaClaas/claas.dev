@@ -45,6 +45,8 @@ jobs:
       - name: 🛬 Install dependencies
         run: pnpm install
       - name: 👷 Build
+        env:
+          CLAAS_DEV_HOSTNAME: claas.dev
         run: pnpm build
       # No tests
       #- name: Test

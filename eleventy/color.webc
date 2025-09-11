@@ -5,7 +5,6 @@ bodystyles: px-4
 description: Design reference for claas.dev
 ---
 
-
 <article class="mx-auto max-w-7xl">
     <header class="grid gap-y-10 grid-rows-[auto_auto] grid-cols-[auto_1fr] gap-x-4 mb-7">
         <h1 @text="title" class="text-display-md"></h1>
