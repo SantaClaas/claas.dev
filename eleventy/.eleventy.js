@@ -138,6 +138,34 @@ export default function (configuration) {
     defaultLanguage: "en-US",
   });
 
+  configuration.addGlobalData("withBase", () => {
+    const hostname = process.env.CLAAS_DEV_HOSTNAME;
+    /**
+     * @type {URL | undefined}
+     */
+    let baseUrl;
+    if (process.env.CLAAS_DEV_ENVIRONMENT === "production" && !hostname)
+      throw new Error("CLAAS_DEV_HOSTNAME is required for production");
+    if (hostname) {
+      const url = URL.parse(`https://${hostname}`);
+      if (url === null) throw new Error("Could not combine hostname to URL");
+      console.debug("Using base URL", url);
+      // Why does storing url turn into an object?
+      baseUrl = url;
+    }
+
+    /**
+     * @param {string} url
+     */
+    function withBase(url) {
+      if (baseUrl === undefined) return url;
+      console.debug("Adding base URL", baseUrl instanceof URL);
+      return new URL(url, baseUrl);
+    }
+
+    return withBase;
+  });
+
   //TODO integrate WCAG reporting https://github.com/hidde/eleventy-wcag-reporter and https://github.com/inclusive-design/idrc-wcag-reporter
   //TODO integrate W3C HTML validator https://www.npmjs.com/package/w3c-html-validator
   return {

@@ -3,31 +3,6 @@ permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
 
-<script webc:setup>
-    const hostname = process.env.CLAAS_DEV_HOSTNAME;
-    /**
-     * @type {string | undefined}
-     */
-    let baseUrl;
-    if (process.env.CLAAS_DEV_ENVIRONMENT === "production" && !hostname) throw new Error("CLAAS_DEV_HOSTNAME is required for production");
-    if (hostname) {
-        const url = URL.parse(`https://${hostname}`);
-        if (url === null) throw new Error("Could not combine hostname to URL");
-        console.debug("Using base URL", url);
-        // Why does storing url turn into an object?
-        baseUrl = url.toString();
-    }
-
-    /**
-     * @param {string} url
-     */
-    function withBase(url) {
-        if (baseUrl === undefined) return url;
-        console.debug("Adding base URL", baseUrl instanceof URL);
-        return new URL(url, baseUrl);
-    }
-
-</script>
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
