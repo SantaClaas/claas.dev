@@ -17,9 +17,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  CLAAS_DEV_ENVIRONMENT: "production"
-
 jobs:
   build:
     defaults:
@@ -45,9 +42,11 @@ jobs:
       - name: 🛬 Install dependencies
         run: pnpm install
       - name: 👷 Build
-        env:
-          CLAAS_DEV_HOSTNAME: claas.dev
         run: pnpm build
+        env:
+          CLAAS_DEV_ENVIRONMENT: "production"
+          CLAAS_DEV_HOSTNAME: claas.dev
+
       # No tests
       #- name: Test
       #  run: pnpm test
