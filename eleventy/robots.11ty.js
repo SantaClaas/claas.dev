@@ -12,7 +12,7 @@ export function data() {
 
 /**
  *
- * @param {unknown} data
+ * @param {{ withBase: (url: string) => string }} data
  * @returns
  */
 export default function render(data) {
