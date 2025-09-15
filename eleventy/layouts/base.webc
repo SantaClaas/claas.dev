@@ -1,9 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 <script webc:setup>
     const result = eleventyNavigation(collections.all);
     console.debug("NAVIGATION", result);
 </script>
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
