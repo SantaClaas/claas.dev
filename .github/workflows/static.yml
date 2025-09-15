@@ -54,7 +54,7 @@ jobs:
       - name: 🚷 Show index instead of 404
         run: cp ./_site/index.html ./_site/404.html
       - name: 🆙 Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: eleventy/_site
 
