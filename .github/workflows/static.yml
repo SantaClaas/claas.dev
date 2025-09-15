@@ -31,7 +31,7 @@ jobs:
           # but we need git history to determine file creation/modified dates
           # to display as post dates
           fetch-depth: 0
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
       - name: 🦭 Setup Node
