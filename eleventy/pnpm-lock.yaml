@@ -18,8 +18,8 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
       '@11ty/eleventy-plugin-bundle':
-        specifier: ^3.0.1
-        version: 3.0.1(posthtml@0.16.6)
+        specifier: ^3.0.7
+        version: 3.0.7(posthtml@0.16.6)
       '@11ty/eleventy-plugin-inclusive-language':
         specifier: ^1.0.3
         version: 1.0.3
@@ -88,8 +88,8 @@ packages:
     resolution: {integrity: sha512-Esv97j+mOo/yfxjaWl4j8CyszOBsRjU/DOUWOBqVnnDLM8VDXeus2LTJUxF70nAU0g+z+b6fRn8fKnm6b2a/UQ==}
     engines: {node: '>=14'}
 
-  '@11ty/eleventy-plugin-bundle@3.0.1':
-    resolution: {integrity: sha512-mskptUoN7PY+rv7DCH3ZwnvMc9aFBGEHHBjmlu+WGde6ySaa43qsLqjseX6RRijDILxp3EiYQ9XnDmmsSnoqIw==}
+  '@11ty/eleventy-plugin-bundle@3.0.7':
+    resolution: {integrity: sha512-QK1tRFBhQdZASnYU8GMzpTdsMMFLVAkuU0gVVILqNyp09xJJZb81kAS3AFrNrwBCsgLxTdWHJ8N64+OTTsoKkA==}
     engines: {node: '>=18'}
 
   '@11ty/eleventy-plugin-inclusive-language@1.0.3':
@@ -2180,9 +2180,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@11ty/eleventy-plugin-bundle@3.0.1(posthtml@0.16.6)':
+  '@11ty/eleventy-plugin-bundle@3.0.7(posthtml@0.16.6)':
     dependencies:
-      debug: 4.4.0
+      '@11ty/eleventy-utils': 2.0.7
+      debug: 4.4.3
       posthtml-match-helper: 2.0.3(posthtml@0.16.6)
     transitivePeerDependencies:
       - posthtml
@@ -2219,7 +2220,7 @@ snapshots:
       '@11ty/dependency-tree': 3.0.1
       '@11ty/dependency-tree-esm': 1.0.2
       '@11ty/eleventy-dev-server': 2.0.8
-      '@11ty/eleventy-plugin-bundle': 3.0.1(posthtml@0.16.6)
+      '@11ty/eleventy-plugin-bundle': 3.0.7(posthtml@0.16.6)
       '@11ty/eleventy-utils': 1.0.3
       '@11ty/lodash-custom': 4.17.21
       '@11ty/posthtml-urls': 1.0.1
