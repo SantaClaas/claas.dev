@@ -14,7 +14,7 @@
   "author": "claas <hello@claas.dev>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@11ty/eleventy": "3.0.0",
+    "@11ty/eleventy": "3.1.2",
     "@11ty/eleventy-img": "6.0.4",
     "@11ty/eleventy-navigation": "^1.0.4",
     "@11ty/eleventy-plugin-bundle": "^3.0.7",
