@@ -4,7 +4,7 @@
     /**
      * @type {Map<string, number>}
      */
-    const levelByKey = new Map();
+    const levelsByKey = new Map();
 
     /**
      * There has to be at least one orphan left over at the end which is the root page.
@@ -12,19 +12,22 @@
      */
     const orphansByParent = new Map()
 
+    /** @type {Record<string, string>} */
+    const keysByPath = {};
+
     /**
      * @param {string} key
      * @param {number} level
      */
     function setLevel(key, level) {
-        levelByKey.set(key, level);
+        levelsByKey.set(key, level);
 
         // Give orphans their parent back
         const orphans = orphansByParent.get(key);
         if (orphans === undefined) return;
 
         for (const orphan of orphans) {
-            const orphanLevel = levelByKey.get(orphan);
+            const orphanLevel = levelsByKey.get(orphan);
             if (orphanLevel !== undefined) throw new Error(`Orphan "${orphan}" has already a level (${orphanLevel})`);
             // Recursive call because the orphan might be a parent of other orphans
             setLevel(orphan, level + 1);
@@ -36,12 +39,14 @@
 
         const { key, parent } = node.data.hierarchy;
 
-        let level = levelByKey.get(key);
+        keysByPath[node.url] = key;
+
+        let level = levelsByKey.get(key);
         if (level !== undefined) throw new Error(`Duplicate key "${key}"`);
 
         let parentLevel;
         if (parent)
-            parentLevel = levelByKey.get(parent);
+            parentLevel = levelsByKey.get(parent);
 
         if (parentLevel === undefined && parent !== undefined) {
             const orphans = orphansByParent.get(parent);
@@ -57,12 +62,14 @@
     }
 
     // Map to object to JSON stringify
-    const levelByKeyObject = {};
-    for (const [key, level] of levelByKey) {
-        levelByKeyObject[key] = level;
+    /** @type {Record<string, number>} */
+    const levelsByKeyObject = {};
+    for (const [key, level] of levelsByKey) {
+        levelsByKeyObject[key] = level;
     }
 
-    const levelsByKeyJson = JSON.stringify(levelByKeyObject);
+    const levelsByKeyJson = JSON.stringify(levelsByKeyObject);
+    const keysByPathJson = JSON.stringify(keysByPath);
 </script>
 
 <head>
@@ -166,6 +173,7 @@
 </html>
 
 <script @text="`const levelsByKey = ${levelsByKeyJson};`"></script>
+<script @text="`const keysByPath = ${keysByPathJson};`"></script>
 <script>
     window.addEventListener("pagereveal", async (event) => {
         if (!event.viewTransition) return;
@@ -177,12 +185,18 @@
         const toPath = new URL(to).pathname;
 
         console.debug({ fromPath, toPath });
-        const fromIndex = pages.indexOf(fromPath);
-        const toIndex = pages.indexOf(toPath);
-        if (fromIndex === -1 || toIndex === -1) return;
-        console.debug({ fromIndex, toIndex });
 
-        const direction = fromIndex < toIndex ? "forward" : "backward";
+        const fromKey = keysByPath[fromPath];
+        const toKey = keysByPath[toPath];
+        console.debug({ fromKey, toKey });
+
+        const fromLevel = levelsByKey[fromKey];
+        const toLevel = levelsByKey[toKey];
+        console.debug({ fromLevel, toLevel });
+
+        if (fromLevel === -1 || toLevel === -1) return;
+
+        const direction = fromLevel < toLevel ? "forward" : "backward";
 
         document.documentElement.dataset.direction = direction;
 
