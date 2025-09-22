@@ -1,8 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <script webc:setup>
-    const result = eleventyNavigation(collections.all);
-    console.debug("NAVIGATION", result);
+    /**
+     * @type {Map<string, number>}
+     */
+    const levelByKey = new Map();
+
+    /**
+     * There has to be at least one orphan left over at the end which is the root page.
+     * @type {Map<string, string[]>}
+     */
+    const orphansByParent = new Map()
+
+    /**
+     * @param {string} key
+     * @param {number} level
+     */
+    function setLevel(key, level) {
+        levelByKey.set(key, level);
+
+        // Give orphans their parent back
+        const orphans = orphansByParent.get(key);
+        if (orphans === undefined) return;
+
+        for (const orphan of orphans) {
+            const orphanLevel = levelByKey.get(orphan);
+            if (orphanLevel !== undefined) throw new Error(`Orphan "${orphan}" has already a level (${orphanLevel})`);
+            // Recursive call because the orphan might be a parent of other orphans
+            setLevel(orphan, level + 1);
+        }
+    }
+
+    for (const node of collections.all) {
+        if (!node.data.hierarchy) continue;
+
+        const { key, parent } = node.data.hierarchy;
+
+        let level = levelByKey.get(key);
+        if (level !== undefined) throw new Error(`Duplicate key "${key}"`);
+
+        let parentLevel;
+        if (parent)
+            parentLevel = levelByKey.get(parent);
+
+        if (parentLevel === undefined && parent !== undefined) {
+            const orphans = orphansByParent.get(parent);
+            if (orphans === undefined) orphansByParent.set(parent, [key]);
+            else orphans.push(key);
+            continue;
+        }
+
+        if (parentLevel !== undefined) level = parentLevel + 1;
+        else level = 0;
+
+        setLevel(key, level);
+    }
+
+    // Map to object to JSON stringify
+    const levelByKeyObject = {};
+    for (const [key, level] of levelByKey) {
+        levelByKeyObject[key] = level;
+    }
+
+    const levelsByKeyJson = JSON.stringify(levelByKeyObject);
 </script>
 
 <head>
@@ -105,14 +165,8 @@
 
 </html>
 
+<script @text="`const levelsByKey = ${levelsByKeyJson};`"></script>
 <script>
-
-    const pages = [
-        "/",
-        "/resume/",
-        "/color/",
-    ];
-
     window.addEventListener("pagereveal", async (event) => {
         if (!event.viewTransition) return;
 

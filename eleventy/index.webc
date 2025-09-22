@@ -2,7 +2,7 @@
 {
 "layout": "base.webc",
 "bodystyles": "p-4",
-"eleventyNavigation": {
+"hierarchy": {
 "key": "index"
 }
 }

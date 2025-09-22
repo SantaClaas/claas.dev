@@ -1,8 +1,14 @@
----
-title: Color
-layout: base.webc
-bodystyles: px-4
-description: Design reference for claas.dev
+---json
+{
+"title": "Color",
+"layout": "base.webc",
+"bodystyles": "px-4",
+"description": "Design reference for claas.dev",
+"hierarchy": {
+"key": "color",
+"parent": "index"
+}
+}
 ---
 
 <article class="mx-auto max-w-7xl">

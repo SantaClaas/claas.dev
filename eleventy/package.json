@@ -6,8 +6,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpx @11ty/eleventy --serve",
-    "build": "pnpx @11ty/eleventy",
+    "dev": "pnpm dlx @11ty/eleventy --serve",
+    "build": "pnpm dlx @11ty/eleventy",
     "spellcheck": "pnpm exec cspell --config cspell.config.js ."
   },
   "keywords": [],
@@ -16,7 +16,6 @@
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",
     "@11ty/eleventy-img": "6.0.4",
-    "@11ty/eleventy-navigation": "^1.0.4",
     "@11ty/eleventy-plugin-bundle": "^3.0.7",
     "@11ty/eleventy-plugin-inclusive-language": "^1.0.3",
     "@11ty/eleventy-plugin-rss": "^2.0.4",

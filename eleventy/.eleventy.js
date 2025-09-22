@@ -9,7 +9,6 @@ import { createHighlighter } from "shiki";
 import { feedPlugin as feed } from "@11ty/eleventy-plugin-rss";
 import data from "./_data/page.js";
 import { EleventyI18nPlugin } from "@11ty/eleventy";
-import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 
 //TODO check on full 3.0 release if this is actually included in eleventy
 import bundler from "@11ty/eleventy-plugin-bundle";
@@ -150,7 +149,6 @@ export default function (configuration) {
     if (hostname) {
       const url = URL.parse(`https://${hostname}`);
       if (url === null) throw new Error("Could not combine hostname to URL");
-      console.debug("Using base URL", url);
       // Why does storing url turn into an object?
       baseUrl = url;
     }
@@ -160,14 +158,12 @@ export default function (configuration) {
      */
     function withBase(url) {
       if (baseUrl === undefined) return url;
-      console.debug("Adding base URL", baseUrl instanceof URL);
       return new URL(url, baseUrl);
     }
 
     return withBase;
   });
 
-  configuration.addPlugin(eleventyNavigationPlugin);
   //TODO integrate WCAG reporting https://github.com/hidde/eleventy-wcag-reporter and https://github.com/inclusive-design/idrc-wcag-reporter
   //TODO integrate W3C HTML validator https://www.npmjs.com/package/w3c-html-validator
   return {
