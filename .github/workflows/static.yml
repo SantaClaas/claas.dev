@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           # By default only the latest commit is fetched
           # but we need git history to determine file creation/modified dates
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: 🚨 Setup Pages
         uses: actions/configure-pages@v5
       - name: 🚀 Deploy to GitHub Pages
