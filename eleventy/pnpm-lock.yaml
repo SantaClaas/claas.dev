@@ -51,8 +51,8 @@ importers:
         specifier: ^3.14.0
         version: 3.14.0
       slugify:
-        specifier: ^1.6.6
-        version: 1.6.6
+        specifier: ^1.6.8
+        version: 1.6.8
       tailwindcss:
         specifier: ^4.1.16
         version: 4.1.16
@@ -1806,8 +1806,8 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
 
-  slugify@1.6.6:
-    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+  slugify@1.6.8:
+    resolution: {integrity: sha512-HVk9X1E0gz3mSpoi60h/saazLKXKaZThMLU3u/aNwoYn8/xQyX2MGxL0ui2eaokkD7tF+Zo+cKTHUbe1mmmGzA==}
     engines: {node: '>=8.0.0'}
 
   smol-toml@1.4.2:
@@ -2087,7 +2087,7 @@ snapshots:
       posthtml: 0.16.6
       posthtml-match-helper: 2.0.3(posthtml@0.16.6)
       semver: 7.7.2
-      slugify: 1.6.6
+      slugify: 1.6.8
       tinyglobby: 0.2.15
     transitivePeerDependencies:
       - bufferutil
@@ -3754,7 +3754,7 @@ snapshots:
 
   slash@3.0.0: {}
 
-  slugify@1.6.6: {}
+  slugify@1.6.8: {}
 
   smol-toml@1.4.2: {}
 
